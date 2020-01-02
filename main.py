@@ -65,27 +65,22 @@ class Search():
         # driver.execute_script("window.open('http://www.google.com/');")
         # driver.switch_to.window(driver.window_handles[1])
         search = driver.find_element_by_name('q')
-        # search.send_keys(f"lyrics bich phuong chu meo")
-        search.send_keys(f"lyrics jaden goku")
+        search.send_keys(f"lyrics bich phuong chu meo")
+        # search.send_keys(f"lyrics jaden goku")
         search.send_keys(Keys.RETURN)
         time.sleep(1)
 
-        # Run iff Mr. Google returns a valid address
         try:
-            more = driver.find_element(By.CLASS_NAME, "vk_ard")
-            more.click()
-            for elem in driver.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
-                print(unidecode.unidecode(elem.text))
-
-        #     # //*[@id="tsuid22"]/span/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]
-        #     # //*[@id="tsuid22"]/span/div/div/div[2]/div/div/div/div[1]/div[1]/div[1]/span[2]
-            
-
-        #     # //*[@id="tsuid22"]/span/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/span[1]
-
-        #     # //*[@id="tsuid22"]/span/div/div/div[2]/div/div/div/div[1]/div[2]/div[5]
+            with open("lyrics.txt", "w") as f:
+                more = driver.find_element(By.CLASS_NAME, "vk_ard")
+                more.click()
+                for i in driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
+                    for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
+                        if elem.text: # sometimes there are empty div
+                            f.write(f"{unidecode.unidecode(elem.text)}\n")
+                    f.write(f"\n")
         except:
-            print("I choked.")
+            print("Either I choked or there are no lyrics.")
 
 
         # driver.get("https://thumbs-prod.si-cdn.com/n7Z82GD9Eav_CtpnzizNo66-dKc=/420x240/https://public-media.si-cdn.com/filer/d6/93/d6939718-4e41-44a8-a8f3-d13648d2bcd0/c3npbx.jpg")
