@@ -1,10 +1,11 @@
 ## TO DO:
 
 ### Class 1
-- Clean file ✓
+- Clean file name ✓
 
 ### Class 2
-- Retrieve artist > search cover, artist, title, album, lyrics
+- Retrieve artist > search cover, artist, title, album, lyrics ✓
+- Confirm artist + feature / title
 - Database for artists
 
 ### Class 3

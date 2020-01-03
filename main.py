@@ -1,25 +1,9 @@
-# from mutagen.mp3 import MP3
-# from mutagen.id3 import ID3, APIC, TT2, TPE1, TRCK, TALB, USLT, error
-# # ID3 info:
-# # APIC: picture
-# # TT2: title
-# # TPE1: artist
-# # TRCK: track number
-# # TALB: album
-# # USLT: lyric
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3, APIC, TT2, TPE1, TRCK, TALB, USLT, error
 
-# pic_file = 'test/cat.jpg' # pic file
-# imagedata = open(pic_file, 'rb').read()
-
-# id3 = ID3('test/Clueless.mp3')
-# id3.add(APIC(3, 'image/jpeg', 3, 'Front cover', imagedata))
-# id3.add(TT2(encoding=3, text='title'))
-
-# id3.save(v2_version=3)
 
 import os
 import unidecode # transliterates special characters
-# import glob # pick out mp3 files
 import re 
 
 class Clean():
@@ -41,7 +25,7 @@ class Clean():
         except:
             title = ""
 
-        return artist.strip(), title.strip()
+        return artist.strip().title(), title.strip().title()
 
 
 from selenium import webdriver
@@ -55,9 +39,10 @@ import requests
 import urllib, json
 
 class Search():
-    def __init__(self, artist, title):
+    def __init__(self, artist, title, fname):
         self.artist = artist
         self.title = title
+        self.fname = fname
 
         self.driver = webdriver.Chrome()
         # self.options = Options()
@@ -69,6 +54,7 @@ class Search():
         self.lyrics()
         self.album()
         self.cover()
+        self.modify()
         self.driver.close()
 
     def album(self):
@@ -80,10 +66,13 @@ class Search():
 
         try:
             self.album = self.driver.find_element(By.CLASS_NAME, "Z0LcW").text
-            self.album_uni = urllib.parse.quote(self.album.encode('utf8')) # encode spec char for url compatibility
         except:
+            self.album = self.title
             print("Either I choked or there is no album.")
-        
+
+        self.album_uni = urllib.parse.quote(self.album.encode('utf8')) # encode spec char for url compatibility
+
+
     def cover(self):
         with open("api_keys.txt", "r") as f:
             api = f.readline().strip()
@@ -94,6 +83,7 @@ class Search():
             data = json.loads(response.read())
             link = data["album"]["image"][5]["#text"]
             urllib.request.urlretrieve(link, f"covers/{self.album}.png")
+
             # print(json.dumps(data, indent=4, sort_keys=True))
 
     def lyrics(self):        
@@ -119,19 +109,39 @@ class Search():
 
         # driver.get_screenshot_as_file("capture.png")
 
+    def modify(self):
+        # ID3 info:
+        # APIC: picture
+        # TT2: title
+        # TPE1: artist
+        # TRCK: track number
+        # TALB: album
+        # USLT: lyric
+
+        cover = open(f"covers/{self.album}.png", 'rb').read()
+
+        id3 = ID3(f'test/{self.fname}')
+        id3.add(APIC(3, 'image/png', 3, 'Front cover', cover))
+        id3.add(TT2(encoding=3, text=f"{self.title}"))
+        id3.add(TPE1(encoding=3, text=f"{self.artist}"))
+        id3.add(TALB(encoding=3, text=f"{self.album}"))
+        # id3.add(USLT(encoding=3, text=f"{self.title}"))
+
+        id3.save(v2_version=3)
+
 if __name__ == "__main__":
     # path, dirs, files = os.walk("test/").__next__()
     # for i in range(len(files) - 3):
 
-    # for fname in os.listdir("test/"):
-    #     if ".mp3" in fname:
-    #         fname = unidecode.unidecode(fname)
-    #         artist, title = Clean(fname).retrieve()
-    #         print(f"Artist: {artist}")
-    #         print(f"Title: {title}")
-    #         print()
+    for fname in os.listdir("test/"):
+        if ".mp3" in fname:
+            fname_uni = unidecode.unidecode(fname)
+            artist, title = Clean(fname_uni).retrieve()
+            print(f"Artist: {artist}")
+            print(f"Title: {title}")
+            print()
 
     # Search().album()
-    Search("bich phuong", "chu meo").retrieve()
-    Search("jaden", "summertime in paris").retrieve()
-    Search("bratty", "honey no estas").retrieve()
+            Search(artist, title, fname).retrieve()
+    # Search("jaden", "summertime in paris").retrieve()
+    # Search("bratty", "honey no estas").retrieve()
