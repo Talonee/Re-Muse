@@ -35,13 +35,13 @@ class Clean():
 
     def retrieve(self):
         print(f"Modified: {self.fname}")
-        self.artist = self.fname.split("-")[0]
+        artist = self.fname.split("-")[0]
         try:
-            self.title = self.fname.split("-")[1]
+            title = self.fname.split("-")[1]
         except:
-            self.title = ""
+            title = ""
 
-        return self.artist.strip(), self.title.strip()
+        return artist.strip(), title.strip()
 
 
 from selenium import webdriver
@@ -51,30 +51,65 @@ from selenium.webdriver.common.by import By
 
 import time
 
-class Search():
-    def __init__(self):
-        pass
+import requests
+import urllib, json
 
-    def open(self):
-        driver = webdriver.Chrome()
-        options = Options()
-        # options.add_argument("headless")
-        # driver = webdriver.Chrome(executable_path='chromedriver', options=options)
-        
-        driver.get("http://www.google.com/")
-        # driver.execute_script("window.open('http://www.google.com/');")
-        # driver.switch_to.window(driver.window_handles[1])
-        search = driver.find_element_by_name('q')
-        search.send_keys(f"lyrics bich phuong chu meo")
-        # search.send_keys(f"lyrics jaden goku")
+class Search():
+    def __init__(self, artist, title):
+        self.artist = artist
+        self.title = title
+
+        self.driver = webdriver.Chrome()
+        # self.options = Options()
+        # self.options.add_argument("headless")
+        # self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
+
+    def retrieve(self):
+        self.driver.get("http://www.google.com/")
+        self.lyrics()
+        self.album()
+        self.cover()
+        self.driver.close()
+
+    def album(self):
+        search = self.driver.find_element_by_name('q')
+        search.clear()
+        search.send_keys(f"album {self.artist} {self.title}")
         search.send_keys(Keys.RETURN)
         time.sleep(1)
 
         try:
-            with open("lyrics.txt", "w") as f:
-                more = driver.find_element(By.CLASS_NAME, "vk_ard")
+            self.album = self.driver.find_element(By.CLASS_NAME, "Z0LcW").text
+            self.album_uni = urllib.parse.quote(self.album.encode('utf8')) # encode spec char for url compatibility
+        except:
+            print("Either I choked or there is no album.")
+        
+    def cover(self):
+        with open("api_keys.txt", "r") as f:
+            api = f.readline().strip()
+            uri = "http://ws.audioscrobbler.com"
+            query = f"/2.0/?method=album.getinfo&api_key={api}&artist={self.artist}&album={self.album_uni}&format=json"
+
+            response = urllib.request.urlopen(uri + query)
+            data = json.loads(response.read())
+            link = data["album"]["image"][5]["#text"]
+            urllib.request.urlretrieve(link, f"covers/{self.album}.png")
+            # print(json.dumps(data, indent=4, sort_keys=True))
+
+    def lyrics(self):        
+        # driver.execute_script("window.open('http://www.google.com/');")
+        # driver.switch_to.window(driver.window_handles[1])
+        search = self.driver.find_element_by_name('q')
+        search.clear()
+        search.send_keys(f"lyrics {self.artist} {self.title}")
+        search.send_keys(Keys.RETURN)
+        time.sleep(1)
+
+        try:
+            with open(f"lyrics/{self.artist} - {self.title}.txt", "w") as f:
+                more = self.driver.find_element(By.CLASS_NAME, "vk_ard")
                 more.click()
-                for i in driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
+                for i in self.driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
                     for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
                         if elem.text: # sometimes there are empty div
                             f.write(f"{unidecode.unidecode(elem.text)}\n")
@@ -82,11 +117,7 @@ class Search():
         except:
             print("Either I choked or there are no lyrics.")
 
-
-        # driver.get("https://thumbs-prod.si-cdn.com/n7Z82GD9Eav_CtpnzizNo66-dKc=/420x240/https://public-media.si-cdn.com/filer/d6/93/d6939718-4e41-44a8-a8f3-d13648d2bcd0/c3npbx.jpg")
         # driver.get_screenshot_as_file("capture.png")
-        driver.close()
-
 
 if __name__ == "__main__":
     # path, dirs, files = os.walk("test/").__next__()
@@ -100,4 +131,7 @@ if __name__ == "__main__":
     #         print(f"Title: {title}")
     #         print()
 
-    Search().open()
+    # Search().album()
+    Search("bich phuong", "chu meo").retrieve()
+    Search("jaden", "summertime in paris").retrieve()
+    Search("bratty", "honey no estas").retrieve()
