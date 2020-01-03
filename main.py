@@ -6,6 +6,17 @@ import os
 import unidecode # transliterates special characters
 import re 
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+import time
+
+import requests
+import urllib, json
+
+
 class Clean():
     def __init__(self, fname): # input is file audio
         # print(f"Original: {fname}")
@@ -27,16 +38,6 @@ class Clean():
 
         return artist.strip().title(), title.strip().title()
 
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-
-import time
-
-import requests
-import urllib, json
 
 class Search():
     def __init__(self, artist, title, fname):
@@ -95,17 +96,31 @@ class Search():
         search.send_keys(Keys.RETURN)
         time.sleep(1)
 
-        try:
-            with open(f"lyrics/{self.artist} - {self.title}.txt", "w") as f:
-                more = self.driver.find_element(By.CLASS_NAME, "vk_ard")
-                more.click()
-                for i in self.driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
-                    for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
-                        if elem.text: # sometimes there are empty div
-                            f.write(f"{unidecode.unidecode(elem.text)}\n")
-                    f.write(f"\n")
-        except:
-            print("Either I choked or there are no lyrics.")
+        more = self.driver.find_element(By.CLASS_NAME, "vk_ard")
+        more.click()
+
+        texts = []
+        for i in self.driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
+            for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
+                if elem.text: # sometimes there are empty div
+                    # f.write(f"{unidecode.unidecode(elem.text)}\n")
+                    texts.append(f"{elem.text}\n")
+            texts.append("\n")
+
+        self.lyrics = "".join(texts).replace("\n\n\n", "\n\n") # remove any double line break
+
+        # try:
+        #     with open(f"lyrics/{self.artist} - {self.title}.txt", "w") as f:
+        #         more = self.driver.find_element(By.CLASS_NAME, "vk_ard")
+        #         more.click()
+        #         for i in self.driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
+        #             for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
+        #                 if elem.text: # sometimes there are empty div
+        #                     # f.write(f"{unidecode.unidecode(elem.text)}\n")
+        #                     f.write(f"{elem.text}\n")
+        #             f.write(f"\n")
+        # except:
+        #     print("Either I choked or there are no lyrics.")
 
         # driver.get_screenshot_as_file("capture.png")
 
@@ -125,7 +140,7 @@ class Search():
         id3.add(TT2(encoding=3, text=f"{self.title}"))
         id3.add(TPE1(encoding=3, text=f"{self.artist}"))
         id3.add(TALB(encoding=3, text=f"{self.album}"))
-        # id3.add(USLT(encoding=3, text=f"{self.title}"))
+        id3.add(USLT(encoding=3, text=self.lyrics))
 
         id3.save(v2_version=3)
 
