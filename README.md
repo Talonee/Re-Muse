@@ -5,6 +5,8 @@
 
 ### Class 2 (Search)
 - Retrieve artist > search cover, artist, title, album, lyrics ✓
+- Get HD cover art (store those of smaller sizes)
+- resize images
 - rename files
 - Confirm artist + feature / title
 - Database for artists
