@@ -4,8 +4,8 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 
 ## Class 1 (Clean)
 
-1. Initiate all relevant attributes to default.
-2. Find pre-existing data, change initial attributes if applicable.
+1. Initiate all relevant attributes to default. ✓
+2. Find pre-existing data, change initial attributes if applicable. ✓
 3. Compile into Json and export (fname, artist, title, album, lyrics).
 4. Rename files.
 
