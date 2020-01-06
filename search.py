@@ -21,15 +21,85 @@ import webbrowser
 import clean
 
 class Search():
-    def __init__(self, artist, title, fname):
-        self.artist = artist
-        self.title = title
-        self.fname = fname
+    def __init__(self, song):
+        self.fname = song["File"]
+        self.artist = song["Artist"]
+        self.title = song["Title"]
+        self.lyrics = song["Lyrics"]
+        self.album = song["Album"]
+        self.cover = ""
 
         self.driver = webdriver.Chrome()
         # self.options = Options()
         # self.options.add_argument("headless")
         # self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
+
+    def do_something(self):
+        self.driver.get("http://www.google.com/") # get u a window
+        self.get_lyrics() # do ya thang
+        self.driver.close() # closing it now
+
+    # This boy got recursion
+    # This method is needed when a song doesn't have lyrics (i.e Flume - Helix)
+    def get_song(self, arg1=None, arg2=None, rerun=True):
+        if not arg1 and not arg2:
+            arg1 = self.title
+            arg2 = self.artist 
+            
+        search = self.driver.find_element_by_name('q')
+        search.clear()
+        search.send_keys(f"artist {arg1} {arg2}")
+        search.send_keys(Keys.RETURN)
+        time.sleep(0.5)
+
+        try:
+            self.artist = self.driver.find_element(By.CLASS_NAME, "Z0LcW").text
+            self.title = self.driver.find_element(By.CSS_SELECTOR, 'span[class="GzssTd"]').text 
+        except:
+            try:
+                self.artist = self.driver.find_element(By.CSS_SELECTOR, 'div[class="title"]').text
+                self.title = self.driver.find_element(By.CSS_SELECTOR, 'span[class="kxbc"]').text
+            except:
+                if rerun:
+                    self.get_song(self.artist, self.title, False)
+                pass
+        
+    def get_lyrics(self):
+        search = self.driver.find_element_by_name('q')
+        search.clear()
+        search.send_keys(f"lyrics {self.title} {self.artist}")
+        search.send_keys(Keys.RETURN)
+        time.sleep(0.5)
+
+        try:
+            more = self.driver.find_element(By.CLASS_NAME, "vk_ard")
+            more.click()
+
+            texts = []
+            for i in self.driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
+                for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'): 
+                    if elem.text: # sometimes there are empty div
+                        texts.append(f"{elem.text}\n")
+                texts.append("\n")
+
+            self.lyrics = "".join(texts).replace("\n\n\n", "\n\n") # remove any double line break
+        except:
+            pass
+
+        try:
+            self.artist = self.driver.find_element(By.XPATH, '/html/body/div[8]/div[3]/div[10]/div[1]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div[1]/span/div/div/div[1]/div[2]/div/div/div/div[2]/span').text
+            self.title = self.driver.find_element(By.CSS_SELECTOR, 'div[data-attrid="title"]').text
+        except:
+            self.get_song()
+
+        print(f"Artist: {unidecode.unidecode(self.artist)}\n"
+              f"Title: {unidecode.unidecode(self.title)}\n"
+              f"Lyrics: {True if self.lyrics else False}\n")
+
+    def get_cover(self):
+        pass
+
+
 
     def retrieve(self):
         self.driver.get("http://www.google.com/")
@@ -115,7 +185,7 @@ class Search():
 
             texts = []
             for i in self.driver.find_elements(By.CSS_SELECTOR, 'div[jsname="U8S5sf"]'):
-                for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'):
+                for elem in i.find_elements(By.CSS_SELECTOR, 'span[jsname="YS01Ge"]'): 
                     if elem.text: # sometimes there are empty div
                         texts.append(f"{elem.text}\n")
                 texts.append("\n")
@@ -166,7 +236,19 @@ class Search():
 
         id3.save(v2_version=3) # save
 
+    def rename(self):
+        os.rename('guru99.txt','career.guru99.txt') 
+
+
 if __name__ == "__main__":
+    with open('songs.json') as infile:
+        songs = json.load(infile)
+
+    for song in songs:
+        Search(song).do_something()
+
+
+
     # for fname in os.listdir("test/"):
     #     if ".mp3" in fname:
     #         fname_uni = unidecode.unidecode(fname)
@@ -177,7 +259,7 @@ if __name__ == "__main__":
 
     #         Search(artist, title, fname).retrieve()
 
-    print(urllib.parse.quote("Tóc Tiên".encode('utf8')))
+    # print(urllib.parse.quote("Tóc Tiên".encode('utf8')))
         # cover = open(f"covers/jj.jpg", 'rb').read()
 
         # id3 = ID3(f'test/sample.mp3')
