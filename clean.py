@@ -1,15 +1,20 @@
 import re 
 import os
-from mutagen.id3 import ID3
+# from mutagen.id3 import ID3
 import json
 
 import unidecode # transliterates special characters
 
+from mutagen.id3 import ID3, ID3NoHeaderError
+
 
 class Clean():
     def __init__(self, fname):
-        id3 = ID3(f'test/{fname}')
-        # print([i for i in id3])
+        # Ensure all mp3 files have an ID3 tag
+        try:
+            id3 = ID3(f'test/{fname}')
+        except:
+            id3 = ID3()
         
         self.fname = fname
         self.artist = id3["TPE1"] if "TPE1" in id3 else ""
