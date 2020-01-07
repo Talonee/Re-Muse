@@ -33,7 +33,7 @@ class Search():
         self.album = song["Album"]
         self.cover = ""
 
-        print(f"Modifying file: \"{self.fname}\"")
+        print(f"Modifying file: \"{unidecode.unidecode(self.fname)}\"")
         # self.driver = webdriver.Chrome()
         self.options = Options()
         self.options.add_argument("headless")
@@ -55,7 +55,7 @@ class Search():
             else:
                 self.get_cover()
             self.finalize()
-
+        print("\n")
         self.driver.close() # closing it now
 
     # This boy got recursion
