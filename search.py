@@ -158,6 +158,13 @@ class Search():
         self.driver.get(img_src)
         self.download(img_src, f"covers/{self.album[:9]}.jpg")
 
+
+        # except:
+        #     print(f"Couldn't download cover for {self.title}")
+
+
+    def resize(self):
+        
             # print(f"File: {self.album}.jpg")
             # print("Size:", os.path.getsize(f"covers/{self.album[:9]}.jpg"))
             # print("Exist:", os.path.exists(f"covers/{self.album[:9]}.jpg"))
@@ -227,20 +234,10 @@ class Search():
 
 
 
-
-
-
-
-
-
-
         except:
             print("No other size options available.")
 
 
-
-        # except:
-        #     print(f"Couldn't download cover for {self.title}")
 
     def finalize(self):
         # ID3 info:
