@@ -12,7 +12,7 @@ class Clean():
     def __init__(self, fname):
         # Ensure all mp3 files have an ID3 tag
         try:
-            id3 = ID3(f'test/{fname}')
+            id3 = ID3(f'review/{fname}')
         except:
             id3 = ID3()
         
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         os.remove("songs.json")
 
     # Make json
-    for fname in os.listdir("test/"):
+    for fname in os.listdir("review/"):
         if ".mp3" in fname:
             Clean(fname).export_json()
 

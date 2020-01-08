@@ -3,6 +3,7 @@ from mutagen.id3 import ID3, APIC, TT2, TPE1, TRCK, TALB, USLT, error
 
 
 import os
+import shutil
 import unidecode # transliterates special characters
 import re 
 
@@ -33,10 +34,13 @@ class Search():
         self.album = song["Album"]
         self.cover = ""
 
-        print(f"Modifying file: \"{unidecode.unidecode(self.fname)}\"")
+        if os.path.exists("covers/.jpg"):
+            os.remove("covers/.jpg")
+
+        print(f"Updating... \"{unidecode.unidecode(self.fname)}\"")
         # self.driver = webdriver.Chrome()
         self.options = Options()
-        self.options.add_argument("headless")
+        # self.options.add_argument("headless")
         self.options.add_argument("--incognito")
         self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
 
@@ -54,6 +58,7 @@ class Search():
                 print(f"\"{unidecode.unidecode(self.album)}\" has already exist with the right image size.")
             else:
                 self.get_cover()
+                self.resize()
             self.finalize()
         print("\n")
         self.driver.close() # closing it now
@@ -130,65 +135,71 @@ class Search():
         time.sleep(1)
 
         try:
-            self.album = self.driver.find_element(By.CLASS_NAME, "Z0LcW").text
+            self.album = self.driver.find_element(By.CLASS_NAME, "Z0LcW AZCkJd").text
         except:
-            self.album = self.title
+            try:
+                self.album = self.driver.find_element(By.CLASS_NAME, "Z0LcW").text
+                print(f"Retrieve album from Google... {unidecode.unidecode(self.album)}")
+            except:
+                if not self.title.isspace():
+                    self.album = self.title
+                else:
+                    self.album = self.artist
+                print(f"Retrieve album from Title... {unidecode.unidecode(self.title)}")
+        
 
     def get_cover(self):
-        try: # locate cover next to alb name
-            img_src = self.driver.find_element(By.XPATH, '/html/body/div[8]/div[3]/div[10]/div[1]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div[1]/span/div/div/div[2]/div/div[2]/div/div/div/div/div/div/a/g-img/img').get_attribute("src")
-        except: # switch to image tab, retrieve first result as ref
-            if self.driver.find_element(By.XPATH, '//*[@id="hdtb-msb-vis"]/div[3]/a').text == "Images":
-                img_tab = self.driver.find_element(By.XPATH, '//*[@id="hdtb-msb-vis"]/div[3]/a').click()
-            else: # mislocated images button
-                self.driver.get("https://images.google.com/")
-                search = self.driver.find_element_by_name('q')
-                search.clear()
-                search.send_keys(f"album {self.title} {self.artist} {self.album}")
-                search.send_keys(Keys.RETURN)
-                time.sleep(1)
+        # try: # locate cover next to alb name
+        #     img_src = self.driver.find_element(By.XPATH, '/html/body/div[8]/div[3]/div[10]/div[1]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div[1]/span/div/div/div[2]/div/div[2]/div/div/div/div/div/div/a/g-img/img').get_attribute("src")
+        # except: # switch to image tab, retrieve first result as ref
+        if self.driver.find_element(By.XPATH, '//*[@id="hdtb-msb-vis"]/div[3]/a').text == "Images":
+            img_tab = self.driver.find_element(By.XPATH, '//*[@id="hdtb-msb-vis"]/div[3]/a').click()
+        else: # mislocated images button
+            self.driver.get("https://images.google.com/")
+            search = self.driver.find_element_by_name('q')
+            search.clear()
+            search.send_keys(f"album {self.title} {self.artist} {self.album}")
+            search.send_keys(Keys.RETURN)
+            time.sleep(1)
 
+        try:
+            img_src = self.driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[1]/a[1]/img').get_attribute("src")
+        except:  # when google switch up and start speaking hebrew
             try:
-                img_src = self.driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[1]/a[1]/img').get_attribute("src")
-            except:  # when google switch up and start speaking hebrew
-                try:
-                    img_src = self.driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[2]/div[2]/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img').get_attribute("src")
-                except:
-                    img_src = self.driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]/div[1]/img').get_attribute("src")
+                img_src = self.driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[2]/div[2]/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img').get_attribute("src")
+            except:
+                img_src = self.driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]/div[1]/img').get_attribute("src")
         self.driver.get(img_src)
         self.download(img_src, f"covers/{self.album[:9]}.jpg")
-
 
         # except:
         #     print(f"Couldn't download cover for {self.title}")
 
-
     def resize(self):
-        
-            # print(f"File: {self.album}.jpg")
-            # print("Size:", os.path.getsize(f"covers/{self.album[:9]}.jpg"))
-            # print("Exist:", os.path.exists(f"covers/{self.album[:9]}.jpg"))
-            # print("\n")
-
+        # print(f"File: {self.album}.jpg")
+        # print("Size:", os.path.getsize(f"covers/{self.album[:9]}.jpg"))
+        # print("Exist:", os.path.exists(f"covers/{self.album[:9]}.jpg"))
+        # print("\n")
+        im = Image.open(f"covers/{self.album[:9]}.jpg")
+        width, height = im.size
+        if width <= 500 and height <= 500:
+            print("Attemtping to GRIS")
+            try:
+                filePath = f'covers/{self.album[:9]}.jpg'
+                searchUrl = 'http://www.google.hr/searchbyimage/upload'
+                multipart = {'encoded_image': (filePath, open(filePath, 'rb')), 'image_content': ''}
+                response = requests.post(searchUrl, files=multipart, allow_redirects=False)
+                fetchUrl = response.headers['Location']
+                self.driver.get(fetchUrl)
+            except:
+                print("Could not GRIS")
 
         try:
-            filePath = f'covers/{self.album[:9]}.jpg'
-            searchUrl = 'http://www.google.hr/searchbyimage/upload'
-            multipart = {'encoded_image': (filePath, open(filePath, 'rb')), 'image_content': ''}
-            response = requests.post(searchUrl, files=multipart, allow_redirects=False)
-            fetchUrl = response.headers['Location']
-            self.driver.get(fetchUrl)
-        except:
-            print("Could not GRIS")
-
-        try:
+            # print("Choosing size options...")
             img_size = self.driver.find_element(By.XPATH, "/html/body/div[8]/div[3]/div[3]/div[1]/div[2]/div/div[2]/div[1]/div/div[1]/div[2]/div[2]/span[1]/a")
             img_size.click()
 
-
-
-
-
+            # print("Printing first results...")
             # Select img size and search result
             # res = self.driver.find_element(By.CLASS_NAME, 'rg_i') # first result
             try:
@@ -204,38 +215,79 @@ class Search():
                     res.click()
             time.sleep(1)
 
+            # print("Enlarging first results...")
             try:
                 # enlarged = self.driver.find_element(By.XPATH, "//*[@id='irc-ss']/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
-                enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]/div[1]/div[4]/div[2]/a/img").get_attribute('src') # retrieve image src
+                enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
             except:
                 try:
                     enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
                     # enlarged = self.driver.find_element(By.XPATH, "//*[@id='irc-ss']/div[2]/div[1]/div[4]/div[2]/a/img").get_attribute('src') # retrieve image src
                 except:
                     enlarged = self.driver.find_element(By.XPATH, "//*[@id='Sva75c']/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img").get_attribute('src') # retrieve image src
-
-            # print(f"Url: {enlarged[:30]}")
-
-            self.download(enlarged, f"covers/{self.album[:9]}.jpg")
             
-            im = Image.open(f"covers/{self.album[:9]}.jpg")
-            width, height = im.size
-            if width < 500 and height < 500:
-                print("Unfitting size, attempt resizing...")
-                self.driver.execute_script("window.history.go(-1)")
-                res = self.driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[2]/a[1]/img') # first result
-                res.click()
-                enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
-                try:
-                    self.download(enlarged, f"covers/{self.album[:9]}.jpg")
-                except:
-                    pass
-
-
-
+            # print("Downloading enlarged results...")
+            # print(str(enlarged)[:30])
+            self.download(enlarged, f"covers/{self.album[:9]}.jpg")
+            # time.sleep(10)
 
         except:
-            print("No other size options available.")
+            print("No size options available.")
+
+            self.driver.get("https://images.google.com/")
+            search = self.driver.find_element_by_name('q')
+            search.clear()
+            search.send_keys(f"album cover {self.title} {self.artist}")
+            search.send_keys(Keys.RETURN)
+            time.sleep(1)
+
+            try:
+                res = self.driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[1]/a[1]/img') # first result
+                res.click()
+            # enlarged = self.driver.find_element(By.XPATH, "/html/body/div[2]/c-wiz/div[3]/div[2]/div[2]/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img").get_attribute('src') # retrieve image src
+            except: # when google switch up and start speaking hebrew
+                try:
+                    res = self.driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[1]/a[1]/div[1]/img')
+                    res.click()
+                except: # when google switch up and display images like it has no concept of padding
+                    res = self.driver.find_element(By.XPATH, '/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div[1]/a[1]/div[1]/img')
+                    res.click()
+            time.sleep(1)
+
+
+            try:
+                # enlarged = self.driver.find_element(By.XPATH, "//*[@id='irc-ss']/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
+                enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
+            except:
+                try:
+                    enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
+                    # enlarged = self.driver.find_element(By.XPATH, "//*[@id='irc-ss']/div[2]/div[1]/div[4]/div[2]/a/img").get_attribute('src') # retrieve image src
+                except:
+                    enlarged = self.driver.find_element(By.XPATH, "//*[@id='Sva75c']/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img").get_attribute('src') # retrieve image src
+            time.sleep(10)
+            # print("Downloading enlarged results...")
+            # print(str(enlarged)[:30])
+            self.download(enlarged, f"covers/{self.album[:9]}.jpg")
+
+
+        
+
+
+
+            
+            # im = Image.open(f"covers/{self.album[:9]}.jpg")
+            # width, height = im.size
+            # if width < 500 and height < 500:
+            #     print("Unfitting size, attempt resizing...")
+            #     self.driver.execute_script("window.history.go(-1)")
+            #     res = self.driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[2]/a[1]/img') # first result
+            #     res.click()
+            #     enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
+            #     try:
+            #         self.download(enlarged, f"covers/{self.album[:9]}.jpg")
+            #     except:
+            #         pass
+
 
 
 
@@ -249,7 +301,7 @@ class Search():
         # USLT: lyric
 
         cover = open(f"covers/{self.album[:9]}.jpg", 'rb').read()
-        id3 = ID3(f'test/{self.fname}')
+        id3 = ID3(f'review/{self.fname}')
         id3.add(APIC(3, 'image/jpeg', 3, "", cover))
         id3.add(TT2(encoding=3, text=f"{self.title}"))
         id3.add(TPE1(encoding=3, text=f"{self.artist}"))
@@ -258,7 +310,13 @@ class Search():
 
         id3.save(v2_version=3) # save
 
-        os.rename(f"test/{self.fname}", f"test/{self.title}.mp3")        
+        im = Image.open(f"covers/{self.album[:9]}.jpg")
+        width, height = im.size
+        if width >= 500 and height >= 500:
+            print(f"{unidecode.unidecode(self.title)} is successful. Moving to final...")
+            shutil.move(f"review/{self.fname}", f"final/{self.title}.mp3")
+
+        # os.rename(f"test/{self.fname}", f"test/{self.title}.mp3")        
 
 
 
@@ -406,7 +464,8 @@ if __name__ == "__main__":
 
     for song in songs:
         Search(song).do_something()
-
+        # Search(song).resize()
+    
 
 
     # for fname in os.listdir("test/"):
