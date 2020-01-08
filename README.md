@@ -12,135 +12,17 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 
 1. Search artist, title, lyrics. ✓
 2. Search album, cover. ✓
-3. THEN PROCEED TO FINDING COVER ART, IF ALBUM ALREADY IN STORAGE, DONT BOTHER FINDING
-4. THEN PROCEED TO RESIZE COVER ART IMAGES           
-5. Rename files.
+3. Create database for albums and artists.
+3. GRIS album art for higher quality. ✓
+4. Resize to 900x900.
+5. Rename files. ✓
 
+## Class 3 (App)
 
-
-1. **Search_lyrics**
-
-    > Lyrics
-    1. `Try:`
-        * Locate lyrics
-    2. `Except:` >> No artist/title.
-        1. `Try:`
-            * Split artist + title if applicable.
-        2. `Except:`
-            * Pass.
-
-2. **Search_alb_cov**
-
-    > Album + Cover
-    1. `If album not in album_stor:`
-        1. `If (artist and title) or (title and album):`
-            1. `Try:` *(Search album)* 
-                * Locate album. `f"{album artist title album}`
-
-                1. `If not artist:`
-                    1. `Try:`
-                        * Artist = `f"{artist title album}`
-                    2. `Except:`
-                        * Artist = ""
-
-                1. `If album`:
-                    * Add to album_stor
-                    1. `Try:` *(Search cover)*
-                        * Locate cover art.
-                    2. `Except:` *(No cover)*
-                        1. `If artist:`
-                            1. `Try:` *(Search cover)*
-                                * Search cover with url.parsed artist and album (last.fm).
-                            2. `Except:` *(No result)*
-                                1. `Try:` *(Search cover)*
-                                    * Flip artist + album in API url for possible result.
-                                2. `Except:` *(No result)*
-                                    * `Pass.`
-                2. `Else:`    
-                    * Set album to title.
-                    1. `Try:` *(Search cover)*
-                        * Search cover with url.parsed artist and title (last.fm).
-                    2. `Except:` *(No result)*
-                        1. `Try:` *(Search cover)*
-                            * Flip artist + title in API url for possible result.
-                        2. `Except:` *(No result)*
-                            * `Pass.`
-            2. Except: *(No album)*
-                * `Pass.`
-
-
-
-    1. `If album == "":` ✓
-        1. `If (artist and title):`
-            1. `Try:` *(Search album)* 
-                * Locate album. `f"{album artist title}`
-            2. `Except:` *(No album)*
-                * `Pass.`
-    2. `Elif album and album not in album_stor:`
-        1. `If (title and album):`
-            1. `Try:` *(Search album)* 
-                * Locate album. `f"{album artist title album}`
-                * Add to album_stor
-
-                1. `If not artist:`
-                    1. `Try:`
-                        * Artist = `f"{artist title album}`
-                    2. `Except:`
-                        * Artist = ""
-
-                1. `Try:` *(Search artist)*
-                    * Locate album. `f"{artist title album}`
-                2. `Except:` *(No artist)* 
-                    * `Pass.` 
-
-
-                1. `Try:` *(Search cover)*
-                        * Locate cover art.
-                2. `Except:` *(No cover)*
-                    1. `Try:` *(Search artist)*
-                        * Search `f"{artist title album}`
-                    * 
-                    1. `If artist == "":`
-                        1. `Try:`
-                            * Artist = `f"{artist title album}`
-                        2. `Except:`
-                            * Artist = ""
-
-
-                            1. `Try:` *(Search cover)*
-                                * Search cover with url.parsed artist and album (last.fm).
-                            2. `Except:` *(No result)*
-                                1. `Try:` *(Search cover)*
-                                    * Flip artist + album in API url for possible result.
-                                2. `Except:` *(No result)*
-                                    * `Pass.`
-
-    3. `Elif no album:`
-
-✓ Logic case complete
-
-**Any violation goes to the Review folder.**
-
-2. **Cover Resize**
-    1. `If cover:`
-        1. `Try:` *(GRIS)*
-            * GRIS.
-            * Retrieve larger cover.
-
-## Ad to existing album
-
-3. **Update** artist, title, lyrics, album
-
-3. Check for cover art
-- Get HD cover art + resize (store those of smaller sizes) (800-1500px)
-    - If below 800, store and manually edit
-    + Try extract the associated album cover result
-        + Except: retrieve from last.fm
-        + Finally: GRIS the result
-- Database for artists
-
-### Class 3 (App)
-- Create a Kivy app that shows live update (tqdb, too?)
-- Asks for artist information
+1. Welcome message.
+2. Browse folder to clean and search.
+3. Show live update (tqdb).
+4. Review: Show lists of songs i need of review
+5. Prompt for manual input of artist information
 
 - Optional: Access phone subfolders, pull and modify songs

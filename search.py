@@ -17,13 +17,9 @@ import time
 import requests
 import urllib, json
 
-import webbrowser
-
-import clean
-
-
 from PIL import Image
 
+import clean
 
 class Search():
     def __init__(self, song):
@@ -176,14 +172,9 @@ class Search():
         #     print(f"Couldn't download cover for {self.title}")
 
     def resize(self):
-        # print(f"File: {self.album}.jpg")
-        # print("Size:", os.path.getsize(f"covers/{self.album[:9]}.jpg"))
-        # print("Exist:", os.path.exists(f"covers/{self.album[:9]}.jpg"))
-        # print("\n")
         im = Image.open(f"covers/{self.album[:9]}.jpg")
         width, height = im.size
         if width <= 500 and height <= 500:
-            print("Attemtping to GRIS")
             try:
                 filePath = f'covers/{self.album[:9]}.jpg'
                 searchUrl = 'http://www.google.hr/searchbyimage/upload'
@@ -254,7 +245,6 @@ class Search():
                     res.click()
             time.sleep(1)
 
-
             try:
                 # enlarged = self.driver.find_element(By.XPATH, "//*[@id='irc-ss']/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
                 enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
@@ -264,32 +254,9 @@ class Search():
                     # enlarged = self.driver.find_element(By.XPATH, "//*[@id='irc-ss']/div[2]/div[1]/div[4]/div[2]/a/img").get_attribute('src') # retrieve image src
                 except:
                     enlarged = self.driver.find_element(By.XPATH, "//*[@id='Sva75c']/div/div/div[3]/div[2]/div/div[1]/div[1]/div/div[2]/a/img").get_attribute('src') # retrieve image src
-            time.sleep(10)
             # print("Downloading enlarged results...")
             # print(str(enlarged)[:30])
             self.download(enlarged, f"covers/{self.album[:9]}.jpg")
-
-
-        
-
-
-
-            
-            # im = Image.open(f"covers/{self.album[:9]}.jpg")
-            # width, height = im.size
-            # if width < 500 and height < 500:
-            #     print("Unfitting size, attempt resizing...")
-            #     self.driver.execute_script("window.history.go(-1)")
-            #     res = self.driver.find_element(By.XPATH, '/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[2]/a[1]/img') # first result
-            #     res.click()
-            #     enlarged = self.driver.find_element(By.XPATH, "/html/body/div[7]/div[3]/div[3]/div[2]/div/div[2]/div[2]/div/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div[4]/div[1]/a/div/img").get_attribute('src') # retrieve image src
-            #     try:
-            #         self.download(enlarged, f"covers/{self.album[:9]}.jpg")
-            #     except:
-            #         pass
-
-
-
 
     def finalize(self):
         # ID3 info:
@@ -314,11 +281,20 @@ class Search():
         width, height = im.size
         if width >= 500 and height >= 500:
             print(f"{unidecode.unidecode(self.title)} is successful. Moving to final...")
-            shutil.move(f"review/{self.fname}", f"final/{self.title}.mp3")
+            shutil.move(f"review/{self.fname}", f"final/{self.title}.mp3")   
 
-        # os.rename(f"test/{self.fname}", f"test/{self.title}.mp3")        
+if __name__ == "__main__":
+    with open('songs.json') as infile:
+        songs = json.load(infile)
+
+    for song in songs:
+        Search(song).do_something()
+ 
 
 
+
+
+ 
 
 ##### LEGACY METHODS
     def retrieve(self):
@@ -456,92 +432,3 @@ class Search():
 
         id3.save(v2_version=3) # save
 
-
-
-if __name__ == "__main__":
-    with open('songs.json') as infile:
-        songs = json.load(infile)
-
-    for song in songs:
-        Search(song).do_something()
-        # Search(song).resize()
-    
-
-
-    # for fname in os.listdir("test/"):
-    #     if ".mp3" in fname:
-    #         fname_uni = unidecode.unidecode(fname)
-    #         artist, title = Clean(fname_uni).retrieve()
-    #         print(f"Artist: {artist}")
-    #         print(f"Title: {title}")
-    #         print()
-
-    #         Search(artist, title, fname).retrieve()
-
-    # print(urllib.parse.quote("Tóc Tiên".encode('utf8')))
-        # cover = open(f"covers/jj.jpg", 'rb').read()
-
-        # id3 = ID3(f'test/sample.mp3')
-        # # id3.delete()
-        # for i in id3:
-        #     print(i)
-        # # id3["APIC:Cover"] = APIC(3, 'image/jpeg', 3, 'Cover', cover)
-        # # id3["APIC"] = APIC(3, 'image/jpeg', 3, 'Cover', cover)
-        # id3.add(APIC(3, 'image/jpeg', 3, 'Cover', cover))
-        # # del id3["APIC:Cover"]
-        # print("NEW LINE")
-        # for i in id3:
-        #     print(i)
-        # # id3.add(TT2(encoding=3, text=f"{self.title}"))
-        # # id3.add(TPE1(encoding=3, text=f"{self.artist}"))
-        # # id3.add(TALB(encoding=3, text=f"{self.album}"))
-        # id3.save(v2_version=3) # save
-    # lyr = mutagen.File("test/Jaden - GOKU.mp3")["USLT::XXX"]
-    # lyr = mutagen.File("Xin Lỗi Anh Quá Phiền.mp3")["USLT::XXX"]
-    # if lyr:
-    #     print("I'm in")
-        # ID3 info:
-        # APIC: picture
-        # TT2: title
-        # TPE1: artist
-        # TRCK: track number
-        # TALB: album
-        # USLT: lyric
-
-    # me = mutagen.File("Louis The Child - Better Not (Lyric Video) ft. Wafia.mp3")
-
-    # for i in mutagen.File("Louis The Child - Better Not (Lyric Video) ft. Wafia.mp3"):
-    #     print(i)
-    # print("\n\n")
-
-    # id3 = ID3(f'Có ai thương em như vậy.mp3')
-    # # id3.add(USLT(encoding=3, text=""))
-    # id3.save(v2_version=3)
-    # for i in id3:
-    #     print(i)
-
-    # print(str(id3["USLT::eng"])[3])
-    # if id3["USLT::XXX"] == "":
-    #     print("Empty")
-    # else:
-    #     print("Not empty")
-
-
-
-
-    # for i in mutagen.File("Louis The Child - Better Not (Lyric Video) ft. Wafia.mp3"):
-    #     print(i)
-
-    # print(mutagen.File("Louis The Child - Better Not (Lyric Video) ft. Wafia.mp3")["USLT::XXX"])
-            #if no eng, then no lyrics exist, proceed to add.
-    #         Search(artist, title, fname).retrieve()
-
-    ## JADEN
-    # images
-    # /html/body/div[8]/div[3]/div[5]/div/div/div[1]/div/div/div[1]/div/div[3]/a
-    # news
-    # /html/body/div[8]/div[3]/div[5]/div/div/div[1]/div/div/div[1]/div/div[4]/a
-
-    # chainsmokers
-    # images
-    # /html/body/div[7]/div[3]/div[5]/div/div/div[1]/div/div/div[1]/div/div[3]/a
