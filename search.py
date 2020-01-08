@@ -1,7 +1,6 @@
 from mutagen.mp3 import MP3
 from mutagen.id3 import ID3, APIC, TT2, TPE1, TRCK, TALB, USLT, error
 
-
 import os
 import shutil
 import unidecode # transliterates special characters
