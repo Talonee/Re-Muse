@@ -283,6 +283,16 @@ class Search():
             shutil.move(f"review/{self.fname}", f"final/{self.title}.mp3")   
 
 if __name__ == "__main__":
+    # Run Clean.py
+    reset = True
+    if reset and os.path.exists("songs.json"):
+        os.remove("songs.json")
+
+    for fname in os.listdir("review/"):
+        if ".mp3" in fname:
+            clean.Clean(fname).export_json()
+
+    # Run Search.py
     with open('songs.json') as infile:
         songs = json.load(infile)
 
