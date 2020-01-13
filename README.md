@@ -26,3 +26,14 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 5. Prompt for manual input of artist information
 
 - Optional: Access phone subfolders, pull and modify songs
+
+
+
+
+## Useful links to references
+
+https://stackoverflow.com/questions/42665036/python-mutagen-add-image-cover-doesnt-work
+
+https://stackoverflow.com/questions/18026516/how-to-set-artist-album-artist-year-album-song-number-and-title?rq=1
+
+http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=abfef408b828ff61598e0f0d2ce83dcc&artist=bich%20phuong&album=Dramatic&format=json
