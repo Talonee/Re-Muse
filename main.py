@@ -10,6 +10,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+import os
+import unidecode
 
 
 class Ui_MainWindow(object):
@@ -18,21 +20,26 @@ class Ui_MainWindow(object):
         MainWindow.resize(960, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
+        ###### Welcome Page
         self.welcome = QtWidgets.QFrame(self.centralwidget)
         self.welcome.setEnabled(True)
         self.welcome.setGeometry(QtCore.QRect(10, 10, 931, 521))
         font = QtGui.QFont()
         font.setFamily("Open Sans")
-        font.setPointSize(36)
+        font.setPointSize(30)
         self.welcome.setFont(font)
         self.welcome.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.welcome.setFrameShadow(QtWidgets.QFrame.Raised)
         self.welcome.setObjectName("welcome")
+        
         self.label = QtWidgets.QLabel(self.welcome)
         self.label.setEnabled(False)
         self.label.setGeometry(QtCore.QRect(160, 210, 621, 111))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
+
+        ###### Browsing Page
         self.browse = QtWidgets.QFrame(self.centralwidget)
         self.browse.setGeometry(QtCore.QRect(10, 10, 931, 521))
         font = QtGui.QFont()
@@ -59,13 +66,16 @@ class Ui_MainWindow(object):
         self.label_4.setFont(font)
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.browse)
-        self.label_5.setGeometry(QtCore.QRect(200, 280, 441, 41))
+
+        self.textbox = QLineEdit(self.browse)
+        self.textbox.move(280, 280)
+        self.textbox.resize(280,40)
         font = QtGui.QFont()
         font.setFamily("Open Sans")
         font.setItalic(True)
-        self.label_5.setFont(font)
-        self.label_5.setObjectName("label_5")
+        self.textbox.setFont(font)
+        self.textbox.setObjectName("textbox")
+
         self.pushButton = QtWidgets.QPushButton(self.browse)
         self.pushButton.setGeometry(QtCore.QRect(640, 280, 101, 41))
         font = QtGui.QFont()
@@ -76,6 +86,8 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+
+        ###### Progress Page
         self.progress = QtWidgets.QFrame(self.centralwidget)
         self.progress.setGeometry(QtCore.QRect(20, 20, 931, 521))
         self.progress.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -100,40 +112,53 @@ class Ui_MainWindow(object):
 
 
 
-        # self.fade(self.label_3, 0)
-        # self.fade(self.label_4, 0)
-        # self.fade(self.label_5, 0)
-        # self.fade(self.label_6, 0)
-        # self.fade(self.pushButton, 0)
+        self.fade(self.browse, 0)
+        # self.hide_pls(self.browse)
+        # self.hide_pls(self.progress)
 
-        # self.fade(self.browse, 0)
-        self.hide_pls(self.browse)
-        self.hide_pls(self.progress)
+        # self.browse.hide()
+        self.progress.hide()
         
         self.timer = QTimer()
         self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
-        # self.browse_page()
-
         # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
         # self.timer.start(3000)
 
+        self.pushButton.clicked.connect(lambda: self.browse_button())
+        # print("That's it")
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def browse_page(self):
         self.fade(self.welcome, 1000)
-        self.welcome.hide()
+        self.timer.singleShot(1000, lambda: self.welcome.hide()) # single timer
 
         self.progress.hide()
 
         self.timer = QTimer()
         self.timer.singleShot(1000, lambda: self.unfade(self.browse, 1000)) # single timer
         
+        # self.browse.hide()
+        # self.progress.show()
+        # self.hide_pls(self.progress)
+
+
         # self.unhide_pls(self.progress)
         # self.timer = QTimer()
         # self.timer.singleShot(1000, lambda: self.view_page()) # single timer
         
+    def browse_button(self):
+        # filename = QFileDialog.getOpenFileName()
+        folder = QFileDialog.getExistingDirectory()
+        print(f"My current folder: {folder}")
+        for fname in os.listdir(folder + "/"):
+            if ".mp3" in fname:
+                # clean.Clean(fname).export_json()
+                print(unidecode.unidecode(fname))
+
+    
+
     def unhide_pls(self, widget):
         self.effect = QGraphicsOpacityEffect()
         widget.setGraphicsEffect(self.effect)
@@ -157,6 +182,14 @@ class Ui_MainWindow(object):
         self.animation.setDuration(duration)
         self.animation.setStartValue(0)
         self.animation.setEndValue(1)
+        
+        self.animation = QtCore.QPropertyAnimation(widget, b"geometry")
+        self.animation.setDuration(duration+1000)
+        self.animation.setStartValue(QRect(0, 0, 100, 100))
+        self.animation.setEndValue(QRect(0, 0, 931, 521))
+
+
+
         self.animation.start()
 
     def hide_pls(self, widget):
@@ -173,7 +206,7 @@ class Ui_MainWindow(object):
         self.label.adjustSize()
         self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
         self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
-        self.label_5.setText(_translate("MainWindow", "Enter path here..."))
+        self.textbox.setText(_translate("MainWindow", "Enter path here..."))
         self.pushButton.setText(_translate("MainWindow", "Browse"))
         self.label_6.setText(_translate("MainWindow", "DaBop"))
 

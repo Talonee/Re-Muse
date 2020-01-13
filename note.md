@@ -10,3 +10,10 @@
 ## Convert UI files to Py
 
 `pyuic5 -x test3.ui -o test3.py`
+
+
+# Notes:
+
+- Stackoverflow:
+   - Ensure all necessary libraries are imported
+   - Ensure QTimer aren't overlapping
