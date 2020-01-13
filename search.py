@@ -283,6 +283,9 @@ class Search():
             shutil.move(f"review/{self.fname}", f"final/{self.title}.mp3")   
 
 if __name__ == "__main__":
+    from tqdm import tqdm
+
+
     # Run Clean.py
     reset = True
     if reset and os.path.exists("songs.json"):
@@ -296,8 +299,12 @@ if __name__ == "__main__":
     with open('songs.json') as infile:
         songs = json.load(infile)
 
-    for song in songs:
-        Search(song).do_something()
+    # for song in songs:
+    #     Search(song).do_something()
+
+    for i in tqdm(songs):
+        for song in songs:
+            Search(song).do_something()
  
 
 
