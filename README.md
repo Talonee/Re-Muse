@@ -22,7 +22,7 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 1. Welcome message.
 2. Browse folder to clean and search.
 3. Show live update (tqdb).
-4. Review: Show lists of songs i need of review
+4. Review: Show lists of songs in need of review
 5. Prompt for manual input of artist information
 
 - Optional: Access phone subfolders, pull and modify songs

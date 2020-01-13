@@ -17,3 +17,12 @@
 - Stackoverflow:
    - Ensure all necessary libraries are imported
    - Ensure QTimer aren't overlapping
+
+
+# Battle plan
+
+- Sketch layout design
+- Iterate each frame animation (show, hide, fade, etc.)
+- Research Key.ENTER and clearing input box
+- Research update label.text() with tqdm
+- Research open folder
