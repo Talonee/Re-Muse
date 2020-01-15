@@ -12,6 +12,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import os
 import unidecode
+import time
 
 
 class Ui_MainWindow(object):
@@ -112,23 +113,119 @@ class Ui_MainWindow(object):
 
 
 
-        self.fade(self.browse, 0)
+
+
+        # self.fade(self.browse, 0)
         # self.hide_pls(self.browse)
         # self.hide_pls(self.progress)
 
         # self.browse.hide()
-        self.progress.hide()
+        # self.progress.hide()
         
-        self.timer = QTimer()
-        self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
+        # self.timer = QTimer()
+        
+        # self.timer.setSingleShot(True)
+        # self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
         # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
         # self.timer.start(3000)
 
-        self.pushButton.clicked.connect(lambda: self.browse_button())
+        # self.pushButton.clicked.connect(lambda: self.browse_button())
         # print("That's it")
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Welcome to ReMuse, whore.."))
+        self.label.adjustSize()
+        self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
+        self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
+        self.textbox.setText(_translate("MainWindow", "Enter path here..."))
+        self.pushButton.setText(_translate("MainWindow", "Browse"))
+        self.label_6.setText(_translate("MainWindow", "Progress..."))
+
+    def show_welcome(self):
+        
+
+    def init(self):
+        # Set all frame opacity to 0
+        self.switch(self.welcome, 0)
+        self.switch(self.browse, 0)
+        self.switch(self.progress, 0)
+        print("All pages has been turned off.")
+
+        # (Welcome) Fade in + 2-3s hold + fade out
+        # print(int(not 1))
+
+        # (Welcome) Hide; (Browse) Show
+        
+        curr = time.time()
+        self.timer = QTimer()
+        # self.timer.start(3000)
+        self.timer.setInterval(3000)
+        self.timer.setSingleShot(True)
+        self.timer.start()
+        self.timer.timeout.connect(lambda: self.switch(self.welcome, 0))
+        self.timer.timeout.connect(lambda: print(f"{time.time() - curr} after alleged 3s"))
+
+        QtWidgets.qApp.processEvents()
+        self.timer.setInterval(3000)
+        self.timer.setSingleShot(True)
+        self.timer.start()
+        self.timer.timeout.connect(lambda: self.switch(self.browse, 1))
+        self.timer.timeout.connect(lambda: print(f"{time.time() - curr} after alleged 6s"))
+        # print("hell yea")
+        # self.timer.stop()
+
+        # self.timer.start(5000)
+        def count():
+            print("Ready to browse folder...")
+            print(f"{time.time() - curr} after alleged 5s")
+        # self.timer.timeout.connect(lambda: count())
+
+        # self.timer.singleShot(2000, lambda: self.turn_on(self.browse))
+        # self.timer.singleShot(2000, lambda: count())
+        # self.timer.stop()
+
+        
+        # self.a = QTimer()
+        # self.a.singleShot(2000, lambda: self.switch(self.browse, 0))
+        # # time.sleep(2)
+        # # self.a = QTimer()
+        # self.a.singleShot(4000, lambda: self.switch(self.browse, 1))
+
+        # self.delay(self.switch(self.browse, 0), 0)
+        # self.delay(self.switch(self.browse, 1), 3)
+        # self.turn_on(self.browse)
+
+    def switch(self, widget, on):
+        self.effect = QGraphicsOpacityEffect()
+        self.effect.setOpacity(on)
+        widget.setGraphicsEffect(self.effect)
+
+    def delay(self, fxn, n):
+        # time.sleep(2)
+        timer = QTimer()
+        timer.singleShot(2000*n, lambda: fxn)
+        # timer.singleShot(2000, lambda: self.switch(self.browse, 0))
+        # timer.singleShot(4000, lambda: self.switch(self.browse, 1))
+        # print(f"{time.time() - self.curr} seconds have passed.")
+
+    def scream(self):
+        print("I'M TRIGGERED")
+
+
+
+
+
+
+
+
+
+
+
 
     def browse_page(self):
         self.fade(self.welcome, 1000)
@@ -156,8 +253,6 @@ class Ui_MainWindow(object):
             if ".mp3" in fname:
                 # clean.Clean(fname).export_json()
                 print(unidecode.unidecode(fname))
-
-    
 
     def unhide_pls(self, widget):
         self.effect = QGraphicsOpacityEffect()
@@ -199,16 +294,7 @@ class Ui_MainWindow(object):
 
 
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Welcome to ReMuse, whore.."))
-        self.label.adjustSize()
-        self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
-        self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
-        self.textbox.setText(_translate("MainWindow", "Enter path here..."))
-        self.pushButton.setText(_translate("MainWindow", "Browse"))
-        self.label_6.setText(_translate("MainWindow", "DaBop"))
+
 
 
 if __name__ == "__main__":
@@ -219,3 +305,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+    
