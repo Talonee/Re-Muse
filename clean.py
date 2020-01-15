@@ -43,6 +43,11 @@ class Clean():
                 except:
                     pass
             
+    def result(self):
+        return {"File": str(self.fname), "Artist": str(self.artist),
+                "Title": str(self.title), "Album": str(self.album),
+                "Lyrics": str(self.lyrics)}
+
     def export_json(self):
         # self.retrieve()
         try:
@@ -77,16 +82,31 @@ class Clean():
               f"\nAlbum: {unidecode.unidecode(str(self.album))}"
               f"\nLyrics: {unidecode.unidecode(str(self.lyrics))[:20]}")
 
-if __name__ == "__main__":
-    # Reset pre existing data
-    reset = True
-    if reset and os.path.exists("songs.json"):
-        os.remove("songs.json")
 
-    # Make json
-    for fname in os.listdir("review/"):
-        if ".mp3" in fname:
-            Clean(fname).export_json()
+class GetJson():
+    def __init__(self, reset):
+        # Reset pre existing data
+        if reset and os.path.exists("songs.json"):
+            os.remove("songs.json")
+
+        # Make json
+        try:
+            with open('songs.json') as infile:
+                songs = json.load(infile)
+        except:
+            songs = []
+
+        for fname in os.listdir("review/"):
+            if ".mp3" in fname:
+                # Clean(fname).export_json()
+                songs.append(Clean(fname).result())
+
+        with open('songs.json', 'w') as outfile:
+                json.dump(songs, outfile, indent=4)
+
+
+if __name__ == "__main__":
+    GetJson(reset=True)
 
     # ID3 info:
     # APIC: picture
