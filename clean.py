@@ -15,7 +15,7 @@ class Clean():
             id3 = ID3(f'review/{fname}')
         except:
             id3 = ID3()
-        
+            
         self.fname = fname
         self.artist = id3["TPE1"] if "TPE1" in id3 else ""
         self.title = id3["TIT2"] if "TIT2" in id3 else ""
@@ -48,27 +48,7 @@ class Clean():
                 "Title": str(self.title), "Album": str(self.album),
                 "Lyrics": str(self.lyrics)}
 
-    def export_json(self):
-        # self.retrieve()
-        try:
-            with open('songs.json') as infile:
-                songs = json.load(infile)
-        except:
-            songs = []
-
-        song = {
-            "File": str(self.fname),
-            "Artist": str(self.artist),
-            "Title": str(self.title),
-            "Album": str(self.album),
-            "Lyrics": str(self.lyrics)
-        }
-        songs.append(song)
-
-        with open('songs.json', 'w') as outfile:
-            json.dump(songs, outfile, indent=4)
-
-    def retrieve(self):
+    def debug(self):
         if self.artist:
             print("I got artist")
         if self.title:
@@ -84,7 +64,7 @@ class Clean():
 
 
 class GetJson():
-    def __init__(self, reset):
+    def __init__(self, folder, reset=True):
         # Reset pre existing data
         if reset and os.path.exists("songs.json"):
             os.remove("songs.json")
@@ -96,7 +76,7 @@ class GetJson():
         except:
             songs = []
 
-        for fname in os.listdir("review/"):
+        for fname in os.listdir(folder):
             if ".mp3" in fname:
                 # Clean(fname).export_json()
                 songs.append(Clean(fname).result())

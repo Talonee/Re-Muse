@@ -14,6 +14,7 @@ import os
 import unidecode
 import time
 
+from clean import GetJson
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -88,6 +89,39 @@ class Ui_MainWindow(object):
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
 
+
+
+        self.yesButton = QtWidgets.QPushButton(self.browse)
+        self.yesButton.setGeometry(QtCore.QRect(640, 380, 101, 41))
+        font = QtGui.QFont()
+        font.setFamily("Open Sans")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.yesButton.setFont(font)
+        self.yesButton.setObjectName("yesButton")
+
+        self.noButton = QtWidgets.QPushButton(self.browse)
+        self.noButton.setGeometry(QtCore.QRect(640, 480, 101, 41))
+        font = QtGui.QFont()
+        font.setFamily("Open Sans")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.noButton.setFont(font)
+        self.noButton.setObjectName("noButton")
+
+
+
+
+
+
+
+
+
+
         ###### Progress Page
         self.progress = QtWidgets.QFrame(self.centralwidget)
         self.progress.setGeometry(QtCore.QRect(20, 20, 931, 521))
@@ -131,6 +165,12 @@ class Ui_MainWindow(object):
 
         self.show_frame(2)
         self.pushButton.clicked.connect(self.browse_folder)
+
+
+        # CREATE TWO MORE BUTTONS PROMPTING YES OR NO
+        self.yesButton.clicked.connect(lambda: self.proceed())
+        self.noButton.clicked.connect(lambda: self.denied())
+
         # self.pushButton.clicked.connect(lambda: self.browse_button())
         # print("That's it")
 
@@ -147,6 +187,10 @@ class Ui_MainWindow(object):
         self.textbox.setText(_translate("MainWindow", "Enter path here..."))
         self.pushButton.setText(_translate("MainWindow", "Browse"))
         self.label_6.setText(_translate("MainWindow", "Progress..."))
+
+        
+        self.yesButton.setText(_translate("MainWindow", "Yes"))
+        self.noButton.setText(_translate("MainWindow", "No"))
 
     def show_frame(self, fnum):
         def frames(frame):
@@ -172,16 +216,23 @@ class Ui_MainWindow(object):
             frames([0,0,1])
 
     def browse_folder(self):
-        folder = QFileDialog.getExistingDirectory()
-        print(f"My current folder: {folder}")
+        self.folder = QFileDialog.getExistingDirectory() + "/"
+        print(f"My current folder: {self.folder}")
         print()
-        count = len([fname for fname in os.listdir(folder + "/") if ".mp3" in fname])
-        # for fname in os.listdir(folder + "/"):
-        #     if ".mp3" in fname:
-                # clean.Clean(fname).export_json()
-                # print(unidecode.unidecode(fname))
-        print(f"There are {count} music files in the current directory. Proceed?")
+        count = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
+        self.label_4.setText(f"There are {count} music files in the current directory. Proceed?")
+        self.label_4.adjustSize()
+        # print(f"There are {count} music files in the current directory. Proceed?")
+        # if yes, get json, proceed to frame 3
+        # else no, remain @ frame 2 and hide buttons
 
+    def proceed(self):
+        print("Getting Json...")
+        GetJson(self.folder)
+        self.show_frame(3)
+
+    def denied(self):
+        self.label_4.setText(f"Please select a folder")
 
 if __name__ == "__main__":
     import sys
