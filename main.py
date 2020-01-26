@@ -217,10 +217,9 @@ class Ui_MainWindow(object):
 
     def browse_folder(self):
         self.folder = QFileDialog.getExistingDirectory() + "/"
-        print(f"My current folder: {self.folder}")
-        print()
         count = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
-        self.label_4.setText(f"There are {count} music files in the current directory. Proceed?")
+        self.label_4.setText(f"My current folder: {self.folder}\n"
+                             f"There are {count} music files in the current directory. Proceed?")
         self.label_4.adjustSize()
         # print(f"There are {count} music files in the current directory. Proceed?")
         # if yes, get json, proceed to frame 3
