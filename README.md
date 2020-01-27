@@ -9,11 +9,11 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 4. Attempt search for 'Video,' get TACA, crop cover. Mark for review
 
 # Future
-1. Download mp3.
+1. Download mp3
 
 
 
-## Class 1 (Clean)
+## Clean and GetJson (clean.py)
 
 1. Find pre-existing data and initiate attributes. ✓
 2. Compile into Json and export (fname, artist, title, album, lyrics). ✓

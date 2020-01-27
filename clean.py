@@ -65,22 +65,23 @@ class Clean():
 
 class GetJson():
     def __init__(self, folder, reset=True):
-        # Reset pre existing data
+        # Reset previous data
         if reset and os.path.exists("songs.json"):
             os.remove("songs.json")
 
-        # Make json
+        # Initiate list of songs
         try:
             with open('songs.json') as infile:
                 songs = json.load(infile)
         except:
             songs = []
 
+        # Perform clean on each file within dir
         for fname in os.listdir(folder):
             if ".mp3" in fname:
-                # Clean(fname).export_json()
                 songs.append(Clean(fname).result())
 
+        # Output
         with open('songs.json', 'w') as outfile:
                 json.dump(songs, outfile, indent=4)
 
