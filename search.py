@@ -99,26 +99,32 @@ class Search():
     # This boy got recursion
     # This method is needed when a song doesn't have lyrics (i.e Flume - Helix)
     def get_song(self, arg1=None, arg2=None, rerun=True):
-        # try:
-        #     search = self.driver.find_element(By.CSS_SELECTOR, 'input[id="input"]')
+        # Click search button
+        time.sleep(1)
         src_btn = self.driver.find_element(By.CSS_SELECTOR, 'ytmusic-search-box[role="search"]')
         src_btn.click()
-        time.sleep(0.2)
+        time.sleep(0.5)
 
+        # Enter input
         search = self.driver.find_element(By.CSS_SELECTOR, 'input[id="input"]')
+        search.clear()  
         search.send_keys(f"{self.title} {self.artist}")
         search.send_keys(Keys.RETURN)
-        time.sleep(2)
-        search.clear()  
+        time.sleep(0.75)
 
-        res = self.driver.find_elements(By.CSS_SELECTOR, 'yt-formatted-string[class="text style-scope ytmusic-chip-cloud-chip-renderer"]')
-        for i in res:
-            print(i.text)
-            if i.text == "Song":
-                break
-            # txt = self.driver.find_element(By.CSS_SELECTOR, 'yt-formatted-string[class="style-scope"]').text
-            # print(txt)
+        # Show song results only
+        song_res = self.driver.find_element(By.CSS_SELECTOR, 'a[title="Show song results"]')
+        song_res.click()
+        time.sleep(0.5)
+
+        # Locate title, artist, album
+        loc_title = self.driver.find_element(By.XPATH, "/html/body/ytmusic-app/ytmusic-app-layout/div[3]/ytmusic-search-page/ytmusic-section-list-renderer/div[2]/ytmusic-shelf-renderer/div[1]/ytmusic-responsive-list-item-renderer[1]/div[2]/div[1]/yt-formatted-string").get_attribute("title")
+        loc_artist = self.driver.find_element(By.XPATH, "/html/body/ytmusic-app/ytmusic-app-layout/div[3]/ytmusic-search-page/ytmusic-section-list-renderer/div[2]/ytmusic-shelf-renderer/div[1]/ytmusic-responsive-list-item-renderer[1]/div[2]/div[3]/yt-formatted-string[1]").get_attribute("title")
+        loc_album = self.driver.find_element(By.XPATH, "/html/body/ytmusic-app/ytmusic-app-layout/div[3]/ytmusic-search-page/ytmusic-section-list-renderer/div[2]/ytmusic-shelf-renderer/div[1]/ytmusic-responsive-list-item-renderer[1]/div[2]/div[3]/yt-formatted-string[2]").get_attribute("title")
         
+
+
+
         print("I'M HERE")
 
         # if not arg1 and not arg2:
