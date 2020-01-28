@@ -2,6 +2,8 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 
 # TO DO:
 
+- Figure out a way to right click
+
 ## Flow
 1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
 2. If no artist (no dash), mark for review
