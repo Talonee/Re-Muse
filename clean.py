@@ -1,8 +1,6 @@
 import re 
 import os
-# from mutagen.id3 import ID3
 import json
-
 import unidecode # transliterates special characters
 
 from mutagen.id3 import ID3, ID3NoHeaderError
