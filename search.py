@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 
 from PIL import Image
 
-import os, shutil, unidecode, time, json
+import os, shutil, unidecode, time, json, urllib.request
 
 import clean
 # ID3 info:
@@ -21,7 +21,7 @@ import clean
 # USLT: lyric
 
 class Finalize():
-    def __init__(self):
+    def __init__(self, jsonf):
         # self.driver = webdriver.Chrome()
         self.options = Options()
         # self.options.add_argument("headless")
@@ -31,7 +31,7 @@ class Finalize():
         self.driver.get("https://music.youtube.com/")
         self.driver.execute_script("window.open('http://www.google.com/');")
 
-        with open('songs.json') as infile:
+        with open(jsonf) as infile:
             songs = json.load(infile)
         
         for song in songs:
@@ -39,7 +39,6 @@ class Finalize():
 
         time.sleep(3)
         self.driver.close()
-
 
 class Search():
     def __init__(self, driver, song):
@@ -186,10 +185,51 @@ class Search():
         id3.save(v2_version=3)
         shutil.move(f"review/{self.fname}", f"final/{self.loc_title}.mp3")   
 
+import threading
+
+class ReMuse(threading.Thread):
+    def __init__(self, threadId, name, count):
+        threading.Thread.__init__(self)
+        self.threadId = threadId
+        self.name = name
+        self.count = count
+
+    def run(self):
+        # print("Starting: " + self.name + "\n")
+        Finalize("songs1.json")
+        # print("Exiting: " + self.name + "\n")
+
+class ReMuse2(threading.Thread):
+    def __init__(self, threadId, name, count):
+        threading.Thread.__init__(self)
+        self.threadId = threadId
+        self.name = name
+        self.count = count
+
+    def run(self):
+        # print("Starting: " + self.name + "\n")
+        Finalize("songs2.json")
+        # print("Exiting: " + self.name + "\n")
+
+
 if __name__ == "__main__":
 #     from tqdm import tqdm
 #     clean.GetJson(folder="review/")
-    Finalize()
+    ctime = time.time()
+    Finalize("songs.json")
+    print(f"Without threading: {time.time() - ctime:.2f}.")
+
+    time.sleep(5)
+
+    thread1 = ReMuse(1, "Running song1.json", 0)
+    thread2 = ReMuse2(2, "Running song2.json", 0)
+
+    ctime = time.time()
+    thread1.start()
+    thread2.start()
+    thread1.join()
+    thread2.join()
+    print(f"With threading: {time.time() - ctime:.2f}.")
 
 
     # # Run Search.py
