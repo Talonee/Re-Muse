@@ -3,6 +3,9 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 # TO DO:
 
 - Consider threading
+- Generalize all input and out sources
+    -     `print(os.path.dirname(os.path.abspath(__file__)))`
+
 
 ## Flow
 1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
