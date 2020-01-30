@@ -2,7 +2,7 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 
 # TO DO:
 
-- Figure out a way to right click
+- Consider threading
 
 ## Flow
 1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
@@ -23,12 +23,10 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 
 ## Class 2 (Search) (try, except simulator) 
 
-1. Search artist, title, lyrics. ✓
-2. Search album, cover. ✓
-3. Create database for albums and artists.
-3. GRIS album art for higher quality. ✓
-4. Resize to 900x900.
-5. Rename files. ✓
+1. Search artist, title, album, cover, lyrics. ✓
+2. Create database for albums and artists.
+3. Exception cases for videos and non-existing song.
+4. Save metadata and finalize modification. ✓
 
 ## Class 3 (App)
 

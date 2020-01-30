@@ -188,9 +188,9 @@ class Search():
 
 if __name__ == "__main__":
 #     from tqdm import tqdm
+#     clean.GetJson(folder="review/")
     Finalize()
 
-#     clean.GetJson(folder="review/")
 
     # # Run Search.py
     # with open('songs.json') as infile:
