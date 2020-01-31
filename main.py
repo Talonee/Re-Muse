@@ -25,7 +25,6 @@ from selenium.webdriver.common.by import By
 import os, shutil, unidecode, time, json, urllib.request, threading
 
 class ReMuse(QThread):
-    
     countChanged = pyqtSignal(int) # this needs to remain outside of init
 
     def __init__(self, songs):
@@ -66,8 +65,11 @@ class Ui_MainWindow(object):
         self.calc2.start()
 
     def onCountChanged(self, lenlist):
-        self.pbar.setValue(self.pbar.value() + 100/len(self.songs)/lenlist)
+        print("Added %: ", 100/2/lenlist)
+        self.pbar.setValue(self.pbar.value() + 100/2/lenlist) # 100 / num(threads) / len(list)
         print(f"Current: {self.pbar.value()}")
+        if self.pbar.value() == 100:
+            self.label_6.setText("Completed")
 
 
 
@@ -317,8 +319,9 @@ class Ui_MainWindow(object):
         self.label_4.setText(f"My current folder: {self.folder}\n"
                              f"There are {count} music files in the current directory. Proceed?")
         self.label_4.adjustSize()
+
         # print(f"There are {count} music files in the current directory. Proceed?")
-        # if yes, get json, proceed to frame 3
+        # if yes, proceed to frame 3, get Json, run ReMuse
         # else no, remain @ frame 2 and hide buttons
 
     def proceed(self):

@@ -20,6 +20,8 @@ import clean
 # TALB: album
 # USLT: lyric
 
+
+# LEGACY CLASSES, TRANSFERRED TO MAIN.PY
 class Finalize():
     def __init__(self, jsonf):
         # self.driver = webdriver.Chrome()
@@ -27,7 +29,7 @@ class Finalize():
         with open(jsonf) as infile:
             songs = json.load(infile)
         index = int(len(songs) / 2)
-        
+
         thread1 = ReMuse(songs[:index])
         thread2 = ReMuse(songs[index:])
 
@@ -58,6 +60,11 @@ class ReMuse(threading.Thread):
             print(f"Finished with {mehoy}")
         
         self.driver.quit()
+
+
+
+
+
 
 class Search():
     def __init__(self, driver, song):
@@ -205,24 +212,12 @@ class Search():
         shutil.move(f"review/{self.fname}", f"final/{self.loc_title}.mp3")   
 
 if __name__ == "__main__":
-#     from tqdm import tqdm
-#     clean.GetJson(folder="review/")
-
-    ctime = time.time()
-    Finalize("songs.json")
-    print(f"Thread time: {time.time() - ctime:.2f}.") # 40s
-
-    # time.sleep(5)
-
-    # thread1 = ReMuse(1, "Running song1.json", 0)
-    # thread2 = ReMuse(2, "Running song2.json", 0)
+    clean.GetJson(folder="review/")
 
     # ctime = time.time()
-    # thread1.start()
-    # thread2.start()
-    # thread1.join()
-    # thread2.join()
-    # print(f"With threading: {time.time() - ctime:.2f}.") # 30s
+    # Finalize("songs.json")
+    # print(f"Thread time: {time.time() - ctime:.2f}.") # 40s
+
 
 
     # # Run Search.py

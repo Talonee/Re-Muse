@@ -31,7 +31,7 @@ class Clean():
             rem = ["official", "oficial", "audio", "lyrics", "lyric", "video"]
             for i in rem:
                 fname = fname.replace(i, "") if i in fname else fname
-            fname = re.sub("\s[^a-z\-]", "", fname).split("-")
+            fname = re.sub("\s[^a-z\-]", "", fname).replace(")", "").split("-")
 
             if not self.title:
                 self.title = fname[0].strip().title()
