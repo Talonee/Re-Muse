@@ -9,16 +9,71 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-import os
-import unidecode
-import time
-import sys
+import os, unidecode, time, sys
 
 from clean import GetJson
+from search import Search
 
-from tqdm import tqdm
+
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+
+import os, shutil, unidecode, time, json, urllib.request, threading
+
+class ReMuse(QThread):
+    
+    countChanged = pyqtSignal(int) # this needs to remain outside of init
+
+    def __init__(self, songs):
+        QThread.__init__(self)
+        self.songs = songs
+        self.length = len(self.songs)
+             
+    def run(self):
+        self.options = Options()
+        # self.options.add_argument("headless")
+        self.options.add_argument("--incognito")
+        self.options.add_argument("--mute-audio")
+        self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
+        self.driver.get("https://music.youtube.com/")
+        self.driver.execute_script("window.open('http://www.google.com/');")
+        for song in self.songs:
+            mehoy = unidecode.unidecode(song["File"])
+            print(f"Starting {mehoy}")
+            Search(self.driver, song).find()
+            print(f"Finished with {mehoy}")
+            self.countChanged.emit(self.length)
+
+        self.driver.quit()
+
 
 class Ui_MainWindow(object):
+    def __init__(self):
+        with open('songs.json') as infile:
+            self.songs = json.load(infile)
+        self.index = int(len(self.songs) / 2)
+
+    def onButtonClick(self):
+        self.calc1 = ReMuse(self.songs[:self.index])
+        self.calc2 = ReMuse(self.songs[self.index:])
+        self.calc1.countChanged.connect(self.onCountChanged)
+        self.calc2.countChanged.connect(self.onCountChanged)
+        self.calc1.start()
+        self.calc2.start()
+
+    def onCountChanged(self, lenlist):
+        self.pbar.setValue(self.pbar.value() + 100/len(self.songs)/lenlist)
+        print(f"Current: {self.pbar.value()}")
+
+
+
+
+
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(960, 600)
@@ -156,14 +211,15 @@ class Ui_MainWindow(object):
         ## Progress bar
         self.pbar = QProgressBar(self.progress)
         self.pbar.setGeometry(30, 40, 200, 25)
+        self.pbar.setValue(0)
 
 
         self.btn = QPushButton('Start', self.progress)
         self.btn.move(40, 80)
-        self.btn.clicked.connect(lambda: self.doAction())
+        self.btn.clicked.connect(lambda: self.onButtonClick())
 
-        self.timer = QBasicTimer()
-        self.step = 0
+        # self.timer = QBasicTimer()
+        # self.step = 0
 
 
         

@@ -26,8 +26,8 @@ class Finalize():
 
         with open(jsonf) as infile:
             songs = json.load(infile)
-        
         index = int(len(songs) / 2)
+        
         thread1 = ReMuse(songs[:index])
         thread2 = ReMuse(songs[index:])
 
