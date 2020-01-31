@@ -39,6 +39,10 @@ class Finalize():
 class ReMuse(threading.Thread):
     def __init__(self, songs):
         threading.Thread.__init__(self)
+
+        self.songs = songs
+
+    def run(self):
         self.options = Options()
         # self.options.add_argument("headless")
         self.options.add_argument("--incognito")
@@ -47,9 +51,6 @@ class ReMuse(threading.Thread):
         self.driver.get("https://music.youtube.com/")
         self.driver.execute_script("window.open('http://www.google.com/');")
 
-        self.songs = songs
-
-    def run(self):
         for song in self.songs:
             Search(self.driver, song).find()
             mehoy = unidecode.unidecode(song["File"])

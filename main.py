@@ -6,15 +6,17 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import os
 import unidecode
 import time
+import sys
 
 from clean import GetJson
+
+from tqdm import tqdm
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -23,7 +25,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
-        ###### Welcome Page
+        ###### Welcome Page (Frame 1)
         self.welcome = QtWidgets.QFrame(self.centralwidget)
         self.welcome.setEnabled(True)
         self.welcome.setGeometry(QtCore.QRect(10, 10, 931, 521))
@@ -41,7 +43,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
 
-        ###### Browsing Page
+        ###### Browsing Page (Frame 2)
         self.browse = QtWidgets.QFrame(self.centralwidget)
         self.browse.setGeometry(QtCore.QRect(10, 10, 931, 521))
         font = QtGui.QFont()
@@ -116,13 +118,7 @@ class Ui_MainWindow(object):
 
 
 
-
-
-
-
-
-
-        ###### Progress Page
+        ###### Progress Page (Frame 3)
         self.progress = QtWidgets.QFrame(self.centralwidget)
         self.progress.setGeometry(QtCore.QRect(20, 20, 931, 521))
         self.progress.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -149,12 +145,31 @@ class Ui_MainWindow(object):
 
 
 
-        # self.fade(self.browse, 0)
-        # self.hide_pls(self.browse)
-        # self.hide_pls(self.progress)
 
-        # self.browse.hide()
-        # self.progress.hide()
+
+
+
+
+        self.show_frame(3)
+
+
+        ## Progress bar
+        self.pbar = QProgressBar(self.progress)
+        self.pbar.setGeometry(30, 40, 200, 25)
+
+
+        self.btn = QPushButton('Start', self.progress)
+        self.btn.move(40, 80)
+        self.btn.clicked.connect(lambda: self.doAction())
+
+        self.timer = QBasicTimer()
+        self.step = 0
+
+
+        
+        # self.progress.setGeometry(300, 300, 280, 170)
+        # self.progress.setWindowTitle('QProgressBar')
+        # self.progress.show()
         
         # self.timer = QTimer()
         
@@ -163,11 +178,10 @@ class Ui_MainWindow(object):
         # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
         # self.timer.start(3000)
 
-        self.show_frame(2)
+
+
+        # Buttons to run
         self.pushButton.clicked.connect(self.browse_folder)
-
-
-        # CREATE TWO MORE BUTTONS PROMPTING YES OR NO
         self.yesButton.clicked.connect(lambda: self.proceed())
         self.noButton.clicked.connect(lambda: self.denied())
 
@@ -177,6 +191,54 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
+    def timerEvent(self, e):
+        if self.step >= 100:
+            
+            self.timer.stop()
+            self.btn.setText('Finished')
+            return
+            
+        self.step = self.step + 1
+        self.pbar.setValue(self.step)
+        
+
+    def doAction(self):
+        self.completed = 0
+
+        while self.completed < 100:
+            self.completed += 0.0001
+            self.pbar.setValue(self.completed)
+
+
+        # if self.timer.isActive():
+        #     self.label_6.setText("Woop")
+        #     self.timer.stop()
+        #     self.btn.setText('Start')
+        # else:
+        #     self.label_6.setText("IQ")
+        #     self.timer.start(100, self.pbar)
+        #     self.btn.setText('Stop')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -185,12 +247,32 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
         self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
         self.textbox.setText(_translate("MainWindow", "Enter path here..."))
-        self.pushButton.setText(_translate("MainWindow", "Browse"))
+        self.pushButton.setText(_translate("MainWindow", "Browse"))       
         self.label_6.setText(_translate("MainWindow", "Progress..."))
 
         
         self.yesButton.setText(_translate("MainWindow", "Yes"))
         self.noButton.setText(_translate("MainWindow", "No"))
+
+    def browse_folder(self):
+        self.folder = QFileDialog.getExistingDirectory() + "/"
+        count = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
+        self.label_4.setText(f"My current folder: {self.folder}\n"
+                             f"There are {count} music files in the current directory. Proceed?")
+        self.label_4.adjustSize()
+        # print(f"There are {count} music files in the current directory. Proceed?")
+        # if yes, get json, proceed to frame 3
+        # else no, remain @ frame 2 and hide buttons
+
+    def proceed(self):
+        print("Getting Json...")
+        # GetJson(self.folder)
+        self.show_frame(3)
+
+    def denied(self):
+        self.label_4.setText(f"Please select a folder")
+
+
 
     def show_frame(self, fnum):
         def frames(frame):
@@ -215,23 +297,6 @@ class Ui_MainWindow(object):
         elif fnum == 3:
             frames([0,0,1])
 
-    def browse_folder(self):
-        self.folder = QFileDialog.getExistingDirectory() + "/"
-        count = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
-        self.label_4.setText(f"My current folder: {self.folder}\n"
-                             f"There are {count} music files in the current directory. Proceed?")
-        self.label_4.adjustSize()
-        # print(f"There are {count} music files in the current directory. Proceed?")
-        # if yes, get json, proceed to frame 3
-        # else no, remain @ frame 2 and hide buttons
-
-    def proceed(self):
-        print("Getting Json...")
-        GetJson(self.folder)
-        self.show_frame(3)
-
-    def denied(self):
-        self.label_4.setText(f"Please select a folder")
 
 if __name__ == "__main__":
     import sys
@@ -264,7 +329,7 @@ if __name__ == "__main__":
 
 
 
-
+'''
     def init(self):
         a, b, c = [1,1,1]
         # Set all frame opacity to 0
@@ -375,3 +440,4 @@ if __name__ == "__main__":
 
         self.animation.start()
 
+'''
