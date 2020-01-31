@@ -192,21 +192,22 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 
-    def timerEvent(self, e):
-        if self.step >= 100:
+    # def timerEvent(self, e):
+    #     if self.step >= 100:
             
-            self.timer.stop()
-            self.btn.setText('Finished')
-            return
+    #         self.timer.stop()
+    #         self.btn.setText('Finished')
+    #         return
             
-        self.step = self.step + 1
-        self.pbar.setValue(self.step)
+    #     self.step = self.step + 1
+    #     self.pbar.setValue(self.step)
         
 
     def doAction(self):
         self.completed = 0
 
         while self.completed < 100:
+            # time.sleep(1)
             self.completed += 0.0001
             self.pbar.setValue(self.completed)
 

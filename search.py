@@ -52,6 +52,7 @@ class ReMuse(threading.Thread):
         self.driver.execute_script("window.open('http://www.google.com/');")
 
         for song in self.songs:
+            # This is where the progress bar iterates
             Search(self.driver, song).find()
             mehoy = unidecode.unidecode(song["File"])
             print(f"Finished with {mehoy}")
