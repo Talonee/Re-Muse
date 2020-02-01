@@ -1,19 +1,9 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'app.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-import os, unidecode, time, sys
 
 from clean import GetJson
 from search import Search
-
 
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
@@ -22,10 +12,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-import os, shutil, unidecode, time, json, urllib.request, threading
+import os, shutil, unidecode, time, json, urllib.request, sys
 
 class ReMuse(QThread):
-    countChanged = pyqtSignal(int) # this needs to remain outside of init
+    countChanged = pyqtSignal(int) # must remain outside of init
 
     def __init__(self, songs):
         QThread.__init__(self)
@@ -65,9 +55,9 @@ class Ui_MainWindow(object):
         self.calc2.start()
 
     def onCountChanged(self, lenlist):
-        print("Added %: ", 100/2/lenlist)
         self.pbar.setValue(self.pbar.value() + 100/2/lenlist) # 100 / num(threads) / len(list)
-        print(f"Current: {self.pbar.value()}")
+        print(f"Added %: {100/2/lenlist}\n"
+              f"Current: {self.pbar.value()}")
         if self.pbar.value() == 100:
             self.label_6.setText("Completed")
 
@@ -201,36 +191,33 @@ class Ui_MainWindow(object):
 
 
 
-
+        self.createGridLayout()
+        windowLayout = QVBoxLayout()
+        windowLayout.addWidget(self.horizontalGroupBox)
+        self.progress.setLayout(windowLayout)
 
 
 
 
 
         self.show_frame(3)
+        self.yesButton.hide()
+        self.noButton.hide()
 
+        
 
         ## Progress bar
         self.pbar = QProgressBar(self.progress)
         self.pbar.setGeometry(30, 40, 200, 25)
         self.pbar.setValue(0)
 
-
-        self.btn = QPushButton('Start', self.progress)
+        self.btn = QPushButton('Begin Search', self.progress)
         self.btn.move(40, 80)
         self.btn.clicked.connect(lambda: self.onButtonClick())
 
-        # self.timer = QBasicTimer()
-        # self.step = 0
 
-
-        
-        # self.progress.setGeometry(300, 300, 280, 170)
-        # self.progress.setWindowTitle('QProgressBar')
-        # self.progress.show()
         
         # self.timer = QTimer()
-        
         # self.timer.setSingleShot(True)
         # self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
         # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
@@ -240,46 +227,31 @@ class Ui_MainWindow(object):
 
         # Buttons to run
         self.pushButton.clicked.connect(self.browse_folder)
-        self.yesButton.clicked.connect(lambda: self.proceed())
-        self.noButton.clicked.connect(lambda: self.denied())
+        self.yesButton.clicked.connect(self.proceed)
+        self.noButton.clicked.connect(self.denied)
 
-        # self.pushButton.clicked.connect(lambda: self.browse_button())
-        # print("That's it")
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 
-    # def timerEvent(self, e):
-    #     if self.step >= 100:
-            
-    #         self.timer.stop()
-    #         self.btn.setText('Finished')
-    #         return
-            
-    #     self.step = self.step + 1
-    #     self.pbar.setValue(self.step)
+    def createGridLayout(self):
+        self.horizontalGroupBox = QGroupBox("Grid")
+        layout = QGridLayout()
+        layout.setColumnStretch(1, 4)
+        layout.setColumnStretch(2, 4)
         
-
-    def doAction(self):
-        self.completed = 0
-
-        while self.completed < 100:
-            # time.sleep(1)
-            self.completed += 0.0001
-            self.pbar.setValue(self.completed)
-
-
-        # if self.timer.isActive():
-        #     self.label_6.setText("Woop")
-        #     self.timer.stop()
-        #     self.btn.setText('Start')
-        # else:
-        #     self.label_6.setText("IQ")
-        #     self.timer.start(100, self.pbar)
-        #     self.btn.setText('Stop')
-
-
+        layout.addWidget(QPushButton('1'),0,0)
+        layout.addWidget(QPushButton('2'),0,1)
+        layout.addWidget(QPushButton('3'),0,2)
+        layout.addWidget(QPushButton('4'),1,0)
+        layout.addWidget(QPushButton('5'),1,1)
+        layout.addWidget(QPushButton('6'),1,2)
+        layout.addWidget(QPushButton('7'),2,0)
+        layout.addWidget(QPushButton('8'),2,1)
+        layout.addWidget(QPushButton('9'),2,2)
+        
+        self.horizontalGroupBox.setLayout(layout)
 
 
 
@@ -309,28 +281,46 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "Browse"))       
         self.label_6.setText(_translate("MainWindow", "Progress..."))
 
-        
         self.yesButton.setText(_translate("MainWindow", "Yes"))
         self.noButton.setText(_translate("MainWindow", "No"))
 
     def browse_folder(self):
         self.folder = QFileDialog.getExistingDirectory() + "/"
-        count = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
-        self.label_4.setText(f"My current folder: {self.folder}\n"
-                             f"There are {count} music files in the current directory. Proceed?")
-        self.label_4.adjustSize()
+        self.fileCount = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
 
+        if self.fileCount == 0:
+            self.label_4.setText(f"Current folder: {self.folder}\n"
+                                f"There are no music files in the current directory. Please re-select..")
+            self.label_4.adjustSize()
+        else:
+            self.label_4.setText(f"Current folder: {self.folder}\n"
+                                f"There are {self.fileCount} music files in the current directory. Proceed?")
+            self.label_4.adjustSize()
+            
+            self.yesButton.show()
+            self.noButton.show()
         # print(f"There are {count} music files in the current directory. Proceed?")
         # if yes, proceed to frame 3, get Json, run ReMuse
         # else no, remain @ frame 2 and hide buttons
 
     def proceed(self):
         print("Getting Json...")
-        # GetJson(self.folder)
+        GetJson(self.folder)
         self.show_frame(3)
 
     def denied(self):
-        self.label_4.setText(f"Please select a folder")
+        self.label_4.setText(f"Please select a folder")        
+        self.yesButton.hide()
+        self.noButton.hide()
+
+
+    def show_widget(self, widget, on):
+        effect = QGraphicsOpacityEffect()
+        effect.setOpacity(on)
+        widget.setGraphicsEffect(effect)
+        widget.show() if on else widget.hide()
+
+
 
 
 
@@ -341,7 +331,7 @@ class Ui_MainWindow(object):
             switch(self.browse, b)
             switch(self.progress, c)
 
-        def switch(widget, on):
+        def switch(widget, on): # Turn on/off opacity, then show/hide
             effect = QGraphicsOpacityEffect()
             effect.setOpacity(on)
             widget.setGraphicsEffect(effect)
@@ -356,7 +346,6 @@ class Ui_MainWindow(object):
             frames([0,1,0])
         elif fnum == 3:
             frames([0,0,1])
-
 
 if __name__ == "__main__":
     import sys

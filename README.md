@@ -1,9 +1,9 @@
-Re-Muse is an app that takes in a music file's name and attempt to fill in any missing metadata such as album, cover art and lyrics. 
+Re-Muse is an interactive application which browses for music files' name and attempt to fill in any missing metadata such as title, artist, album, cover art and lyrics. 
 
 # TO DO:
 
 - Generalize all input and out sources
-    -     `print(os.path.dirname(os.path.abspath(__file__)))`
+    - `print(os.path.dirname(os.path.abspath(__file__)))`
 
 
 ## Flow
@@ -12,10 +12,13 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 3. Attempt search for 'Song,' get TACA, crop cover
 4. Attempt search for 'Video,' get TACA, crop cover. Mark for review
 
-# Future
+## Future
 1. Download mp3
+2. Manual information input
+3. Optional: Access phone subfolders, pull and modify songs
+4. Review Page: Show lists of successful & need4review files
 
-
+# FILES:
 
 ## Clean and GetJson (clean.py)
 
@@ -32,16 +35,10 @@ Re-Muse is an app that takes in a music file's name and attempt to fill in any m
 
 ## Class 3 (App)
 
-1. Welcome message.
-2. Browse folder to clean and search.
-3. Show live update (tqdb).
+1. Welcome message. ✓
+2. Browse folder to clean and search. ✓
+3. Show live update with progress bar. ✓
 4. Review: Show lists of songs in need of review
-5. Prompt for manual input of artist information
-
-- Optional: Access phone subfolders, pull and modify songs
-
-
-
 
 ## Useful links to references
 
