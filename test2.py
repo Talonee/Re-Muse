@@ -16,18 +16,22 @@ class Ui_MainWindow(object):
         MainWindow.resize(587, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        
         self.photo = QtWidgets.QLabel(self.centralwidget)
         self.photo.setGeometry(QtCore.QRect(10, 10, 431, 531))
         self.photo.setText("")
         self.photo.setPixmap(QtGui.QPixmap("../../../Pictures/Suzii/WhatsApp Image 2019-07-27 at 23.18.40.jpeg"))
         self.photo.setScaledContents(True)
         self.photo.setObjectName("photo")
+
         self.suzii1 = QtWidgets.QPushButton(self.centralwidget)
         self.suzii1.setGeometry(QtCore.QRect(470, 90, 93, 28))
         self.suzii1.setObjectName("suzii1")
+
         self.suzii2 = QtWidgets.QPushButton(self.centralwidget)
         self.suzii2.setGeometry(QtCore.QRect(470, 280, 93, 28))
         self.suzii2.setObjectName("suzii2")
+
         self.button = QtWidgets.QPushButton(self.centralwidget)
         self.button.setGeometry(QtCore.QRect(470, 470, 93, 28))
         self.button.setObjectName("button")

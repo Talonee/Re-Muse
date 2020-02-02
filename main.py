@@ -192,9 +192,11 @@ class Ui_MainWindow(object):
 
 
         self.createGridLayout()
-        windowLayout = QVBoxLayout()
-        windowLayout.addWidget(self.horizontalGroupBox)
-        self.progress.setLayout(windowLayout)
+        # windowLayout = QVBoxLayout()
+        # windowLayout.addWidget(self.horizontalGroupBox)
+        # self.progress.setLayout(windowLayout)
+        
+        
 
 
 
@@ -236,23 +238,64 @@ class Ui_MainWindow(object):
 
 
     def createGridLayout(self):
-        self.horizontalGroupBox = QGroupBox("Grid")
-        layout = QGridLayout()
-        layout.setColumnStretch(1, 4)
-        layout.setColumnStretch(2, 4)
+        # self.horizontalGroupBox = QGroupBox("Grid")
+        # layout = QGridLayout()
+        # self.progress.setLayout(layout)
+        # # layout.setColumnStretch(3,3)
         
-        layout.addWidget(QPushButton('1'),0,0)
-        layout.addWidget(QPushButton('2'),0,1)
-        layout.addWidget(QPushButton('3'),0,2)
-        layout.addWidget(QPushButton('4'),1,0)
-        layout.addWidget(QPushButton('5'),1,1)
-        layout.addWidget(QPushButton('6'),1,2)
-        layout.addWidget(QPushButton('7'),2,0)
-        layout.addWidget(QPushButton('8'),2,1)
-        layout.addWidget(QPushButton('9'),2,2)
-        
-        self.horizontalGroupBox.setLayout(layout)
 
+        # layout.addWidget(self.yesButton,0,0)
+        # # layout.addWidget(QPushButton('1'),0,0)
+        # layout.addWidget(QPushButton('2'),0,1)
+        # layout.addWidget(QPushButton('3'),0,2)
+        # layout.addWidget(QPushButton('4'),1,0)
+        # layout.addWidget(QPushButton('5'),1,1)
+        # layout.addWidget(QPushButton('6'),1,2)
+        # layout.addWidget(QPushButton('7'),2,0)
+        # layout.addWidget(QPushButton('8'),2,1)
+        # layout.addWidget(QPushButton('9'),2,2)
+        
+
+        # self.progress.setWindowTitle('Basic Grid Layout')
+        # self.horizontalGroupBox.setLayout(layout)
+        # photo = QtWidgets.QLabel(self.progress)
+        photo = QtWidgets.QLabel()
+        # photo.setGeometry(QtCore.QRect(200, 200, 431, 531))
+        # photo.setText("")
+        photo.setPixmap(QtGui.QPixmap("../../../Pictures/Suzii/WhatsApp Image 2019-07-27 at 23.18.40.jpeg"))
+        photo.setScaledContents(True)
+        # photo.setObjectName("photo")
+
+
+
+
+        title = QLabel('Title')
+        author = QLabel('Author')
+        review = QLabel('Review')
+        test = QLabel('Test')
+
+        titleEdit = QLineEdit()
+        authorEdit = QLineEdit()
+        reviewEdit = QTextEdit()
+
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        # grid.addWidget(photo, 0, 0)
+
+        grid.addWidget(title, 1, 0)
+        grid.addWidget(titleEdit, 1, 1)
+
+        grid.addWidget(author, 2, 0)
+        grid.addWidget(authorEdit, 2, 1)
+
+        grid.addWidget(review, 3, 0)
+        grid.addWidget(reviewEdit, 3, 1, 5, 1)
+
+        grid.addWidget(test, 5, 0)
+        
+        self.progress.setLayout(grid) 
+        
 
 
 
@@ -283,6 +326,7 @@ class Ui_MainWindow(object):
 
         self.yesButton.setText(_translate("MainWindow", "Yes"))
         self.noButton.setText(_translate("MainWindow", "No"))
+
 
     def browse_folder(self):
         self.folder = QFileDialog.getExistingDirectory() + "/"
