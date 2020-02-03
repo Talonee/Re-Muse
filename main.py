@@ -200,9 +200,14 @@ class Ui_MainWindow(object):
         # self.createGridLayout()
 
 
-        # items = [(1,2), (4,1), (9,7)]
-        # for i, j in zip(items, range(3)):
-        #     print(i[0], i[1], j)
+        # items = [(1,2), (4,1), (9,7), (0,4), (6,4), (4,3)]
+        # position = []
+        # for row in range(2):
+        #     for col in range(3):
+        #         position.append((row, col))
+
+        # for item, pos in zip(items, position):
+        #     print(*pos)
 
 
 
@@ -247,21 +252,29 @@ class Ui_MainWindow(object):
         self.widget = QWidget()
         self.widget.setLayout(self.mama_grid)
 
-        self.scroll.setGeometry(200, 50, 500, 500)
+        self.scroll.setGeometry(50, 20, 800, 500)
         self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        # self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scroll.setWidgetResizable(True)
         self.scroll.setWidget(self.widget)
 
     def griddy(self):
         self.mama_grid = QtWidgets.QGridLayout()
-        for content, position in zip(self.container, range(4)):
+
+        position = []
+        for row in range(7): # change range to adapt
+            for col in range(3):
+                position.append((row, col))
+
+        for item, pos in zip(self.container, position):
+            # print(pos)
             groupBox = QGroupBox()
             vbox = QVBoxLayout()
-            vbox.addWidget(content[0])
-            vbox.addWidget(content[1])
+            vbox.addWidget(item[0])
+            vbox.addWidget(item[1])
             groupBox.setLayout(vbox)
-            self.mama_grid.addWidget(groupBox, position, 0)
+            self.mama_grid.addWidget(groupBox, pos[0], pos[1])
 
         # self.mama_grid.addWidget(groupBox1, 1, 0)
         # self.mama_grid.addWidget(groupBox2, 2, 0)
@@ -271,7 +284,8 @@ class Ui_MainWindow(object):
 
     def getImages(self):
         self.container = []
-        count = 0
+        self.length = len(os.listdir("covers/")) # dir is your directory path
+
         for fname in os.listdir("covers/"):
             if ".jpg" in fname:
                 img = QtWidgets.QLabel()
@@ -281,187 +295,6 @@ class Ui_MainWindow(object):
                 txt.setText("Clueless")
                 txt.setAlignment(Qt.AlignCenter)
                 self.container.append((img, txt))
-            count += 1
-            if count == 4:
-                break
-
-    def createGridLayout(self):
-        self.image = QtWidgets.QLabel()
-        pixmap = QtGui.QPixmap("covers/Clueless.jpg")
-        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
-        pixmap = pixmap.scaledToHeight(200)
-        self.image.setPixmap(pixmap)
-        # self.image.setScaledContents(True)
-        self.text = QtWidgets.QLabel()
-        # self.text.setText("ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA")
-        self.text.setText("Clueless")
-        self.text.setAlignment(Qt.AlignCenter)
-
-        self.image1 = QtWidgets.QLabel(self.centralwidget)
-        pixmap = QtGui.QPixmap("covers/Badunkadunk.jpg")
-        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
-        pixmap = pixmap.scaledToHeight(200)
-        self.image1.setPixmap(pixmap)
-        self.image1.setScaledContents(True)
-        self.text1 = QtWidgets.QLabel(self.centralwidget)
-        self.text1.setText("Badunkadunk")
-        self.text1.setAlignment(Qt.AlignCenter)
-
-        self.image2 = QtWidgets.QLabel(self.centralwidget)
-        pixmap = QtGui.QPixmap("covers/GOKU.jpg")
-        pixmap = pixmap.scaledToHeight(200)
-        self.image2.setPixmap(pixmap)
-        self.image2.setScaledContents(True)
-        self.text2 = QtWidgets.QLabel(self.centralwidget)
-        self.text2.setText("GOKU")
-        self.text2.setAlignment(Qt.AlignCenter)
-
-        self.image3 = QtWidgets.QLabel(self.centralwidget)
-        pixmap = QtGui.QPixmap("covers/Wafia.jpg")
-        pixmap = pixmap.scaledToHeight(200)
-        self.image3.setPixmap(pixmap)
-        self.image3.setScaledContents(True)
-        self.text3 = QtWidgets.QLabel(self.centralwidget)
-        self.text3.setText("Wafia")
-        self.text3.setAlignment(Qt.AlignCenter)
-
-
-
-
-        # self.text2.setText("WRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
-
-
-
-
-        grid_layout = QtWidgets.QGridLayout(self.centralwidget)
-        # self.centralwidget.setLayout(grid_layout)
-        # grid_layout.setColumnStretch(1, 1)
-        # grid_layout.setRowStretch(1, 1)
-        # grid_layout.setGeometry(QtCore.QRect(100, 100, 100, 100))
-        # grid_layout.addWidget(self.image, 0, 0)
-        # grid_layout.addWidget(self.text, 1, 0)
-        # grid_layout.addWidget(self.image1, 0, 1)
-        # grid_layout.addWidget(self.text1, 2, 1)
-        # for row in range(3):
-        #     for col in range(3):
-        #         grid_layout.addWidget(QPushButton(str(row + col)), row, col)
-
-        groupBox = QGroupBox()
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.image)
-        vbox.addWidget(self.text)
-        # vbox.addStretch(1)
-        groupBox.setLayout(vbox)
-
-        groupBox1 = QGroupBox()
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.image1)
-        vbox.addWidget(self.text1)
-        # vbox.addStretch(1)
-        groupBox1.setLayout(vbox)
-
-        groupBox2 = QGroupBox()
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.image2)
-        vbox.addWidget(self.text2)
-        # vbox.addStretch(1)
-        groupBox2.setLayout(vbox)
-
-        groupBox3 = QGroupBox()
-        vbox = QVBoxLayout()
-        vbox.addWidget(self.image3)
-        vbox.addWidget(self.text3)
-        # vbox.addStretch(1)
-        groupBox3.setLayout(vbox)
-
-
-        grid_layout.addWidget(groupBox, 0, 0)
-        grid_layout.addWidget(groupBox1, 1, 0)
-        grid_layout.addWidget(groupBox2, 2, 0)
-        grid_layout.addWidget(groupBox3, 3, 0)
-        
-        grid_layout.setAlignment(Qt.AlignCenter)
-
-
-
-
-        self.scroll = QScrollArea(self.centralwidget)             # Scroll Area which contains the widgets, set as the centralWidget
-        self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
-        self.widget.setLayout(grid_layout)
-
-        self.scroll.setGeometry(200, 100, 500, 500)
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll.setWidgetResizable(True)
-        self.scroll.setWidget(self.widget)
-
-        # self.scroll.setWidget(grid_layout)
-        # self.scroll.setAlignment(Qt.AlignCenter)
-
-
-
-
-
-
-
-        # mama_grid = QtWidgets.QGridLayout()
-        # mama_grid.setColumnStretch(3, 3)
-        # mama_grid.setRowStretch(3, 3)
-        # self.centralwidget.setLayout(mama_grid)
-        # mama_grid.addWidget(grid_layout, 0, 0)
-        # mama_grid.addLayout(grid_layout, 0, 0)
-        # mama_grid.addItem(grid_layout, 0, 0)
-        # mama_grid.addLayout(grid_layout, 0, 1)
-        # mama_grid.addWidget(self.text, 1, 0)
-
-
-
-
-
-
-        # title = QLabel('Title')
-        # author = QLabel('Author')
-        # review = QLabel('Review')
-        # test = QLabel('Test')
-
-        # titleEdit = QLineEdit()
-        # authorEdit = QLineEdit()
-        # reviewEdit = QTextEdit()
-
-        # grid = QGridLayout()
-        # grid.setSpacing(10)
-
-        # # grid.addWidget(photo, 0, 0)
-
-        # grid.addWidget(title, 1, 0)
-        # grid.addWidget(titleEdit, 1, 1)
-
-        # grid.addWidget(author, 2, 0)
-        # grid.addWidget(authorEdit, 2, 1)
-
-        # grid.addWidget(review, 3, 0)
-        # grid.addWidget(reviewEdit, 3, 1, 5, 1)
-
-        # grid.addWidget(test, 5, 0)
-        
-        # self.progress.setLayout(grid) 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -680,4 +513,168 @@ if __name__ == "__main__":
 
         self.animation.start()
 
+'''
+'''
+#################################################
+    def createGridLayout(self):
+        self.image = QtWidgets.QLabel()
+        pixmap = QtGui.QPixmap("covers/Clueless.jpg")
+        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaledToHeight(200)
+        self.image.setPixmap(pixmap)
+        # self.image.setScaledContents(True)
+        self.text = QtWidgets.QLabel()
+        # self.text.setText("ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA")
+        self.text.setText("Clueless")
+        self.text.setAlignment(Qt.AlignCenter)
+
+        self.image1 = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/Badunkadunk.jpg")
+        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaledToHeight(200)
+        self.image1.setPixmap(pixmap)
+        self.image1.setScaledContents(True)
+        self.text1 = QtWidgets.QLabel(self.centralwidget)
+        self.text1.setText("Badunkadunk")
+        self.text1.setAlignment(Qt.AlignCenter)
+
+        self.image2 = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/GOKU.jpg")
+        pixmap = pixmap.scaledToHeight(200)
+        self.image2.setPixmap(pixmap)
+        self.image2.setScaledContents(True)
+        self.text2 = QtWidgets.QLabel(self.centralwidget)
+        self.text2.setText("GOKU")
+        self.text2.setAlignment(Qt.AlignCenter)
+
+        self.image3 = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/Wafia.jpg")
+        pixmap = pixmap.scaledToHeight(200)
+        self.image3.setPixmap(pixmap)
+        self.image3.setScaledContents(True)
+        self.text3 = QtWidgets.QLabel(self.centralwidget)
+        self.text3.setText("Wafia")
+        self.text3.setAlignment(Qt.AlignCenter)
+
+
+
+
+        # self.text2.setText("WRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+
+
+
+
+        grid_layout = QtWidgets.QGridLayout(self.centralwidget)
+        # self.centralwidget.setLayout(grid_layout)
+        # grid_layout.setColumnStretch(1, 1)
+        # grid_layout.setRowStretch(1, 1)
+        # grid_layout.setGeometry(QtCore.QRect(100, 100, 100, 100))
+        # grid_layout.addWidget(self.image, 0, 0)
+        # grid_layout.addWidget(self.text, 1, 0)
+        # grid_layout.addWidget(self.image1, 0, 1)
+        # grid_layout.addWidget(self.text1, 2, 1)
+        # for row in range(3):
+        #     for col in range(3):
+        #         grid_layout.addWidget(QPushButton(str(row + col)), row, col)
+
+        groupBox = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image)
+        vbox.addWidget(self.text)
+        # vbox.addStretch(1)
+        groupBox.setLayout(vbox)
+
+        groupBox1 = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image1)
+        vbox.addWidget(self.text1)
+        # vbox.addStretch(1)
+        groupBox1.setLayout(vbox)
+
+        groupBox2 = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image2)
+        vbox.addWidget(self.text2)
+        # vbox.addStretch(1)
+        groupBox2.setLayout(vbox)
+
+        groupBox3 = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image3)
+        vbox.addWidget(self.text3)
+        # vbox.addStretch(1)
+        groupBox3.setLayout(vbox)
+
+
+        grid_layout.addWidget(groupBox, 0, 0)
+        grid_layout.addWidget(groupBox1, 1, 0)
+        grid_layout.addWidget(groupBox2, 2, 0)
+        grid_layout.addWidget(groupBox3, 3, 0)
+        
+        grid_layout.setAlignment(Qt.AlignCenter)
+
+
+
+
+        self.scroll = QScrollArea(self.centralwidget)             # Scroll Area which contains the widgets, set as the centralWidget
+        self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
+        self.widget.setLayout(grid_layout)
+
+        self.scroll.setGeometry(200, 100, 500, 500)
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setWidget(self.widget)
+
+        # self.scroll.setWidget(grid_layout)
+        # self.scroll.setAlignment(Qt.AlignCenter)
+
+
+
+
+
+
+
+        # mama_grid = QtWidgets.QGridLayout()
+        # mama_grid.setColumnStretch(3, 3)
+        # mama_grid.setRowStretch(3, 3)
+        # self.centralwidget.setLayout(mama_grid)
+        # mama_grid.addWidget(grid_layout, 0, 0)
+        # mama_grid.addLayout(grid_layout, 0, 0)
+        # mama_grid.addItem(grid_layout, 0, 0)
+        # mama_grid.addLayout(grid_layout, 0, 1)
+        # mama_grid.addWidget(self.text, 1, 0)
+
+
+
+
+
+
+        # title = QLabel('Title')
+        # author = QLabel('Author')
+        # review = QLabel('Review')
+        # test = QLabel('Test')
+
+        # titleEdit = QLineEdit()
+        # authorEdit = QLineEdit()
+        # reviewEdit = QTextEdit()
+
+        # grid = QGridLayout()
+        # grid.setSpacing(10)
+
+        # # grid.addWidget(photo, 0, 0)
+
+        # grid.addWidget(title, 1, 0)
+        # grid.addWidget(titleEdit, 1, 1)
+
+        # grid.addWidget(author, 2, 0)
+        # grid.addWidget(authorEdit, 2, 1)
+
+        # grid.addWidget(review, 3, 0)
+        # grid.addWidget(reviewEdit, 3, 1, 5, 1)
+
+        # grid.addWidget(test, 5, 0)
+        
+        # self.progress.setLayout(grid) 
+##################################################
 '''
