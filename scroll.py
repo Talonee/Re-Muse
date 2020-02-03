@@ -67,6 +67,32 @@ class Ui_MainWindow(object):
         # self.graphicsView_2.setObjectName("graphicsView_2")
         # self.gridLayout.addWidget(self.graphicsView_2, 0, 1, 1, 1)
 
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         self.label_2 = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 1, 2, 1, 1)

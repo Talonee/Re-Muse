@@ -262,39 +262,121 @@ class Ui_MainWindow(object):
         photo = QtWidgets.QLabel()
         # photo.setGeometry(QtCore.QRect(200, 200, 431, 531))
         # photo.setText("")
-        photo.setPixmap(QtGui.QPixmap("../../../Pictures/Suzii/WhatsApp Image 2019-07-27 at 23.18.40.jpeg"))
-        photo.setScaledContents(True)
+        # photo.setPixmap(QtGui.QPixmap("../../../Pictures/Suzii/WhatsApp Image 2019-07-27 at 23.18.40.jpeg"))
+        # photo.setScaledContents(True)
         # photo.setObjectName("photo")
 
+        self.image = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/Clueless.jpg")
+        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaledToHeight(200)
+        self.image.setPixmap(pixmap)
+        self.image.setScaledContents(True)
+        self.text = QtWidgets.QLabel(self.centralwidget)
+        self.text.setText("ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA")
+
+        self.image1 = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/Badunkadunk.jpg")
+        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaledToHeight(200)
+        self.image1.setPixmap(pixmap)
+        self.image1.setScaledContents(True)
+        self.text1 = QtWidgets.QLabel(self.centralwidget)
+        self.text1.setText("MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA")
+
+        self.image2 = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/GOKU.jpg")
+        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaledToHeight(200)
+        self.image2.setPixmap(pixmap)
+        self.image2.setScaledContents(True)
+        self.text2 = QtWidgets.QLabel(self.centralwidget)
+        self.text2.setText("WRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
 
 
+        grid_layout = QtWidgets.QGridLayout(self.centralwidget)
+        # self.centralwidget.setLayout(grid_layout)
+        # grid_layout.setColumnStretch(1, 1)
+        # grid_layout.setRowStretch(1, 1)
+        # grid_layout.setGeometry(QtCore.QRect(100, 100, 100, 100))
+        # grid_layout.addWidget(self.image, 0, 0)
+        # grid_layout.addWidget(self.text, 1, 0)
+        # grid_layout.addWidget(self.image1, 0, 1)
+        # grid_layout.addWidget(self.text1, 2, 1)
+        # for row in range(3):
+        #     for col in range(3):
+        #         grid_layout.addWidget(QPushButton(str(row + col)), row, col)
 
-        title = QLabel('Title')
-        author = QLabel('Author')
-        review = QLabel('Review')
-        test = QLabel('Test')
+        groupBox = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image)
+        vbox.addWidget(self.text)
+        # vbox.addStretch(1)
+        groupBox.setLayout(vbox)
 
-        titleEdit = QLineEdit()
-        authorEdit = QLineEdit()
-        reviewEdit = QTextEdit()
+        groupBox1 = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image1)
+        vbox.addWidget(self.text1)
+        # vbox.addStretch(1)
+        groupBox1.setLayout(vbox)
 
-        grid = QGridLayout()
-        grid.setSpacing(10)
+        groupBox2 = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image2)
+        vbox.addWidget(self.text2)
+        # vbox.addStretch(1)
+        groupBox2.setLayout(vbox)
 
-        # grid.addWidget(photo, 0, 0)
 
-        grid.addWidget(title, 1, 0)
-        grid.addWidget(titleEdit, 1, 1)
-
-        grid.addWidget(author, 2, 0)
-        grid.addWidget(authorEdit, 2, 1)
-
-        grid.addWidget(review, 3, 0)
-        grid.addWidget(reviewEdit, 3, 1, 5, 1)
-
-        grid.addWidget(test, 5, 0)
+        grid_layout.addWidget(groupBox, 0, 0)
+        grid_layout.addWidget(groupBox1, 0, 1)
+        grid_layout.addWidget(groupBox2, 0, 2)
         
-        self.progress.setLayout(grid) 
+        grid_layout.setAlignment(Qt.AlignCenter)
+
+
+        # mama_grid = QtWidgets.QGridLayout()
+        # mama_grid.setColumnStretch(3, 3)
+        # mama_grid.setRowStretch(3, 3)
+        # self.centralwidget.setLayout(mama_grid)
+        # mama_grid.addWidget(grid_layout, 0, 0)
+        # mama_grid.addLayout(grid_layout, 0, 0)
+        # mama_grid.addItem(grid_layout, 0, 0)
+        # mama_grid.addLayout(grid_layout, 0, 1)
+        # mama_grid.addWidget(self.text, 1, 0)
+
+
+
+
+
+
+        # title = QLabel('Title')
+        # author = QLabel('Author')
+        # review = QLabel('Review')
+        # test = QLabel('Test')
+
+        # titleEdit = QLineEdit()
+        # authorEdit = QLineEdit()
+        # reviewEdit = QTextEdit()
+
+        # grid = QGridLayout()
+        # grid.setSpacing(10)
+
+        # # grid.addWidget(photo, 0, 0)
+
+        # grid.addWidget(title, 1, 0)
+        # grid.addWidget(titleEdit, 1, 1)
+
+        # grid.addWidget(author, 2, 0)
+        # grid.addWidget(authorEdit, 2, 1)
+
+        # grid.addWidget(review, 3, 0)
+        # grid.addWidget(reviewEdit, 3, 1, 5, 1)
+
+        # grid.addWidget(test, 5, 0)
+        
+        # self.progress.setLayout(grid) 
         
 
 
