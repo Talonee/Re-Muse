@@ -12,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-import os, shutil, unidecode, time, json, urllib.request, sys
+import os, shutil, unidecode, time, json, urllib.request, sys, numpy
 
 class ReMuse(QThread):
     countChanged = pyqtSignal(int) # must remain outside of init
@@ -190,23 +190,29 @@ class Ui_MainWindow(object):
 
 
 
+        ###### Review Page (Frame 4)
+        self.review = QtWidgets.QFrame(self.centralwidget)
+        self.review.setGeometry(QtCore.QRect(20, 20, 931, 521))
+        self.review.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.review.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.review.setObjectName("review")
 
-        self.createGridLayout()
-        # windowLayout = QVBoxLayout()
-        # windowLayout.addWidget(self.horizontalGroupBox)
-        # self.progress.setLayout(windowLayout)
-        
-        
-
-
-
+        # self.createGridLayout()
 
 
-        self.show_frame(3)
+        # items = [(1,2), (4,1), (9,7)]
+        # for i, j in zip(items, range(3)):
+        #     print(i[0], i[1], j)
+
+
+
+        self.show_frame(4)
         self.yesButton.hide()
         self.noButton.hide()
 
-        
+        self.getImages()
+        self.griddy()
+        self.scrolly()
 
         ## Progress bar
         self.pbar = QProgressBar(self.progress)
@@ -236,47 +242,57 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def scrolly(self):
+        self.scroll = QScrollArea(self.review)           
+        self.widget = QWidget()
+        self.widget.setLayout(self.mama_grid)
+
+        self.scroll.setGeometry(200, 50, 500, 500)
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setWidget(self.widget)
+
+    def griddy(self):
+        self.mama_grid = QtWidgets.QGridLayout()
+        for content, position in zip(self.container, range(4)):
+            groupBox = QGroupBox()
+            vbox = QVBoxLayout()
+            vbox.addWidget(content[0])
+            vbox.addWidget(content[1])
+            groupBox.setLayout(vbox)
+            self.mama_grid.addWidget(groupBox, position, 0)
+
+        # self.mama_grid.addWidget(groupBox1, 1, 0)
+        # self.mama_grid.addWidget(groupBox2, 2, 0)
+        # self.mama_grid.addWidget(groupBox3, 3, 0)
+                
+        self.mama_grid.setAlignment(Qt.AlignCenter)
+
+    def getImages(self):
+        self.container = []
+        count = 0
+        for fname in os.listdir("covers/"):
+            if ".jpg" in fname:
+                img = QtWidgets.QLabel()
+                pixmap = QtGui.QPixmap(f"covers/{fname}").scaledToWidth(200)
+                img.setPixmap(pixmap)
+                txt = QtWidgets.QLabel()
+                txt.setText("Clueless")
+                txt.setAlignment(Qt.AlignCenter)
+                self.container.append((img, txt))
+            count += 1
+            if count == 4:
+                break
 
     def createGridLayout(self):
-        # self.horizontalGroupBox = QGroupBox("Grid")
-        # layout = QGridLayout()
-        # self.progress.setLayout(layout)
-        # # layout.setColumnStretch(3,3)
-        
-
-        # layout.addWidget(self.yesButton,0,0)
-        # # layout.addWidget(QPushButton('1'),0,0)
-        # layout.addWidget(QPushButton('2'),0,1)
-        # layout.addWidget(QPushButton('3'),0,2)
-        # layout.addWidget(QPushButton('4'),1,0)
-        # layout.addWidget(QPushButton('5'),1,1)
-        # layout.addWidget(QPushButton('6'),1,2)
-        # layout.addWidget(QPushButton('7'),2,0)
-        # layout.addWidget(QPushButton('8'),2,1)
-        # layout.addWidget(QPushButton('9'),2,2)
-        
-
-        # self.progress.setWindowTitle('Basic Grid Layout')
-        # self.horizontalGroupBox.setLayout(layout)
-        # photo = QtWidgets.QLabel(self.progress)
-        photo = QtWidgets.QLabel()
-        # photo.setGeometry(QtCore.QRect(200, 200, 431, 531))
-        # photo.setText("")
-        # photo.setPixmap(QtGui.QPixmap("../../../Pictures/Suzii/WhatsApp Image 2019-07-27 at 23.18.40.jpeg"))
-        # photo.setScaledContents(True)
-        # photo.setObjectName("photo")
-
-
-
-
-
-        self.image = QtWidgets.QLabel(self.centralwidget)
+        self.image = QtWidgets.QLabel()
         pixmap = QtGui.QPixmap("covers/Clueless.jpg")
         # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
         pixmap = pixmap.scaledToHeight(200)
         self.image.setPixmap(pixmap)
-        self.image.setScaledContents(True)
-        self.text = QtWidgets.QLabel(self.centralwidget)
+        # self.image.setScaledContents(True)
+        self.text = QtWidgets.QLabel()
         # self.text.setText("ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA")
         self.text.setText("Clueless")
         self.text.setAlignment(Qt.AlignCenter)
@@ -504,26 +520,23 @@ class Ui_MainWindow(object):
 
     def show_frame(self, fnum):
         def frames(frame):
-            a, b, c = frame
+            a, b, c, d = frame
             switch(self.welcome, a)
             switch(self.browse, b)
             switch(self.progress, c)
+            switch(self.review, d)
 
         def switch(widget, on): # Turn on/off opacity, then show/hide
             effect = QGraphicsOpacityEffect()
             effect.setOpacity(on)
             widget.setGraphicsEffect(effect)
             widget.show() if on else widget.hide()
-
+        
         # 1: Welcome page
         # 2: Browse page
         # 3: Progress page
-        if fnum == 1:
-            frames([1,0,0])
-        elif fnum == 2:
-            frames([0,1,0])
-        elif fnum == 3:
-            frames([0,0,1])
+        matrix = numpy.identity(4, int)
+        frames(matrix[fnum - 1])
 
 if __name__ == "__main__":
     import sys
