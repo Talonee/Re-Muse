@@ -266,6 +266,10 @@ class Ui_MainWindow(object):
         # photo.setScaledContents(True)
         # photo.setObjectName("photo")
 
+
+
+
+
         self.image = QtWidgets.QLabel(self.centralwidget)
         pixmap = QtGui.QPixmap("covers/Clueless.jpg")
         # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
@@ -273,7 +277,9 @@ class Ui_MainWindow(object):
         self.image.setPixmap(pixmap)
         self.image.setScaledContents(True)
         self.text = QtWidgets.QLabel(self.centralwidget)
-        self.text.setText("ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA")
+        # self.text.setText("ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA ORA")
+        self.text.setText("Clueless")
+        self.text.setAlignment(Qt.AlignCenter)
 
         self.image1 = QtWidgets.QLabel(self.centralwidget)
         pixmap = QtGui.QPixmap("covers/Badunkadunk.jpg")
@@ -282,16 +288,33 @@ class Ui_MainWindow(object):
         self.image1.setPixmap(pixmap)
         self.image1.setScaledContents(True)
         self.text1 = QtWidgets.QLabel(self.centralwidget)
-        self.text1.setText("MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA")
+        self.text1.setText("Badunkadunk")
+        self.text1.setAlignment(Qt.AlignCenter)
 
         self.image2 = QtWidgets.QLabel(self.centralwidget)
         pixmap = QtGui.QPixmap("covers/GOKU.jpg")
-        # pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
         pixmap = pixmap.scaledToHeight(200)
         self.image2.setPixmap(pixmap)
         self.image2.setScaledContents(True)
         self.text2 = QtWidgets.QLabel(self.centralwidget)
-        self.text2.setText("WRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+        self.text2.setText("GOKU")
+        self.text2.setAlignment(Qt.AlignCenter)
+
+        self.image3 = QtWidgets.QLabel(self.centralwidget)
+        pixmap = QtGui.QPixmap("covers/Wafia.jpg")
+        pixmap = pixmap.scaledToHeight(200)
+        self.image3.setPixmap(pixmap)
+        self.image3.setScaledContents(True)
+        self.text3 = QtWidgets.QLabel(self.centralwidget)
+        self.text3.setText("Wafia")
+        self.text3.setAlignment(Qt.AlignCenter)
+
+
+
+
+        # self.text2.setText("WRRRRRRRRRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+
+
 
 
         grid_layout = QtWidgets.QGridLayout(self.centralwidget)
@@ -328,12 +351,41 @@ class Ui_MainWindow(object):
         # vbox.addStretch(1)
         groupBox2.setLayout(vbox)
 
+        groupBox3 = QGroupBox()
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.image3)
+        vbox.addWidget(self.text3)
+        # vbox.addStretch(1)
+        groupBox3.setLayout(vbox)
+
 
         grid_layout.addWidget(groupBox, 0, 0)
-        grid_layout.addWidget(groupBox1, 0, 1)
-        grid_layout.addWidget(groupBox2, 0, 2)
+        grid_layout.addWidget(groupBox1, 1, 0)
+        grid_layout.addWidget(groupBox2, 2, 0)
+        grid_layout.addWidget(groupBox3, 3, 0)
         
         grid_layout.setAlignment(Qt.AlignCenter)
+
+
+
+
+        self.scroll = QScrollArea(self.centralwidget)             # Scroll Area which contains the widgets, set as the centralWidget
+        self.widget = QWidget()                 # Widget that contains the collection of Vertical Box
+        self.widget.setLayout(grid_layout)
+
+        self.scroll.setGeometry(200, 100, 500, 500)
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setWidget(self.widget)
+
+        # self.scroll.setWidget(grid_layout)
+        # self.scroll.setAlignment(Qt.AlignCenter)
+
+
+
+
+
 
 
         # mama_grid = QtWidgets.QGridLayout()
