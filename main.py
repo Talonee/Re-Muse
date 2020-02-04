@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
+from mutagen.id3 import ID3, ID3NoHeaderError
 
 import os, shutil, unidecode, time, json, urllib.request, sys, numpy
 
@@ -197,17 +198,7 @@ class Ui_MainWindow(object):
         self.review.setFrameShadow(QtWidgets.QFrame.Raised)
         self.review.setObjectName("review")
 
-        # self.createGridLayout()
 
-
-        # items = [(1,2), (4,1), (9,7), (0,4), (6,4), (4,3)]
-        # position = []
-        # for row in range(2):
-        #     for col in range(3):
-        #         position.append((row, col))
-
-        # for item, pos in zip(items, position):
-        #     print(*pos)
 
 
 
@@ -268,33 +259,44 @@ class Ui_MainWindow(object):
                 position.append((row, col))
 
         for item, pos in zip(self.container, position):
-            # print(pos)
             groupBox = QGroupBox()
             vbox = QVBoxLayout()
             vbox.addWidget(item[0])
             vbox.addWidget(item[1])
             groupBox.setLayout(vbox)
-            self.mama_grid.addWidget(groupBox, pos[0], pos[1])
-
-        # self.mama_grid.addWidget(groupBox1, 1, 0)
-        # self.mama_grid.addWidget(groupBox2, 2, 0)
-        # self.mama_grid.addWidget(groupBox3, 3, 0)
+            self.mama_grid.addWidget(groupBox, *pos)
                 
         self.mama_grid.setAlignment(Qt.AlignCenter)
 
     def getImages(self):
         self.container = []
         self.length = len(os.listdir("covers/")) # dir is your directory path
-
-        for fname in os.listdir("covers/"):
-            if ".jpg" in fname:
+       
+        for fname in os.listdir("final/"):
+            if ".mp3" in fname:
+                id3 = ID3(f"final/{fname}")
                 img = QtWidgets.QLabel()
-                pixmap = QtGui.QPixmap(f"covers/{fname}").scaledToWidth(200)
+                cov = id3["TALB"][0][:15] + ".jpg"
+                pixmap = QtGui.QPixmap(f"covers/{cov}").scaledToWidth(200)
                 img.setPixmap(pixmap)
                 txt = QtWidgets.QLabel()
-                txt.setText("Clueless")
+                txt.setText(id3['TIT2'][0])
                 txt.setAlignment(Qt.AlignCenter)
                 self.container.append((img, txt))
+
+        # for fname in os.listdir("covers/"):
+        #     if ".jpg" in fname:
+        #         img = QtWidgets.QLabel()
+        #         pixmap = QtGui.QPixmap(f"covers/{fname}").scaledToWidth(200)
+        #         img.setPixmap(pixmap)
+        #         txt = QtWidgets.QLabel()
+        #         txt.setText(fname[:-4])
+        #         txt.setAlignment(Qt.AlignCenter)
+        #         self.container.append((img, txt))
+
+
+
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -388,6 +390,15 @@ if __name__ == "__main__":
 
 
 
+
+        # items = [(1,2), (4,1), (9,7), (0,4), (6,4), (4,3)]
+        # position = []
+        # for row in range(2):
+        #     for col in range(3):
+        #         position.append((row, col))
+
+        # for item, pos in zip(items, position):
+        #     print(*pos)
 
 
 
