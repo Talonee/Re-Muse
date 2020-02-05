@@ -49,6 +49,11 @@ class Ui_MainWindow(object):
     WINDOW_HEIGHT = 720
     FRAME_DIM = [0, 0, WINDOW_WIDTH, WINDOW_HEIGHT]
 
+    def __init__(self):
+        self.validIn = False
+        self.validOut = False
+        self.errorMsg = []
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
@@ -61,7 +66,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Open Sans")
         font.setPointSize(40)
-        font.setBold(True)
+        # font.setBold(True)
         self.welcome.setFont(font)
         self.welcome.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.welcome.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -148,9 +153,12 @@ class Ui_MainWindow(object):
         posY = self.browse.rect().height() * 0.45
         self.total.move(posX, posY)
         self.total.setObjectName("total")
+        
+        self.label_5 = QtWidgets.QLabel(self.browse)
+        font.setPointSize(10)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
 
-
-        print(self.inputText.textChanged)
 
         # def btnAction(self):
         #     if len(self.textbox.text()) > 0:
@@ -160,8 +168,6 @@ class Ui_MainWindow(object):
 
         # self.pushButton.setDisabled(True)
         # self.textbox.textChanged.connect(self.disabledButton)
-
-
 
 
         self.yesButton = QtWidgets.QPushButton(self.browse)
@@ -193,7 +199,7 @@ class Ui_MainWindow(object):
         self.browseInput.clicked.connect(self.browse_folder)
         self.browseOutput.clicked.connect(self.browse_folder)
         self.yesButton.clicked.connect(self.proceed)
-        self.noButton.clicked.connect(self.denied)
+        self.noButton.clicked.connect(self.cancel)
 
 
 
@@ -260,8 +266,8 @@ class Ui_MainWindow(object):
         # self.browseBtn.setText(_translate("MainWindow", "Browse"))       
         self.label_6.setText(_translate("MainWindow", "Progress..."))
 
-        self.yesButton.setText(_translate("MainWindow", "Yes"))
-        self.noButton.setText(_translate("MainWindow", "No"))
+        self.yesButton.setText(_translate("MainWindow", "Proceed"))
+        self.noButton.setText(_translate("MainWindow", "Cancel"))
 
 
     ######### FRAME 1 ############
@@ -272,20 +278,55 @@ class Ui_MainWindow(object):
 
     ######### FRAME 2 ############
     def browse_folder(self):
-        self.folder = QFileDialog.getExistingDirectory() + "/"
-        self.fileCount = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
+        # TODO: UPDATE TEXT EVERY TIME YOU RECLICK BUTTON 
+        # TODO: readjust button positions
+        # TODO: fix when to check for input and output validity 
+        # TODO: Create a list of errors and put out as single 
 
-        if self.fileCount == 0:
-            self.label_4.setText(f"Current folder: {self.folder}\n"
-                                f"There are no music files in the current directory. Please re-select..")
-            self.label_4.adjustSize()
-        else:
-            self.label_4.setText(f"Current folder: {self.folder}\n"
-                                f"There are {self.fileCount} music files in the current directory. Proceed?")
-            self.label_4.adjustSize()
-            
-            self.yesButton.show()
-            self.noButton.show()
+        self.folder = QFileDialog.getExistingDirectory() + "/"
+        obj = self.browse.sender().objectName()
+
+        if obj == "browseInput":
+            self.inputText.setText(self.folder)        
+            self.inputLoc = self.inputText.text()
+        elif obj == "browseOutput":
+            self.outputText.setText(self.folder)
+            self.outputLoc = self.outputText.text()
+
+        try:
+            if self.inputLoc and self.outputLoc:
+                if os.path.isdir(self.inputLoc):
+                    self.fCount = len([fname for fname in os.listdir(self.inputLoc) if ".mp3" in fname])
+                    if self.fCount == 0:
+                        self.errorMsg.append("Empty folder with no music files. Please re-select..")
+                        # self.adjustInfo(f"Empty folder with no music files. Please re-select..")
+                    else:
+                        self.validIn = True
+                else:
+                    self.errorMsg.append("Invalid input path. Please re-select..")
+                    # self.adjustInfo(f"Invalid input path. Please re-select..")
+
+                if os.path.isdir(self.outputLoc):
+                    self.validOut = True
+                else:
+                    self.errorMsg.append("Invalid output path. Please re-select..")
+                    # self.adjustInfo(f"Invalid output path. Please re-select..")
+
+                self.adjustInfo("\n".join(self.errorMsg))
+                if self.validIn and self.validOut:
+                    # self.errorMsg.append(f"There are {self.fCount} music files in the current directory. Proceed?")
+                    self.adjustInfo(f"There are {self.fCount} music files in the current directory. Proceed?")
+                    self.yesButton.show()
+                    self.noButton.show()
+        except:
+            pass
+           
+    def adjustInfo(self, text):
+        self.label_5.setText(text)
+        self.label_5.adjustSize()
+        posX = self.browse.rect().width() / 2 - self.label_5.rect().width() / 2
+        posY = self.browse.rect().height() * 0.65
+        self.label_5.move(posX, posY)
 
     def proceed(self):
         self.show_frame(3)
@@ -293,8 +334,9 @@ class Ui_MainWindow(object):
         self.songs = GetJson(self.folder).songs
         self.index = int(len(self.songs) / 2)
 
-    def denied(self):
-        self.label_4.setText(f"Please select a folder")        
+    def cancel(self):
+        self.inputText.clear()
+        self.outputText.clear()
         self.yesButton.hide()
         self.noButton.hide()
 
