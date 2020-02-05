@@ -1,11 +1,5 @@
 Re-Muse is an interactive application which browses for music files' name and attempt to fill in any missing metadata such as title, artist, album, cover art and lyrics. 
 
-# TO DO:
-
-- Generalize all input and out sources
-    - `print(os.path.dirname(os.path.abspath(__file__)))`
-
-
 ## Flow
 1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
 2. If no artist (no dash), mark for review
@@ -26,7 +20,7 @@ Re-Muse is an interactive application which browses for music files' name and at
 2. Compile into Json and export (fname, artist, title, album, lyrics). ✓
 
 
-## Class 2 (Search) (try, except simulator) 
+## Class 2 (Search)
 
 1. Search artist, title, album, cover, lyrics. ✓
 2. Create database for albums and artists.
@@ -36,9 +30,11 @@ Re-Muse is an interactive application which browses for music files' name and at
 ## Class 3 (App)
 
 1. Welcome message. ✓
-2. Browse folder to clean and search. ✓
-3. Show live update with progress bar. ✓
-4. Review: Show lists of songs in need of review
+2. Browse folder to clean. ✓
+3. Multithreading search. ✓
+4. Show live update with progress bar. ✓
+5. Review: Show lists of songs completed ✓
+6. Review: Show lists of songs failed
 
 ## Useful links to references
 
@@ -49,3 +45,18 @@ https://stackoverflow.com/questions/18026516/how-to-set-artist-album-artist-year
 http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=abfef408b828ff61598e0f0d2ce83dcc&artist=bich%20phuong&album=Dramatic&format=json
 
 https://riptutorial.com/pyqt5/example/29500/basic-pyqt-progress-bar
+
+https://www.learnpyqt.com/courses/adanced-ui-features/qscrollarea/
+
+
+# TO DO:
+
+- Generalize all input and out sources
+    - `print(os.path.dirname(os.path.abspath(__file__)))`
+
+# ReMuse 
+
+### Ver. 1:
+- Browse a list of folders with song files.
+- Clean, search, and modify song metadata.
+- Show list of successfully completed songs.

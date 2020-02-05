@@ -1,10 +1,5 @@
-import re 
-import os
-import json
-import unidecode # transliterates special characters
-
 from mutagen.id3 import ID3, ID3NoHeaderError
-
+import re, os, json, unidecode
 
 class Clean():
     def __init__(self, fname):
@@ -79,12 +74,9 @@ class GetJson():
             if ".mp3" in fname:
                 self.songs.append(Clean(fname).result())
 
-        # Output
-        with open('songs.json', 'w') as outfile:
-                json.dump(self.songs, outfile, indent=4)
-    
-    def getList(self):
-        return self.songs
+        # # Output
+        # with open('songs.json', 'w') as outfile:
+        #         json.dump(self.songs, outfile, indent=4)
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@ import os, shutil, unidecode, time, json, urllib.request, sys, numpy
 
 class ReMuse(QThread):
     countChanged = pyqtSignal(int) # must remain outside of init
-    finished = pyqtSignal(bool) # must remain outside of init
+    finished = pyqtSignal() # must remain outside of init
 
     def __init__(self, songs):
         QThread.__init__(self)
@@ -36,50 +36,15 @@ class ReMuse(QThread):
             mehoy = unidecode.unidecode(song["File"])
             print(f"Starting {mehoy}")
             Search(self.driver, song).find()
-            print(f"Finished with {mehoy}")
+            print(f"Finished {mehoy}")
             self.countChanged.emit(self.length)
 
         self.driver.quit()
-        self.finished.emit(True)
+        self.finished.emit()
 
 
 class Ui_MainWindow(object):
-    def __init__(self):
-        # with open('songs.json') as infile:
-        #     self.songs = json.load(infile)
-        self.songs = []
-
-    def onButtonClick(self):
-        self.calc1 = ReMuse(self.songs[:self.index])
-        self.calc2 = ReMuse(self.songs[self.index:])
-        
-        self.calc1.countChanged.connect(self.onCountChanged)
-        self.calc1.finished.connect(self.finishedThread)
-
-        self.calc2.countChanged.connect(self.onCountChanged)
-        self.calc2.finished.connect(self.finishedThread)
-
-        self.calc1.start()
-        self.calc2.start()
-        
-        # while not self.calc2.isFinished():
-        #     print("still running")
-        # print("I'm done")
-
-        # self.pbar.setValue(100)
-
-    def onCountChanged(self, lenlist):
-        self.pbar.setValue(self.pbar.value() + 100/2/lenlist) # 100 / num(threads) / len(list)
-        print(f"Added %: {100/2/lenlist}\n"
-              f"Current: {self.pbar.value()}")
-        if self.pbar.value() == 100:
-            self.label_6.setText("Completed")
-
-    def finishedThread(self, fin):
-        if fin:
-            print("I'm done with thread 1") 
-
-
+    MAX_THREAD = 2
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -104,6 +69,8 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QtCore.QRect(160, 210, 621, 111))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
+
+
 
         ###### Browsing Page (Frame 2)
         self.browse = QtWidgets.QFrame(self.centralwidget)
@@ -153,8 +120,6 @@ class Ui_MainWindow(object):
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
 
-
-
         self.yesButton = QtWidgets.QPushButton(self.browse)
         self.yesButton.setGeometry(QtCore.QRect(640, 380, 101, 41))
         font = QtGui.QFont()
@@ -177,6 +142,13 @@ class Ui_MainWindow(object):
         self.noButton.setFont(font)
         self.noButton.setObjectName("noButton")
 
+        self.yesButton.hide()
+        self.noButton.hide()
+
+        # Buttons to run
+        self.pushButton.clicked.connect(self.browse_folder)
+        self.yesButton.clicked.connect(self.proceed)
+        self.noButton.clicked.connect(self.denied)
 
 
 
@@ -203,6 +175,15 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        ## Progress bar
+        self.pbar = QProgressBar(self.progress)
+        self.pbar.setGeometry(30, 40, 200, 25)
+        self.pbar.setValue(0)
+
+        self.btn = QPushButton('Begin Search', self.progress)
+        self.btn.move(40, 80)
+        self.btn.clicked.connect(lambda: self.onButtonClick())
+
 
 
         ###### Review Page (Frame 4)
@@ -214,44 +195,95 @@ class Ui_MainWindow(object):
 
 
 
+        # Welcome and transition to browsing page
+        self.landing()
 
-
-        self.show_frame(2)
-        self.yesButton.hide()
-        self.noButton.hide()
-
-        self.getImages()
-        self.griddy()
-        self.scrolly()
-
-        ## Progress bar
-        self.pbar = QProgressBar(self.progress)
-        self.pbar.setGeometry(30, 40, 200, 25)
-        self.pbar.setValue(0)
-
-        self.btn = QPushButton('Begin Search', self.progress)
-        self.btn.move(40, 80)
-        self.btn.clicked.connect(lambda: self.onButtonClick())
-
-
-        
-        # self.timer = QTimer()
-        # self.timer.setSingleShot(True)
-        # self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
-        # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
-        # self.timer.start(3000)
-
-
-
-        # Buttons to run
-        self.pushButton.clicked.connect(self.browse_folder)
-        self.yesButton.clicked.connect(self.proceed)
-        self.noButton.clicked.connect(self.denied)
 
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Welcome to ReMuse, Tylee"))
+        self.label.adjustSize()
+        self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
+        self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
+        self.textbox.setText(_translate("MainWindow", "Enter path here..."))
+        self.pushButton.setText(_translate("MainWindow", "Browse"))       
+        self.label_6.setText(_translate("MainWindow", "Progress..."))
+
+        self.yesButton.setText(_translate("MainWindow", "Yes"))
+        self.noButton.setText(_translate("MainWindow", "No"))
+
+
+    ######### FRAME 1 ############
+    def landing(self):
+        self.show_frame(1)
+        timer = QTimer()
+        timer.singleShot(3000, lambda: self.show_frame(2))
+
+    ######### FRAME 2 ############
+    def browse_folder(self):
+        self.folder = QFileDialog.getExistingDirectory() + "/"
+        self.fileCount = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
+
+        if self.fileCount == 0:
+            self.label_4.setText(f"Current folder: {self.folder}\n"
+                                f"There are no music files in the current directory. Please re-select..")
+            self.label_4.adjustSize()
+        else:
+            self.label_4.setText(f"Current folder: {self.folder}\n"
+                                f"There are {self.fileCount} music files in the current directory. Proceed?")
+            self.label_4.adjustSize()
+            
+            self.yesButton.show()
+            self.noButton.show()
+
+    def proceed(self):
+        self.show_frame(3)
+        # print("Getting lists...") # update label 4
+        self.songs = GetJson(self.folder).songs
+        self.index = int(len(self.songs) / 2)
+
+    def denied(self):
+        self.label_4.setText(f"Please select a folder")        
+        self.yesButton.hide()
+        self.noButton.hide()
+
+    ######### FRAME 3 ############
+    def onButtonClick(self):
+        self.completedThread = 0
+
+        self.calc1 = ReMuse(self.songs[:self.index])
+        self.calc2 = ReMuse(self.songs[self.index:])
+        
+        self.calc1.countChanged.connect(self.onCountChanged)
+        self.calc1.finished.connect(self.finishedThread)
+
+        self.calc2.countChanged.connect(self.onCountChanged)
+        self.calc2.finished.connect(self.finishedThread)
+
+        self.calc1.start()
+        self.calc2.start()
+        
+    def onCountChanged(self, lenlist):
+        self.pbar.setValue(self.pbar.value() + 100/2/lenlist) # 100 / num(threads) / len(list)
+        # print(f"Added %: {100/2/lenlist}\n"
+        #       f"Current: {self.pbar.value()}")
+
+    def finishedThread(self):
+        self.completedThread += 1 
+        if self.completedThread == self.MAX_THREAD:
+            self.pbar.setValue(100)
+            self.label_6.setText("Retrieving progress...")
+            self.getImages()
+            self.griddy()
+            self.scrolly()
+            self.show_frame(4)
+
+    ######### FRAME 4 ############
     def scrolly(self):
         self.scroll = QScrollArea(self.review)           
         self.widget = QWidget()
@@ -312,50 +344,6 @@ class Ui_MainWindow(object):
 
 
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Welcome to ReMuse, Tylee"))
-        self.label.adjustSize()
-        self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
-        self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
-        self.textbox.setText(_translate("MainWindow", "Enter path here..."))
-        self.pushButton.setText(_translate("MainWindow", "Browse"))       
-        self.label_6.setText(_translate("MainWindow", "Progress..."))
-
-        self.yesButton.setText(_translate("MainWindow", "Yes"))
-        self.noButton.setText(_translate("MainWindow", "No"))
-
-
-    def browse_folder(self):
-        self.folder = QFileDialog.getExistingDirectory() + "/"
-        self.fileCount = len([fname for fname in os.listdir(self.folder) if ".mp3" in fname])
-
-        if self.fileCount == 0:
-            self.label_4.setText(f"Current folder: {self.folder}\n"
-                                f"There are no music files in the current directory. Please re-select..")
-            self.label_4.adjustSize()
-        else:
-            self.label_4.setText(f"Current folder: {self.folder}\n"
-                                f"There are {self.fileCount} music files in the current directory. Proceed?")
-            self.label_4.adjustSize()
-            
-            self.yesButton.show()
-            self.noButton.show()
-        # print(f"There are {count} music files in the current directory. Proceed?")
-        # if yes, proceed to frame 3, get Json, run ReMuse
-        # else no, remain @ frame 2 and hide buttons
-
-    def proceed(self):
-        print("Getting Json...")
-        self.songs = GetJson(self.folder).getList()
-        self.index = int(len(self.songs) / 2)
-        self.show_frame(3)
-
-    def denied(self):
-        self.label_4.setText(f"Please select a folder")        
-        self.yesButton.hide()
-        self.noButton.hide()
 
 
     def show_widget(self, widget, on):
@@ -363,9 +351,6 @@ class Ui_MainWindow(object):
         effect.setOpacity(on)
         widget.setGraphicsEffect(effect)
         widget.show() if on else widget.hide()
-
-
-
 
 
     def show_frame(self, fnum):
@@ -387,6 +372,22 @@ class Ui_MainWindow(object):
         # 3: Progress page
         matrix = numpy.identity(4, int)
         frames(matrix[fnum - 1])
+
+
+
+
+    # def __init__(self):
+        # with open('songs.json') as infile:
+        #     self.songs = json.load(infile)
+        # self.songs = []
+
+    
+        
+        # self.timer = QTimer()
+        # self.timer.setSingleShot(True)
+        # self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
+        # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
+        # self.timer.start(3000)
 
 if __name__ == "__main__":
     import sys
