@@ -45,80 +45,124 @@ class ReMuse(QThread):
 
 class Ui_MainWindow(object):
     MAX_THREAD = 2
+    WINDOW_WIDTH = 1280
+    WINDOW_HEIGHT = 720
+    FRAME_DIM = [0, 0, WINDOW_WIDTH, WINDOW_HEIGHT]
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(1280, 720)
+        MainWindow.setFixedSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         ###### Welcome Page (Frame 1)
         self.welcome = QtWidgets.QFrame(self.centralwidget)
-        self.welcome.setEnabled(True)
-        self.welcome.setGeometry(QtCore.QRect(10, 10, 931, 521))
+        self.welcome.setGeometry(QtCore.QRect(*self.FRAME_DIM))
         font = QtGui.QFont()
         font.setFamily("Open Sans")
-        font.setPointSize(30)
+        font.setPointSize(40)
+        font.setBold(True)
         self.welcome.setFont(font)
         self.welcome.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.welcome.setFrameShadow(QtWidgets.QFrame.Raised)
         self.welcome.setObjectName("welcome")
-        
         self.label = QtWidgets.QLabel(self.welcome)
-        self.label.setEnabled(False)
-        self.label.setGeometry(QtCore.QRect(160, 210, 621, 111))
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setText("Welcome to ReMuse")
+        self.label.adjustSize()
+        posX = self.welcome.rect().width() / 2 - self.label.rect().width() / 2
+        posY = self.welcome.rect().height() / 2 - self.label.rect().height() / 2
+        self.label.move(posX, posY)
         self.label.setObjectName("label")
 
 
 
         ###### Browsing Page (Frame 2)
         self.browse = QtWidgets.QFrame(self.centralwidget)
-        self.browse.setGeometry(QtCore.QRect(10, 10, 931, 521))
+        self.browse.setGeometry(QtCore.QRect(*self.FRAME_DIM))
         font = QtGui.QFont()
         font.setFamily("Open Sans")
         self.browse.setFont(font)
         self.browse.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.browse.setFrameShadow(QtWidgets.QFrame.Raised)
         self.browse.setObjectName("browse")
+
         self.label_3 = QtWidgets.QLabel(self.browse)
-        self.label_3.setEnabled(False)
-        self.label_3.setGeometry(QtCore.QRect(160, 20, 621, 111))
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
-        font.setPointSize(20)
+        font.setPointSize(35)
         self.label_3.setFont(font)
-        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_3.setText("ReMuse")
+        self.label_3.adjustSize()
+        posX = self.browse.rect().width() / 2 - self.label_3.rect().width() / 2
+        posY = self.browse.rect().height() * 0.15
+        self.label_3.move(posX, posY)
         self.label_3.setObjectName("label_3")
+
         self.label_4 = QtWidgets.QLabel(self.browse)
-        self.label_4.setGeometry(QtCore.QRect(270, 120, 391, 71))
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
-        font.setPointSize(12)
-        font.setItalic(True)
+        font.setPointSize(10)
         self.label_4.setFont(font)
-        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4.setText("Browse folder or enter a path to begin")
+        self.label_4.adjustSize()
+        posX = self.browse.rect().width() / 2 - self.label_4.rect().width() / 2
+        posY = self.browse.rect().height() * 0.35
+        self.label_4.move(posX, posY)
         self.label_4.setObjectName("label_4")
 
-        self.textbox = QLineEdit(self.browse)
-        self.textbox.move(280, 280)
-        self.textbox.resize(280,40)
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
-        font.setItalic(True)
-        self.textbox.setFont(font)
-        self.textbox.setObjectName("textbox")
-
-        self.pushButton = QtWidgets.QPushButton(self.browse)
-        self.pushButton.setGeometry(QtCore.QRect(640, 280, 101, 41))
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
+        self.inputText = QLineEdit(self.browse)
         font.setPointSize(10)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
+        self.inputText.setFont(font)
+        self.inputText.setPlaceholderText("Input folder")
+        self.inputText.setObjectName("inputText")
+
+        self.outputText = QLineEdit(self.browse)
+        font.setPointSize(10)
+        self.outputText.setFont(font)
+        self.outputText.setPlaceholderText("Output folder")
+        self.outputText.setObjectName("outputText")
+
+        self.browseInput = QtWidgets.QPushButton(self.browse)
+        font.setPointSize(10)
+        self.browseInput.setFont(font)
+        self.browseInput.setText("Browse")
+        self.browseInput.setObjectName("browseInput")
+
+        self.browseOutput = QtWidgets.QPushButton(self.browse)
+        font.setPointSize(10)
+        self.browseOutput.setFont(font)
+        self.browseOutput.setText("Browse")
+        self.browseOutput.setObjectName("browseOutput")
+
+        self.total = QGroupBox(self.browse)
+        vbox = QVBoxLayout()     
+        inp = QHBoxLayout()
+        inp.addWidget(self.inputText)
+        inp.addWidget(self.browseInput)    
+        out = QHBoxLayout()
+        out.addWidget(self.outputText)
+        out.addWidget(self.browseOutput)
+        vbox.addLayout(inp)
+        vbox.addLayout(out)
+        vbox.setSpacing(20)
+        self.total.setLayout(vbox)
+
+        self.total.resize(self.WINDOW_WIDTH * 0.5, self.inputText.rect().height() * 2 + 50 + vbox.spacing())
+        posX = self.browse.rect().width() / 2 - self.total.rect().width() / 2
+        posY = self.browse.rect().height() * 0.45
+        self.total.move(posX, posY)
+        self.total.setObjectName("total")
+
+
+        print(self.inputText.textChanged)
+
+        # def btnAction(self):
+        #     if len(self.textbox.text()) > 0:
+        #         self.pushButton.setDisabled(False)
+        #     else:
+        #         self.pushButton.setDisabled(True)
+
+        # self.pushButton.setDisabled(True)
+        # self.textbox.textChanged.connect(self.disabledButton)
+
+
+
 
         self.yesButton = QtWidgets.QPushButton(self.browse)
         self.yesButton.setGeometry(QtCore.QRect(640, 380, 101, 41))
@@ -146,7 +190,8 @@ class Ui_MainWindow(object):
         self.noButton.hide()
 
         # Buttons to run
-        self.pushButton.clicked.connect(self.browse_folder)
+        self.browseInput.clicked.connect(self.browse_folder)
+        self.browseOutput.clicked.connect(self.browse_folder)
         self.yesButton.clicked.connect(self.proceed)
         self.noButton.clicked.connect(self.denied)
 
@@ -196,9 +241,9 @@ class Ui_MainWindow(object):
 
 
         # Welcome and transition to browsing page
-        self.landing()
+        # self.landing()
 
-
+        self.show_frame(2)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -206,12 +251,13 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Welcome to ReMuse, Tylee"))
-        self.label.adjustSize()
-        self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
-        self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
-        self.textbox.setText(_translate("MainWindow", "Enter path here..."))
-        self.pushButton.setText(_translate("MainWindow", "Browse"))       
+        # self.label.setText(_translate("MainWindow", "Welcome to ReMuse"))
+        # self.label.adjustSize()
+        # print(self.label.frameGeometry().width())
+        # self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
+        # self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
+        # self.textbox.setText(_translate("MainWindow", "Enter path here..."))
+        # self.browseBtn.setText(_translate("MainWindow", "Browse"))       
         self.label_6.setText(_translate("MainWindow", "Progress..."))
 
         self.yesButton.setText(_translate("MainWindow", "Yes"))
@@ -222,7 +268,7 @@ class Ui_MainWindow(object):
     def landing(self):
         self.show_frame(1)
         timer = QTimer()
-        timer.singleShot(3000, lambda: self.show_frame(2))
+        timer.singleShot(1500, lambda: self.show_frame(2))
 
     ######### FRAME 2 ############
     def browse_folder(self):
@@ -366,6 +412,7 @@ class Ui_MainWindow(object):
             effect.setOpacity(on)
             widget.setGraphicsEffect(effect)
             widget.show() if on else widget.hide()
+            widget.setEnabled(on)
         
         # 1: Welcome page
         # 2: Browse page

@@ -9,8 +9,8 @@ Re-Muse is an interactive application which browses for music files' name and at
 ## Future
 1. Download mp3
 2. Manual information input
-3. Optional: Access phone subfolders, pull and modify songs
-4. Review Page: Show lists of successful & need4review files
+3. Optional: Access subfolders, pull and modify songs
+4. Show current file mod in progress page
 
 # FILES:
 
