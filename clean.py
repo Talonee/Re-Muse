@@ -70,18 +70,21 @@ class GetJson():
         # Initiate list of songs
         try:
             with open('songs.json') as infile:
-                songs = json.load(infile)
+                self.songs = json.load(infile)
         except:
-            songs = []
+            self.songs = []
 
         # Perform clean on each file within dir
         for fname in os.listdir(folder):
             if ".mp3" in fname:
-                songs.append(Clean(fname).result())
+                self.songs.append(Clean(fname).result())
 
         # Output
         with open('songs.json', 'w') as outfile:
-                json.dump(songs, outfile, indent=4)
+                json.dump(self.songs, outfile, indent=4)
+    
+    def getList(self):
+        return self.songs
 
 
 if __name__ == "__main__":

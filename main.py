@@ -17,6 +17,7 @@ import os, shutil, unidecode, time, json, urllib.request, sys, numpy
 
 class ReMuse(QThread):
     countChanged = pyqtSignal(int) # must remain outside of init
+    finished = pyqtSignal(bool) # must remain outside of init
 
     def __init__(self, songs):
         QThread.__init__(self)
@@ -39,21 +40,33 @@ class ReMuse(QThread):
             self.countChanged.emit(self.length)
 
         self.driver.quit()
+        self.finished.emit(True)
 
 
 class Ui_MainWindow(object):
     def __init__(self):
-        with open('songs.json') as infile:
-            self.songs = json.load(infile)
-        self.index = int(len(self.songs) / 2)
+        # with open('songs.json') as infile:
+        #     self.songs = json.load(infile)
+        self.songs = []
 
     def onButtonClick(self):
         self.calc1 = ReMuse(self.songs[:self.index])
         self.calc2 = ReMuse(self.songs[self.index:])
+        
         self.calc1.countChanged.connect(self.onCountChanged)
+        self.calc1.finished.connect(self.finishedThread)
+
         self.calc2.countChanged.connect(self.onCountChanged)
+        self.calc2.finished.connect(self.finishedThread)
+
         self.calc1.start()
         self.calc2.start()
+        
+        # while not self.calc2.isFinished():
+        #     print("still running")
+        # print("I'm done")
+
+        # self.pbar.setValue(100)
 
     def onCountChanged(self, lenlist):
         self.pbar.setValue(self.pbar.value() + 100/2/lenlist) # 100 / num(threads) / len(list)
@@ -62,14 +75,15 @@ class Ui_MainWindow(object):
         if self.pbar.value() == 100:
             self.label_6.setText("Completed")
 
-
-
+    def finishedThread(self, fin):
+        if fin:
+            print("I'm done with thread 1") 
 
 
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(960, 600)
+        MainWindow.setFixedSize(1280, 720)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -202,7 +216,7 @@ class Ui_MainWindow(object):
 
 
 
-        self.show_frame(4)
+        self.show_frame(2)
         self.yesButton.hide()
         self.noButton.hide()
 
@@ -334,7 +348,8 @@ class Ui_MainWindow(object):
 
     def proceed(self):
         print("Getting Json...")
-        GetJson(self.folder)
+        self.songs = GetJson(self.folder).getList()
+        self.index = int(len(self.songs) / 2)
         self.show_frame(3)
 
     def denied(self):
