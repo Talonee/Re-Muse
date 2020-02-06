@@ -17,6 +17,7 @@ import os, shutil, unidecode, time, json, urllib.request, sys, numpy
 
 class ReMuse(QThread):
     countChanged = pyqtSignal(int) # must remain outside of init
+    textChanged = pyqtSignal(str) # must remain outside of init
     finished = pyqtSignal() # must remain outside of init
 
     def __init__(self, songs, fin, fout):
@@ -35,10 +36,9 @@ class ReMuse(QThread):
         self.driver.get("https://music.youtube.com/")
         self.driver.execute_script("window.open('http://www.google.com/');")
         for song in self.songs:
-            mehoy = unidecode.unidecode(song["File"])
-            print(f"Starting {mehoy}")
+            fname = unidecode.unidecode(song["File"])
+            self.textChanged.emit(fname)
             Search(self.driver, song, self.fin, self.fout).find()
-            print(f"Finished {mehoy}")
             self.countChanged.emit(self.length)
 
         self.driver.quit()
@@ -55,6 +55,7 @@ class Ui_MainWindow(object):
         self.errorMsg = set()
         self.fin = ""
         self.fout = ""
+        self.iter = 0
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -225,16 +226,18 @@ class Ui_MainWindow(object):
 
     ###### Review Page (Frame 4)
         self.review = QtWidgets.QFrame(self.centralwidget)
-        self.review.setGeometry(QtCore.QRect(20, 20, 931, 521))
+        self.review.setGeometry(QtCore.QRect(*self.FRAME_DIM))
+        font = QtGui.QFont()
+        font.setFamily("Open Sans")
+        self.review.setFont(font)
         self.review.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.review.setFrameShadow(QtWidgets.QFrame.Raised)
         self.review.setObjectName("review")
 
-
         # Welcome and transition to browsing page
-        # self.landing()
+        self.landing()
 
-        self.show_frame(4)
+        # self.show_frame(4)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -301,7 +304,6 @@ class Ui_MainWindow(object):
             self.show_frame(3)
             self.songs = GetJson(self.fin).songs
             self.index = int(len(self.songs) / 2)
-            [print(fname) for fname in os.listdir(self.fin)]
 
     def cancel(self):
         self.inputText.clear()
@@ -317,17 +319,29 @@ class Ui_MainWindow(object):
         self.calc1 = ReMuse(self.songs[:self.index], self.fin, self.fout)
         self.calc2 = ReMuse(self.songs[self.index:], self.fin, self.fout)
         
+        self.calc1.textChanged.connect(self.onTextChanged)
         self.calc1.countChanged.connect(self.onCountChanged)
         self.calc1.finished.connect(self.finishedThread)
 
+        self.calc2.textChanged.connect(self.onTextChanged)
         self.calc2.countChanged.connect(self.onCountChanged)
         self.calc2.finished.connect(self.finishedThread)
 
         self.calc1.start()
         self.calc2.start()
         
+    def onTextChanged(self, fname):
+        self.iter += 1
+        updateText = f"Searching data for \"{fname[:-4]}...\" ({self.iter}/{len(self.songs)})"
+        self.label_6.setText(updateText)
+        self.label_6.adjustSize()
+        posX = self.progress.rect().width() / 2 - self.label_6.rect().width() / 2
+        posY = self.progress.rect().height() * 0.39
+        self.label_6.move(posX, posY)
+
     def onCountChanged(self, lenlist):
         self.pbar.setValue(self.pbar.value() + 100/2/lenlist) # 100 / num(threads) / len(list)
+        
         # print(f"Added %: {100/2/lenlist}\n"
         #       f"Current: {self.pbar.value()}")
 
@@ -335,7 +349,7 @@ class Ui_MainWindow(object):
         self.completedThread += 1 
         if self.completedThread == self.MAX_THREAD:
             self.pbar.setValue(100)
-            self.label_6.setText("Retrieving progress...")
+            self.label_6.setText("Completed")
             self.getImages()
             self.griddy()
             self.scrolly()
@@ -347,8 +361,10 @@ class Ui_MainWindow(object):
         self.widget = QWidget()
         self.widget.setLayout(self.mama_grid)
 
-        self.scroll.setGeometry(50, 20, 800, 500)
+        self.scroll.setGeometry(*self.FRAME_DIM)
         self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        if self.reviewRow <= 2:
+            self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll.setWidgetResizable(True)
         self.scroll.setWidget(self.widget)
@@ -357,8 +373,8 @@ class Ui_MainWindow(object):
         self.mama_grid = QtWidgets.QGridLayout()
 
         position = []
-        for row in range(7): # change range to adapt
-            for col in range(3):
+        for row in range(self.reviewRow): # change range to adapt
+            for col in range(self.reviewCol):
                 position.append((row, col))
 
         for item, pos in zip(self.container, position):
@@ -372,17 +388,25 @@ class Ui_MainWindow(object):
         self.mama_grid.setAlignment(Qt.AlignCenter)
 
     def getImages(self):
+        self.fout = r"C:\Users\Cakee\Documents\Projects\Re-Muse\test\\"
+        self.fout = self.fout.replace("\\", "/")
+
         self.container = []
         # Create a cover folder for all album in output file
-        # self.length = len(os.listdir("covers/")) # dir is your directory path
-        # covSrc = os.mkdir(self.fout + "covers") + "/"
+        
         covSrc = self.fout + "covers/"
+        self.numItems = len(os.listdir(covSrc)) # dir is your directory path
+
+        size = 300 if self.numItems <= 3 else 200
+        self.reviewRow = int(self.numItems / 3) if (self.numItems % 3 == 0) else int(self.numItems / 3) 
+        self.reviewCol = int(4)
+
         for fname in os.listdir(self.fout):
             if ".mp3" in fname:
                 id3 = ID3(f"{self.fout}{fname}")
                 img = QtWidgets.QLabel()
                 cov = id3["TALB"][0][:15] + ".jpg"
-                pixmap = QtGui.QPixmap(f"{covSrc}{cov}").scaledToWidth(200)
+                pixmap = QtGui.QPixmap(f"{covSrc}{cov}").scaledToWidth(size)
                 img.setPixmap(pixmap)
                 txt = QtWidgets.QLabel()
                 txt.setText(id3['TIT2'][0])
