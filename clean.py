@@ -58,16 +58,18 @@ class Clean():
 
 class GetJson():
     def __init__(self, folder, reset=True):
-        # Reset previous data
-        if reset and os.path.exists("songs.json"):
-            os.remove("songs.json")
+        # # Reset previous data
+        # if reset and os.path.exists("songs.json"):
+        #     os.remove("songs.json")
 
-        # Initiate list of songs
-        try:
-            with open('songs.json') as infile:
-                self.songs = json.load(infile)
-        except:
-            self.songs = []
+        # # Initiate list of songs
+        # try:
+        #     with open('songs.json') as infile:
+        #         self.songs = json.load(infile)
+        # except:
+        #     self.songs = []
+
+        self.songs = []
 
         # Perform clean on each file within dir
         for fname in os.listdir(folder):

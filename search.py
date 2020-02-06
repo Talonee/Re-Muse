@@ -67,7 +67,7 @@ class ReMuse(threading.Thread):
 
 
 class Search():
-    def __init__(self, driver, song):
+    def __init__(self, driver, song, fin, fout):
         self.driver = driver
         self.fname = song["File"]
         self.artist = song["Artist"]
@@ -76,7 +76,13 @@ class Search():
         self.lyrics = song["Lyrics"]
         self.cover = ""
 
-        self.success = True
+        self.fin = fin
+        self.fout = fout
+        try:
+            os.mkdir(self.fout + "covers")
+        except:
+            pass
+        self.fcov = self.fout + "covers/"
 
     def find(self):    
         self.get_song()
@@ -139,12 +145,14 @@ class Search():
             # Download cover from source then attach
             try: # sometimes thumbnail is unavailable
                 src_cover = f"https://i.ytimg.com/vi/{img_segment}/maxresdefault.jpg"
-                self.download(src_cover, f"covers/{self.loc_album[:15]}.jpg")
+                # self.download(src_cover, f"covers/{self.loc_album[:15]}.jpg")
+                self.download(src_cover, self.fcov + f"{self.loc_album[:15]}.jpg")
             except:
                 src_cover = f"https://i.ytimg.com/vi/{img_segment}/hqdefault.jpg"
-                self.download(src_cover, f"covers/{self.loc_album[:15]}.jpg")
-                
-            self.loc_cover = f"covers/{self.loc_album[:15]}.jpg" 
+                # self.download(src_cover, f"covers/{self.loc_album[:15]}.jpg")
+
+            self.download(src_cover, self.fcov + f"{self.loc_album[:15]}.jpg")
+            # self.loc_cover = f"covers/{self.loc_album[:15]}.jpg" 
         else:
             print(unidecode.unidecode(" ".join(valid_check)) + " is not found.\n")
 
@@ -157,7 +165,7 @@ class Search():
         urllib.request.install_opener(opener)
         urllib.request.urlretrieve(src, loc)
 
-        # if song
+        # if song, else video
 
         # Open image and set points for cropped image 
         im = Image.open(loc) 
@@ -199,8 +207,9 @@ class Search():
 
     def finalize(self):
         # Apply changes to files
-        cover = open(f"covers/{self.loc_album[:15]}.jpg", 'rb').read()
-        id3 = ID3(f'review/{self.fname}')
+        cover = open(self.fcov + f"{self.loc_album[:15]}.jpg", 'rb').read()
+        # id3 = ID3(f'review/{self.fname}')
+        id3 = ID3(self.fin + f"{self.fname}")
         id3.add(APIC(3, 'image/jpeg', 3, "", cover))
         id3.add(TT2(encoding=3, text=f"{self.loc_title}"))
         id3.add(TPE1(encoding=3, text=f"{self.loc_artist}"))
@@ -209,7 +218,8 @@ class Search():
 
         # Save data and relocate
         id3.save(v2_version=3)
-        shutil.move(f"review/{self.fname}", f"final/{self.loc_title}.mp3")   
+        # shutil.move(f"review/{self.fname}", f"final/{self.loc_title}.mp3")   
+        shutil.move(self.fin + f"{self.fname}", self.fout + f"{self.loc_title}.mp3")   
 
 if __name__ == "__main__":
     clean.GetJson(folder="review/")

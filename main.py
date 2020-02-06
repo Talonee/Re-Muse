@@ -19,10 +19,12 @@ class ReMuse(QThread):
     countChanged = pyqtSignal(int) # must remain outside of init
     finished = pyqtSignal() # must remain outside of init
 
-    def __init__(self, songs):
+    def __init__(self, songs, fin, fout):
         QThread.__init__(self)
         self.songs = songs
         self.length = len(self.songs)
+        self.fin = fin
+        self.fout = fout
              
     def run(self):
         self.options = Options()
@@ -35,7 +37,7 @@ class ReMuse(QThread):
         for song in self.songs:
             mehoy = unidecode.unidecode(song["File"])
             print(f"Starting {mehoy}")
-            Search(self.driver, song).find()
+            Search(self.driver, song, self.fin, self.fout).find()
             print(f"Finished {mehoy}")
             self.countChanged.emit(self.length)
 
@@ -51,6 +53,8 @@ class Ui_MainWindow(object):
 
     def __init__(self):
         self.errorMsg = set()
+        self.fin = ""
+        self.fout = ""
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -214,7 +218,7 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(self.progress)
         self.label_6.setText("In progress...")
         posX = self.progress.rect().width() / 2 - self.label_6.rect().width() / 2
-        posY = self.progress.rect().height() * 0.55
+        posY = self.progress.rect().height() * 0.39
         self.label_6.move(posX, posY)
         self.label_6.setObjectName("label_6")
         self.label_6.hide()
@@ -227,11 +231,10 @@ class Ui_MainWindow(object):
         self.review.setObjectName("review")
 
 
-
         # Welcome and transition to browsing page
-        self.landing()
+        # self.landing()
 
-        # self.show_frame(3)
+        self.show_frame(4)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -263,17 +266,19 @@ class Ui_MainWindow(object):
         if self.inputText.text() and self.outputText.text():
             self.yesButton.setEnabled(True)
             self.noButton.setEnabled(True)
+            self.fin = self.inputText.text()
+            self.fout = self.outputText.text()
 
             # Input test cases
-            if not os.path.isdir(self.inputText.text()):
+            if not os.path.isdir(self.fin):
                 self.errorMsg.add("- Invalid input path.\n")
             else:
-                self.fCount = len([fname for fname in os.listdir(self.inputText.text()) if ".mp3" in fname])
+                self.fCount = len([fname for fname in os.listdir(self.fin) if ".mp3" in fname])
                 if self.fCount == 0:
                     self.errorMsg.add("- No music files found. Re-select input folder..\n")
 
             # Output test cases
-            if not os.path.isdir(self.outputText.text()):
+            if not os.path.isdir(self.fout):
                 self.errorMsg.add("- Invalid output path.\n")
         else:
             self.yesButton.setDisabled(True)
@@ -289,14 +294,14 @@ class Ui_MainWindow(object):
 
     def proceed(self):
         if self.errorMsg:
-            # Pop up error
             self.show_popup()
             self.yesButton.setDisabled(True)
             self.noButton.setDisabled(True)
         else:
             self.show_frame(3)
-            self.songs = GetJson(self.folder).songs
+            self.songs = GetJson(self.fin).songs
             self.index = int(len(self.songs) / 2)
+            [print(fname) for fname in os.listdir(self.fin)]
 
     def cancel(self):
         self.inputText.clear()
@@ -309,8 +314,8 @@ class Ui_MainWindow(object):
         self.completedThread = 0
         self.label_6.show()
 
-        self.calc1 = ReMuse(self.songs[:self.index])
-        self.calc2 = ReMuse(self.songs[self.index:])
+        self.calc1 = ReMuse(self.songs[:self.index], self.fin, self.fout)
+        self.calc2 = ReMuse(self.songs[self.index:], self.fin, self.fout)
         
         self.calc1.countChanged.connect(self.onCountChanged)
         self.calc1.finished.connect(self.finishedThread)
@@ -370,11 +375,11 @@ class Ui_MainWindow(object):
         self.container = []
         # Create a cover folder for all album in output file
         # self.length = len(os.listdir("covers/")) # dir is your directory path
-        outSrc = self.outputText.text()
-        covSrc = os.mkdir(outSrc + "covers") + "/"
-        for fname in os.listdir(outSrc):
+        # covSrc = os.mkdir(self.fout + "covers") + "/"
+        covSrc = self.fout + "covers/"
+        for fname in os.listdir(self.fout):
             if ".mp3" in fname:
-                id3 = ID3(f"{outSrc}{fname}")
+                id3 = ID3(f"{self.fout}{fname}")
                 img = QtWidgets.QLabel()
                 cov = id3["TALB"][0][:15] + ".jpg"
                 pixmap = QtGui.QPixmap(f"{covSrc}{cov}").scaledToWidth(200)
