@@ -50,23 +50,28 @@ class Ui_MainWindow(object):
     FRAME_DIM = [0, 0, WINDOW_WIDTH, WINDOW_HEIGHT]
 
     def __init__(self):
-        self.validIn = False
-        self.validOut = False
-        self.errorMsg = []
+        self.errorMsg = set()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 26))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
 
-        ###### Welcome Page (Frame 1)
+    ###### Welcome Page (Frame 1)
         self.welcome = QtWidgets.QFrame(self.centralwidget)
         self.welcome.setGeometry(QtCore.QRect(*self.FRAME_DIM))
         font = QtGui.QFont()
         font.setFamily("Open Sans")
         font.setPointSize(40)
-        # font.setBold(True)
         self.welcome.setFont(font)
         self.welcome.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.welcome.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -79,9 +84,7 @@ class Ui_MainWindow(object):
         self.label.move(posX, posY)
         self.label.setObjectName("label")
 
-
-
-        ###### Browsing Page (Frame 2)
+    ###### Browsing Page (Frame 2)
         self.browse = QtWidgets.QFrame(self.centralwidget)
         self.browse.setGeometry(QtCore.QRect(*self.FRAME_DIM))
         font = QtGui.QFont()
@@ -154,90 +157,69 @@ class Ui_MainWindow(object):
         self.total.move(posX, posY)
         self.total.setObjectName("total")
         
-        self.label_5 = QtWidgets.QLabel(self.browse)
-        font.setPointSize(10)
-        self.label_5.setFont(font)
-        self.label_5.setObjectName("label_5")
-
-
-        # def btnAction(self):
-        #     if len(self.textbox.text()) > 0:
-        #         self.pushButton.setDisabled(False)
-        #     else:
-        #         self.pushButton.setDisabled(True)
-
-        # self.pushButton.setDisabled(True)
-        # self.textbox.textChanged.connect(self.disabledButton)
-
-
         self.yesButton = QtWidgets.QPushButton(self.browse)
-        self.yesButton.setGeometry(QtCore.QRect(640, 380, 101, 41))
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
         font.setPointSize(10)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
+        posX = self.browse.rect().width() / 2  - self.yesButton.rect().width() / 2 - 75
+        posY = self.browse.rect().height() * 0.67
+        self.yesButton.move(posX, posY)
         self.yesButton.setFont(font)
+        self.yesButton.setText("Proceed")
         self.yesButton.setObjectName("yesButton")
+        self.yesButton.setDisabled(True)
 
         self.noButton = QtWidgets.QPushButton(self.browse)
-        self.noButton.setGeometry(QtCore.QRect(640, 480, 101, 41))
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
         font.setPointSize(10)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.noButton.setFont(font)
+        posX = self.browse.rect().width() / 2  - self.noButton.rect().width() / 2 + 75
+        posY = self.browse.rect().height() * 0.67
+        self.noButton.move(posX, posY)
+        self.noButton.setFont(font)        
+        self.noButton.setText("Cancel")
         self.noButton.setObjectName("noButton")
+        self.noButton.setDisabled(True)
 
-        self.yesButton.hide()
-        self.noButton.hide()
-
-        # Buttons to run
+        # Browse Frame::Buttons
+        self.inputText.textChanged.connect(self.dirValidity)
+        self.outputText.textChanged.connect(self.dirValidity)
         self.browseInput.clicked.connect(self.browse_folder)
         self.browseOutput.clicked.connect(self.browse_folder)
         self.yesButton.clicked.connect(self.proceed)
         self.noButton.clicked.connect(self.cancel)
-
-
-
-        ###### Progress Page (Frame 3)
+        
+    ###### Progress Page (Frame 3)
         self.progress = QtWidgets.QFrame(self.centralwidget)
-        self.progress.setGeometry(QtCore.QRect(20, 20, 931, 521))
+        self.progress.setGeometry(QtCore.QRect(*self.FRAME_DIM))
+        font = QtGui.QFont()
+        font.setFamily("Open Sans")
+        font.setPointSize(11)
+        self.progress.setFont(font)
         self.progress.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.progress.setFrameShadow(QtWidgets.QFrame.Raised)
         self.progress.setObjectName("progress")
-        self.label_6 = QtWidgets.QLabel(self.progress)
-        self.label_6.setGeometry(QtCore.QRect(110, 190, 731, 121))
-        font = QtGui.QFont()
-        font.setFamily("Open Sans")
-        font.setPointSize(22)
-        font.setItalic(True)
-        self.label_6.setFont(font)
-        self.label_6.setObjectName("label_6")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 960, 26))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         ## Progress bar
         self.pbar = QProgressBar(self.progress)
-        self.pbar.setGeometry(30, 40, 200, 25)
+        self.pbar.setGeometry(0, 0, self.WINDOW_WIDTH * 0.6, 25)
         self.pbar.setValue(0)
+        posX = self.progress.rect().width() / 2 - self.pbar.rect().width() / 2
+        posY = self.progress.rect().height() * 0.45
+        self.pbar.move(posX, posY)
 
         self.btn = QPushButton('Begin Search', self.progress)
-        self.btn.move(40, 80)
-        self.btn.clicked.connect(lambda: self.onButtonClick())
+        self.btn.setGeometry(0, 0, 150, 38)
+        posX = self.progress.rect().width() / 2 - self.btn.rect().width() / 2
+        posY = self.progress.rect().height() * 0.52
+        self.btn.move(posX, posY)
+        self.btn.clicked.connect(self.onButtonClick)
 
+        self.label_6 = QtWidgets.QLabel(self.progress)
+        self.label_6.setText("In progress...")
+        posX = self.progress.rect().width() / 2 - self.label_6.rect().width() / 2
+        posY = self.progress.rect().height() * 0.55
+        self.label_6.move(posX, posY)
+        self.label_6.setObjectName("label_6")
+        self.label_6.hide()
 
-
-        ###### Review Page (Frame 4)
+    ###### Review Page (Frame 4)
         self.review = QtWidgets.QFrame(self.centralwidget)
         self.review.setGeometry(QtCore.QRect(20, 20, 931, 521))
         self.review.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -247,9 +229,9 @@ class Ui_MainWindow(object):
 
 
         # Welcome and transition to browsing page
-        # self.landing()
+        self.landing()
 
-        self.show_frame(2)
+        # self.show_frame(3)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -257,92 +239,75 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        # self.label.setText(_translate("MainWindow", "Welcome to ReMuse"))
-        # self.label.adjustSize()
-        # print(self.label.frameGeometry().width())
-        # self.label_3.setText(_translate("MainWindow", "Welcome to ReMuse"))
-        # self.label_4.setText(_translate("MainWindow", "Browse folder or enter path to begin"))
-        # self.textbox.setText(_translate("MainWindow", "Enter path here..."))
-        # self.browseBtn.setText(_translate("MainWindow", "Browse"))       
-        self.label_6.setText(_translate("MainWindow", "Progress..."))
 
-        self.yesButton.setText(_translate("MainWindow", "Proceed"))
-        self.noButton.setText(_translate("MainWindow", "Cancel"))
-
-
-    ######### FRAME 1 ############
+######### FRAME 1 ############
     def landing(self):
         self.show_frame(1)
         timer = QTimer()
         timer.singleShot(1500, lambda: self.show_frame(2))
 
-    ######### FRAME 2 ############
+######### FRAME 2 ############
     def browse_folder(self):
-        # TODO: UPDATE TEXT EVERY TIME YOU RECLICK BUTTON 
-        # TODO: readjust button positions
-        # TODO: fix when to check for input and output validity 
-        # TODO: Create a list of errors and put out as single 
-
         self.folder = QFileDialog.getExistingDirectory() + "/"
         obj = self.browse.sender().objectName()
 
-        if obj == "browseInput":
-            self.inputText.setText(self.folder)        
-            self.inputLoc = self.inputText.text()
-        elif obj == "browseOutput":
-            self.outputText.setText(self.folder)
-            self.outputLoc = self.outputText.text()
+        if not (self.folder == "/"):
+            if obj == "browseInput":
+                    self.inputText.setText(self.folder)  
+            elif obj == "browseOutput":
+                self.outputText.setText(self.folder)
+    
+    def dirValidity(self):
+        # Check and enter info into error msg first
+        self.errorMsg.clear()
+        if self.inputText.text() and self.outputText.text():
+            self.yesButton.setEnabled(True)
+            self.noButton.setEnabled(True)
 
-        try:
-            if self.inputLoc and self.outputLoc:
-                if os.path.isdir(self.inputLoc):
-                    self.fCount = len([fname for fname in os.listdir(self.inputLoc) if ".mp3" in fname])
-                    if self.fCount == 0:
-                        self.errorMsg.append("Empty folder with no music files. Please re-select..")
-                        # self.adjustInfo(f"Empty folder with no music files. Please re-select..")
-                    else:
-                        self.validIn = True
-                else:
-                    self.errorMsg.append("Invalid input path. Please re-select..")
-                    # self.adjustInfo(f"Invalid input path. Please re-select..")
+            # Input test cases
+            if not os.path.isdir(self.inputText.text()):
+                self.errorMsg.add("- Invalid input path.\n")
+            else:
+                self.fCount = len([fname for fname in os.listdir(self.inputText.text()) if ".mp3" in fname])
+                if self.fCount == 0:
+                    self.errorMsg.add("- No music files found. Re-select input folder..\n")
 
-                if os.path.isdir(self.outputLoc):
-                    self.validOut = True
-                else:
-                    self.errorMsg.append("Invalid output path. Please re-select..")
-                    # self.adjustInfo(f"Invalid output path. Please re-select..")
+            # Output test cases
+            if not os.path.isdir(self.outputText.text()):
+                self.errorMsg.add("- Invalid output path.\n")
+        else:
+            self.yesButton.setDisabled(True)
 
-                self.adjustInfo("\n".join(self.errorMsg))
-                if self.validIn and self.validOut:
-                    # self.errorMsg.append(f"There are {self.fCount} music files in the current directory. Proceed?")
-                    self.adjustInfo(f"There are {self.fCount} music files in the current directory. Proceed?")
-                    self.yesButton.show()
-                    self.noButton.show()
-        except:
-            pass
-           
-    def adjustInfo(self, text):
-        self.label_5.setText(text)
-        self.label_5.adjustSize()
-        posX = self.browse.rect().width() / 2 - self.label_5.rect().width() / 2
-        posY = self.browse.rect().height() * 0.65
-        self.label_5.move(posX, posY)
+    def show_popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Error")
+        msg.setText("An error(s) has occurred:")
+        msg.setIcon(QMessageBox.Critical)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.setInformativeText("".join(self.errorMsg))
+        msg.exec_()
 
     def proceed(self):
-        self.show_frame(3)
-        # print("Getting lists...") # update label 4
-        self.songs = GetJson(self.folder).songs
-        self.index = int(len(self.songs) / 2)
+        if self.errorMsg:
+            # Pop up error
+            self.show_popup()
+            self.yesButton.setDisabled(True)
+            self.noButton.setDisabled(True)
+        else:
+            self.show_frame(3)
+            self.songs = GetJson(self.folder).songs
+            self.index = int(len(self.songs) / 2)
 
     def cancel(self):
         self.inputText.clear()
         self.outputText.clear()
-        self.yesButton.hide()
-        self.noButton.hide()
+        self.yesButton.setDisabled(True)
+        self.noButton.setDisabled(True)
 
-    ######### FRAME 3 ############
+######### FRAME 3 ############
     def onButtonClick(self):
         self.completedThread = 0
+        self.label_6.show()
 
         self.calc1 = ReMuse(self.songs[:self.index])
         self.calc2 = ReMuse(self.songs[self.index:])
@@ -371,7 +336,7 @@ class Ui_MainWindow(object):
             self.scrolly()
             self.show_frame(4)
 
-    ######### FRAME 4 ############
+######### FRAME 4 ############
     def scrolly(self):
         self.scroll = QScrollArea(self.review)           
         self.widget = QWidget()
@@ -380,7 +345,6 @@ class Ui_MainWindow(object):
         self.scroll.setGeometry(50, 20, 800, 500)
         self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        # self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scroll.setWidgetResizable(True)
         self.scroll.setWidget(self.widget)
 
@@ -404,14 +368,16 @@ class Ui_MainWindow(object):
 
     def getImages(self):
         self.container = []
-        self.length = len(os.listdir("covers/")) # dir is your directory path
-       
-        for fname in os.listdir("final/"):
+        # Create a cover folder for all album in output file
+        # self.length = len(os.listdir("covers/")) # dir is your directory path
+        outSrc = self.outputText.text()
+        covSrc = os.mkdir(outSrc + "covers") + "/"
+        for fname in os.listdir(outSrc):
             if ".mp3" in fname:
-                id3 = ID3(f"final/{fname}")
+                id3 = ID3(f"{outSrc}{fname}")
                 img = QtWidgets.QLabel()
                 cov = id3["TALB"][0][:15] + ".jpg"
-                pixmap = QtGui.QPixmap(f"covers/{cov}").scaledToWidth(200)
+                pixmap = QtGui.QPixmap(f"{covSrc}{cov}").scaledToWidth(200)
                 img.setPixmap(pixmap)
                 txt = QtWidgets.QLabel()
                 txt.setText(id3['TIT2'][0])
@@ -434,13 +400,7 @@ class Ui_MainWindow(object):
 
 
 
-    def show_widget(self, widget, on):
-        effect = QGraphicsOpacityEffect()
-        effect.setOpacity(on)
-        widget.setGraphicsEffect(effect)
-        widget.show() if on else widget.hide()
-
-
+######### MISCELLANEOUS ############
     def show_frame(self, fnum):
         def frames(frame):
             a, b, c, d = frame
@@ -456,27 +416,9 @@ class Ui_MainWindow(object):
             widget.show() if on else widget.hide()
             widget.setEnabled(on)
         
-        # 1: Welcome page
-        # 2: Browse page
-        # 3: Progress page
         matrix = numpy.identity(4, int)
         frames(matrix[fnum - 1])
 
-
-
-
-    # def __init__(self):
-        # with open('songs.json') as infile:
-        #     self.songs = json.load(infile)
-        # self.songs = []
-
-    
-        
-        # self.timer = QTimer()
-        # self.timer.setSingleShot(True)
-        # self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
-        # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
-        # self.timer.start(3000)
 
 if __name__ == "__main__":
     import sys
@@ -488,14 +430,6 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
     
 
-
-
-
-
-
-
-
-
         # items = [(1,2), (4,1), (9,7), (0,4), (6,4), (4,3)]
         # position = []
         # for row in range(2):
@@ -504,17 +438,6 @@ if __name__ == "__main__":
 
         # for item, pos in zip(items, position):
         #     print(*pos)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -793,4 +716,18 @@ if __name__ == "__main__":
         
         # self.progress.setLayout(grid) 
 ##################################################
+'''
+
+'''
+    # def __init__(self):
+        # with open('songs.json') as infile:
+        #     self.songs = json.load(infile)
+        # self.songs = []
+
+       
+        # self.timer = QTimer()
+        # self.timer.setSingleShot(True)
+        # self.timer.singleShot(2000, lambda: self.browse_page()) # single timer
+        # self.timer.timeout.connect(lambda: self.browse_page()) # repeating timer
+        # self.timer.start(3000)
 '''
