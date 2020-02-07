@@ -34,35 +34,20 @@ class ReMuse(QThread):
         self.fout = fout
              
     def run(self):
-        # self.options = Options()
-        # self.options.add_argument("--headless")
-        # self.options.add_argument("--window-size=1920,1080")
-        # self.options.add_argument("--allow-running-insecure-content")
-        # self.options.add_argument("--incognito")
-        # self.options.add_argument("--mute-audio")
-        # self.options.add_argument("--disable-gpu")
-        # self.options.add_argument("--no-sandbox")
-        # self.options.add_argument("--disable-dev-shm-usage")
-        # self.options.headless = True
-        # self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
-        # self.driver = webdriver.Firefox(executable_path='geckodriver', options=self.options)
-        # cap = DesiredCapabilities().FIREFOX.copy()
-        # cap["marionette"] = False
-        # binary = FirefoxBinary('geckodriver')
         binary = r'C:\Users\Talon.Pollard\AppData\Local\Mozilla Firefox\firefox.exe'
 
         options = Options()
-        options.add_argument('-headless')
-        # options.set_headless(headless=True)
+        options.set_headless(headless=True)
         options.binary = binary
+
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("media.volume_scale", "0.0")
+
         cap = DesiredCapabilities().FIREFOX
         cap["marionette"] = True #optional
-        self.driver = webdriver.Firefox(options=options, capabilities=cap, executable_path="geckodriver.exe")
-        # self.driver.set_window_size(1280, 720)
+
+        self.driver = webdriver.Firefox(firefox_profile=profile, options=options, capabilities=cap, executable_path="geckodriver.exe")
         self.driver.get("https://music.youtube.com/")
-        # wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "ytmusic-search-box[role='search']")))
-        # print('hi')
         self.driver.execute_script("window.open('http://www.google.com/');")        
         time.sleep(10)
 
@@ -419,18 +404,14 @@ class Ui_MainWindow(object):
         self.mama_grid.setAlignment(Qt.AlignCenter)
 
     def getImages(self):
-        self.fout = r"C:\Users\Cakee\Documents\Projects\Re-Muse\test\"
-        self.fout = self.fout.replace("\\", "/")
-
         self.container = []
-        # Create a cover folder for all album in output file
         
         covSrc = self.fout + "covers/"
-        self.numItems = len(os.listdir(covSrc)) # dir is your directory path
+        self.numItems = len(os.listdir(covSrc))
 
-        size = 300 if self.numItems <= 3 else 200
+        size = 300 if self.numItems <= 3 else 225
         self.reviewRow = int(self.numItems / 3) if (self.numItems % 3 == 0) else int(self.numItems / 3 + 1) 
-        self.reviewCol = int(3) if (self.numItems <= 3) else int(4)
+        self.reviewCol = int(3) if (self.numItems <= 7) else int(4)
 
         for fname in os.listdir(self.fout):
             if ".mp3" in fname:
@@ -443,22 +424,6 @@ class Ui_MainWindow(object):
                 txt.setText(id3['TIT2'][0])
                 txt.setAlignment(Qt.AlignCenter)
                 self.container.append((img, txt))
-
-        # for fname in os.listdir("covers/"):
-        #     if ".jpg" in fname:
-        #         img = QtWidgets.QLabel()
-        #         pixmap = QtGui.QPixmap(f"covers/{fname}").scaledToWidth(200)
-        #         img.setPixmap(pixmap)
-        #         txt = QtWidgets.QLabel()
-        #         txt.setText(fname[:-4])
-        #         txt.setAlignment(Qt.AlignCenter)
-        #         self.container.append((img, txt))
-
-
-
-
-
-
 
 ######### MISCELLANEOUS ############
     def show_frame(self, fnum):
@@ -490,101 +455,9 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
     
 
-        # items = [(1,2), (4,1), (9,7), (0,4), (6,4), (4,3)]
-        # position = []
-        # for row in range(2):
-        #     for col in range(3):
-        #         position.append((row, col))
-
-        # for item, pos in zip(items, position):
-        #     print(*pos)
-
 
 
 '''
-    def init(self):
-        a, b, c = [1,1,1]
-        # Set all frame opacity to 0
-        self.switch(self.welcome, 0)
-        self.switch(self.browse, 0)
-        self.switch(self.progress, 0)
-        print("All pages has been turned off.")
-
-        # (Welcome) Fade in + 2-3s hold + fade out
-        # print(int(not 1))
-
-        # (Welcome) Hide; (Browse) Show
-        
-        curr = time.time()
-        self.timer = QTimer()
-        # self.timer.start(3000)
-        self.timer.setInterval(3000)
-        self.timer.setSingleShot(True)
-        self.timer.start()
-        self.timer.timeout.connect(lambda: self.switch(self.welcome, 0))
-        self.timer.timeout.connect(lambda: print(f"{time.time() - curr} after alleged 3s"))
-
-        QtWidgets.qApp.processEvents()
-        self.timer.setInterval(3000)
-        self.timer.setSingleShot(True)
-        self.timer.start()
-        self.timer.timeout.connect(lambda: self.switch(self.browse, 1))
-        self.timer.timeout.connect(lambda: print(f"{time.time() - curr} after alleged 6s"))
-        # print("hell yea")
-        # self.timer.stop()
-
-        # self.timer.start(5000)
-        def count():
-            print("Ready to browse folder...")
-            print(f"{time.time() - curr} after alleged 5s")
-        # self.timer.timeout.connect(lambda: count())
-
-        # self.timer.singleShot(2000, lambda: self.turn_on(self.browse))
-        # self.timer.singleShot(2000, lambda: count())
-        # self.timer.stop()
-
-        
-        # self.a = QTimer()
-        # self.a.singleShot(2000, lambda: self.switch(self.browse, 0))
-        # # time.sleep(2)
-        # # self.a = QTimer()
-        # self.a.singleShot(4000, lambda: self.switch(self.browse, 1))
-
-        # self.delay(self.switch(self.browse, 0), 0)
-        # self.delay(self.switch(self.browse, 1), 3)
-        # self.turn_on(self.browse)
-    def delay(self, fxn, n):
-        # time.sleep(2)
-        timer = QTimer()
-        timer.singleShot(2000*n, lambda: fxn)
-        # timer.singleShot(2000, lambda: self.switch(self.browse, 0))
-        # timer.singleShot(4000, lambda: self.switch(self.browse, 1))
-        # print(f"{time.time() - self.curr} seconds have passed.")
-    def browse_page(self):
-        self.fade(self.welcome, 1000)
-        self.timer.singleShot(1000, lambda: self.welcome.hide()) # single timer
-
-        self.progress.hide()
-
-        self.timer = QTimer()
-        self.timer.singleShot(1000, lambda: self.unfade(self.browse, 1000)) # single timer
-        
-        # self.browse.hide()
-        # self.progress.show()
-        # self.hide_pls(self.progress)
-
-
-        # self.unhide_pls(self.progress)
-        # self.timer = QTimer()
-        # self.timer.singleShot(1000, lambda: self.view_page()) # single timer
-    def browse_button(self):
-        # filename = QFileDialog.getOpenFileName()
-        folder = QFileDialog.getExistingDirectory()
-        print(f"My current folder: {folder}")
-        for fname in os.listdir(folder + "/"):
-            if ".mp3" in fname:
-                # clean.Clean(fname).export_json()
-                print(unidecode.unidecode(fname))
     def fade(self, widget, duration):
         self.effect = QGraphicsOpacityEffect()
         widget.setGraphicsEffect(self.effect)
