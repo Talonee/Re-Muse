@@ -52,17 +52,20 @@ class ReMuse(QThread):
         binary = r'C:\Users\Talon.Pollard\AppData\Local\Mozilla Firefox\firefox.exe'
 
         options = Options()
+        options.add_argument('-headless')
         # options.set_headless(headless=True)
         options.binary = binary
         cap = DesiredCapabilities().FIREFOX
         cap["marionette"] = True #optional
-        self.driver = webdriver.Firefox(firefox_options=options, capabilities=cap, executable_path="geckodriver.exe")
+        self.driver = webdriver.Firefox(options=options, capabilities=cap, executable_path="geckodriver.exe")
         # self.driver.set_window_size(1280, 720)
         self.driver.get("https://music.youtube.com/")
         # wait = WebDriverWait(self.driver, 10)
         # wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "ytmusic-search-box[role='search']")))
         # print('hi')
-        self.driver.execute_script("window.open('http://www.google.com/');")
+        self.driver.execute_script("window.open('http://www.google.com/');")        
+        time.sleep(10)
+
         for song in self.songs:
             fname = unidecode.unidecode(song["File"])
             self.textChanged.emit(fname)
@@ -416,7 +419,7 @@ class Ui_MainWindow(object):
         self.mama_grid.setAlignment(Qt.AlignCenter)
 
     def getImages(self):
-        self.fout = r"C:\Users\Cakee\Documents\Projects\Re-Muse\test\\"
+        self.fout = r"C:\Users\Cakee\Documents\Projects\Re-Muse\test\"
         self.fout = self.fout.replace("\\", "/")
 
         self.container = []

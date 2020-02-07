@@ -52,7 +52,6 @@ class ReMuse(threading.Thread):
         self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
         self.driver.get("https://music.youtube.com/")
         self.driver.execute_script("window.open('http://www.google.com/');")
-
         for song in self.songs:
             # This is where the progress bar iterates
             Search(self.driver, song).find()
