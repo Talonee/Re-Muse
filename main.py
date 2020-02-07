@@ -10,6 +10,12 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui  import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
+
 
 from mutagen.id3 import ID3, ID3NoHeaderError
 
@@ -28,12 +34,34 @@ class ReMuse(QThread):
         self.fout = fout
              
     def run(self):
-        self.options = Options()
-        # self.options.add_argument("headless")
-        self.options.add_argument("--incognito")
-        self.options.add_argument("--mute-audio")
-        self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
+        # self.options = Options()
+        # self.options.add_argument("--headless")
+        # self.options.add_argument("--window-size=1920,1080")
+        # self.options.add_argument("--allow-running-insecure-content")
+        # self.options.add_argument("--incognito")
+        # self.options.add_argument("--mute-audio")
+        # self.options.add_argument("--disable-gpu")
+        # self.options.add_argument("--no-sandbox")
+        # self.options.add_argument("--disable-dev-shm-usage")
+        # self.options.headless = True
+        # self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
+        # self.driver = webdriver.Firefox(executable_path='geckodriver', options=self.options)
+        # cap = DesiredCapabilities().FIREFOX.copy()
+        # cap["marionette"] = False
+        # binary = FirefoxBinary('geckodriver')
+        binary = r'C:\Users\Talon.Pollard\AppData\Local\Mozilla Firefox\firefox.exe'
+
+        options = Options()
+        # options.set_headless(headless=True)
+        options.binary = binary
+        cap = DesiredCapabilities().FIREFOX
+        cap["marionette"] = True #optional
+        self.driver = webdriver.Firefox(firefox_options=options, capabilities=cap, executable_path="geckodriver.exe")
+        # self.driver.set_window_size(1280, 720)
         self.driver.get("https://music.youtube.com/")
+        # wait = WebDriverWait(self.driver, 10)
+        # wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "ytmusic-search-box[role='search']")))
+        # print('hi')
         self.driver.execute_script("window.open('http://www.google.com/');")
         for song in self.songs:
             fname = unidecode.unidecode(song["File"])
