@@ -429,8 +429,8 @@ class Ui_MainWindow(object):
         self.numItems = len(os.listdir(covSrc)) # dir is your directory path
 
         size = 300 if self.numItems <= 3 else 200
-        self.reviewRow = int(self.numItems / 3) if (self.numItems % 3 == 0) else int(self.numItems / 3) 
-        self.reviewCol = int(4)
+        self.reviewRow = int(self.numItems / 3) if (self.numItems % 3 == 0) else int(self.numItems / 3 + 1) 
+        self.reviewCol = int(3) if (self.numItems <= 3) else int(4)
 
         for fname in os.listdir(self.fout):
             if ".mp3" in fname:
