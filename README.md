@@ -1,17 +1,5 @@
 Re-Muse is an interactive application which browses for music files' name and attempt to fill in any missing metadata such as title, artist, album, cover art and lyrics. 
 
-## Flow
-1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
-2. If no artist (no dash), mark for review
-3. Attempt search for 'Song,' get TACA, crop cover
-4. Attempt search for 'Video,' get TACA, crop cover. Mark for review
-
-## Future
-1. Download mp3
-2. Manual information input
-3. Optional: Access subfolders, pull and modify songs
-4. Show current file mod in progress page
-
 # FILES:
 
 ## Clean and GetJson (clean.py)
@@ -33,8 +21,8 @@ Re-Muse is an interactive application which browses for music files' name and at
 2. Browse folder to clean. ✓
 3. Multithreading search. ✓
 4. Show live update with progress bar. ✓
-5. Review: Show lists of songs completed ✓
-6. Review: Show lists of songs failed
+5. Review: Show lists of songs completed. ✓
+6. Review: Show lists of songs failed.
 
 ## Useful links to references
 
@@ -48,11 +36,17 @@ https://riptutorial.com/pyqt5/example/29500/basic-pyqt-progress-bar
 
 https://www.learnpyqt.com/courses/adanced-ui-features/qscrollarea/
 
+## Flow
+1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
+2. If no artist (no dash), mark for review
+3. Attempt search for 'Song,' get TACA, crop cover
+4. Attempt search for 'Video,' get TACA, crop cover. Mark for review
 
-# TO DO:
-
-- Generalize all input and out sources
-    - `print(os.path.dirname(os.path.abspath(__file__)))`
+## Future
+1. Download mp3
+2. Manual information input
+3. Optional: Access subfolders, pull and modify songs
+4. Show current file mod in progress page
 
 # ReMuse 
 

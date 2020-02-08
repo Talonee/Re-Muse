@@ -29,7 +29,11 @@ class ReMuse(QThread):
              
     def run(self):
         self.options = Options()
-        # self.options.add_argument("headless")
+
+
+        # self.options.add_argument("--headless")
+        self.options.headless = True
+        self.options.add_argument("--start-maximised")
         self.options.add_argument("--incognito")
         self.options.add_argument("--mute-audio")
         self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
@@ -313,6 +317,7 @@ class Ui_MainWindow(object):
 
 ######### FRAME 3 ############
     def onButtonClick(self):
+        self.btn.setDisabled(True)
         self.completedThread = 0
         self.label_6.show()
 
@@ -332,7 +337,7 @@ class Ui_MainWindow(object):
         
     def onTextChanged(self, fname):
         self.iter += 1
-        updateText = f"Searching data for \"{fname[:-4]}...\" ({self.iter}/{len(self.songs)})"
+        updateText = f"Searching data for \"{fname[:-4]}\"... ({self.iter}/{len(self.songs)})"
         self.label_6.setText(updateText)
         self.label_6.adjustSize()
         posX = self.progress.rect().width() / 2 - self.label_6.rect().width() / 2
@@ -367,6 +372,7 @@ class Ui_MainWindow(object):
             self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll.setWidgetResizable(True)
+        self.scroll.setAlignment(Qt.AlignCenter)
         self.scroll.setWidget(self.widget)
 
     def griddy(self):
