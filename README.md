@@ -28,7 +28,7 @@ Re-Muse is an interactive application which browses for music files' name and at
 
 ![Recording](src/remuse_ver1.gif)
 
-## Useful links to references
+## References
 
 https://stackoverflow.com/questions/42665036/python-mutagen-add-image-cover-doesnt-work
 
