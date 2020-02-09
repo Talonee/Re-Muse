@@ -1,40 +1,32 @@
 Re-Muse is an interactive application which browses for music files' name and attempt to fill in any missing metadata such as title, artist, album, cover art and lyrics. 
 
-## Flow
-1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
-2. If no artist (no dash), mark for review
-3. Attempt search for 'Song,' get TACA, crop cover
-4. Attempt search for 'Video,' get TACA, crop cover. Mark for review
+# Files:
 
-## Future
-1. Download mp3
-2. Manual information input
-3. Optional: Access subfolders, pull and modify songs
-4. Show current file mod in progress page
-
-# FILES:
-
-## Clean and GetJson (clean.py)
+## Clean and GetJson (`clean.py`)
 
 1. Find pre-existing data and initiate attributes. ✓
 2. Compile into Json and export (fname, artist, title, album, lyrics). ✓
 
 
-## Class 2 (Search)
+## Search (`search.py`)
 
 1. Search artist, title, album, cover, lyrics. ✓
 2. Create database for albums and artists.
 3. Exception cases for videos and non-existing song.
 4. Save metadata and finalize modification. ✓
 
-## Class 3 (App)
+## Re-Muse (`main.py`)
 
-1. Welcome message. ✓
+1. Open app with a welcoming message. ✓
 2. Browse folder to clean. ✓
 3. Multithreading search. ✓
 4. Show live update with progress bar. ✓
 5. Review: Show lists of songs completed ✓
 6. Review: Show lists of songs failed
+
+# Results:
+
+![Recording](src/remuse_ver1.gif)
 
 ## Useful links to references
 
@@ -49,14 +41,21 @@ https://riptutorial.com/pyqt5/example/29500/basic-pyqt-progress-bar
 https://www.learnpyqt.com/courses/adanced-ui-features/qscrollarea/
 
 
-# TO DO:
+## Flow
+1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
+2. If no artist (no dash), mark for review
+3. Attempt search for 'Song,' get TACA, crop cover
+4. Attempt search for 'Video,' get TACA, crop cover. Mark for review
 
-- Generalize all input and out sources
-    - `print(os.path.dirname(os.path.abspath(__file__)))`
+## Future
+1. Download mp3
+2. Manual information input
+3. Optional: Access subfolders, pull and modify songs
+4. Show current file mod in progress page
 
-# ReMuse 
 
-### Ver. 1:
+## Version 1 
+
 - Browse a list of folders with song files.
 - Clean, search, and modify song metadata.
 - Show list of successfully completed songs.

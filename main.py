@@ -34,8 +34,8 @@ class ReMuse(QThread):
         self.fout = fout
              
     def run(self):
-        binary = r'C:\Users\Talon.Pollard\AppData\Local\Mozilla Firefox\firefox.exe'
-
+        # binary = r'C:\Users\Talon.Pollard\AppData\Local\Mozilla Firefox\firefox.exe' # Work dir
+        binary = r'C:\Program Files\Mozilla Firefox\firefox.exe' # Home dir
         options = Options()
         options.set_headless(headless=True)
         options.binary = binary
