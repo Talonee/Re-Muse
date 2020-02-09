@@ -26,7 +26,9 @@ Re-Muse is an interactive application which browses for music files' name and at
 
 # Results:
 
-![Recording](src/remuse_ver1.gif)
+![Recording](assets/remuse_v1.gif)
+
+*Please navigate to `assets/` for a clearer video (remuse_v1.mp4)*
 
 ## Useful links to references
 
