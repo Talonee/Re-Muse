@@ -46,7 +46,7 @@ class ReMuse(QThread):
         cap = DesiredCapabilities().FIREFOX
         cap["marionette"] = True #optional
 
-        self.driver = webdriver.Firefox(firefox_profile=profile, options=options, capabilities=cap, executable_path="geckodriver.exe")
+        self.driver = webdriver.Firefox(firefox_profile=profile, options=options, capabilities=cap, executable_path="drivers/geckodriver.exe")
         self.driver.get("https://music.youtube.com/")
         self.driver.execute_script("window.open('http://www.google.com/');")        
         time.sleep(10)
