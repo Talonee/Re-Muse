@@ -1,4 +1,4 @@
-Re-Muse is an interactive application which browses for music files' name and attempt to fill in any missing metadata such as title, artist, album, cover art and lyrics. 
+Re-Muse is an interactive application which browses for music files' name and attempt to fill in any missing metadata such as title, artist, album, cover art and lyrics. Re-Muse accesses data from Google and Youtube Music. 
 
 # Files:
 
