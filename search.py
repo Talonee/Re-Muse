@@ -94,8 +94,9 @@ class Search():
         self.driver.switch_to.window(self.driver.window_handles[0])
 
         # Click search button
-        time.sleep(1)
+        time.sleep(10)
         src_btn = self.driver.find_element(By.CSS_SELECTOR, 'ytmusic-search-box[role="search"]')
+        # src_btn = self.driver.find_element(By.XPATH, '/html/body/ytmusic-app/ytmusic-app-layout/ytmusic-nav-bar/div[2]/ytmusic-search-box/div/div[1]')
         src_btn.click()
         time.sleep(0.5)
 
