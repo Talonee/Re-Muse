@@ -1,0 +1,285 @@
+geckodriver.exe: error: Found argument '-e' which wasn't expected, or isn't valid in this context
+
+USAGE:
+    geckodriver.exe -v
+
+For more information try --help
+
+geckodriver.exe: error: Found argument '-e' which wasn't expected, or isn't valid in this context
+
+USAGE:
+    geckodriver.exe -v
+
+For more information try --help
+
+1581108557644	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofileyF4S2b"
+1581108559358	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581108559653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581108559653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581108559653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581108559653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581108566363	Marionette	INFO	Listening on port 57993
+1581108566717	Marionette	WARN	TLS certificate errors will be ignored for this session
+1581108578879	Marionette	INFO	Stopped listening on port 57994
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1581108614979	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofile1e0xIs"
+1581108615899	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581108616136	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581108616136	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581108616136	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581108616137	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581108622189	Marionette	INFO	Listening on port 58100
+1581108622605	Marionette	WARN	TLS certificate errors will be ignored for this session
+1581108714466	Marionette	INFO	Stopped listening on port 58101
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1581109651901	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofile5ZHTLk"
+1581109653592	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581109653856	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581109653856	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581109653856	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581109653857	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581109660490	Marionette	INFO	Listening on port 58408
+1581109660842	Marionette	WARN	TLS certificate errors will be ignored for this session
+1581109731077	Marionette	INFO	Stopped listening on port 58408
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1581110920138	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofileQt550w"
+1581110921133	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581110921421	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581110921422	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581110921422	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581110921423	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581110928123	Marionette	INFO	Listening on port 58650
+1581110928229	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 196: Error: Invalid autocomplete selectedIndex
+1581110947211	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581110980129	Marionette	INFO	Stopped listening on port 58650
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+64
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7024, MediaDecoderStateMachine #1] WARNING: Decoder=2136b949800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x580007,name=PHttpChannel::Msg_DocumentChannelCleanup) Channel closing: too late to send/recv, messages will be lost
+
+1581110980883	Marionette	INFO	Stopped listening on port 58652
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1581111085091	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofileT4O0Bs"
+*** You are running in headless mode.
+1581111086578	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581111086825	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581111086825	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581111086826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581111086826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581111092313	Marionette	INFO	Listening on port 58852
+1581111092793	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 196: Error: Invalid autocomplete selectedIndex
+1581111116117	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581111130690	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 1952, MediaDecoderStateMachine #1] WARNING: Decoder=19903e38c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+1581111131972	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581111143482	Marionette	INFO	Stopped listening on port 58852
+esPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 25648, MediaDecoderStateMachine #1] WARNING: Decoder=1b625f7dc00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 25648, MediaDecoderStateMachine #1] WARNING: Decoder=1b625f7dc00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 25648, MediaDecoderStateMachine #1] WARNING: Decoder=1b625f7dc00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 25648, MediaDecoderStateMachine #1] WARNING: Decoder=1b625f7dc00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+1581111127088	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581111139064	Marionette	INFO	Stopped listening on port 58849
+1581113887728	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofileJOGkGF"
+*** You are running in headless mode.
+1581113889222	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581113889682	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581113889682	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581113889682	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581113889682	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581113897234	Marionette	INFO	Listening on port 59370
+1581113897308	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 196: Error: Invalid autocomplete selectedIndex
+1581113914688	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581113931931	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+1581113944348	Marionette	INFO	Stopped listening on port 59373
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 446: Error: OS.File has been shut down. Rejecting request to writeAtomic
+uxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=219494e2800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+1581113933445	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581113941769	Marionette	WARN	TimedPromise timed out after 500 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+1581113953077	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 11880, MediaDecoderStateMachine #1] WARNING: Decoder=21947643000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - RefPtr<MediaSourceTrackDemuxer::SamplesPromise> __cdecl mozilla::MediaSourceTrackDemuxer::DoGetSamples(int32_t): manager is detached.: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+1581113959309	Marionette	INFO	Stopped listening on port 59370
+1581114395373	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofileFuZrvC"
+*** You are running in headless mode.
+1581114396211	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581114396474	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581114396474	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581114396474	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581114396474	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581114402455	Marionette	INFO	Listening on port 59642
+1581114402752	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 196: Error: Invalid autocomplete selectedIndex
+1581114419480	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+[Child 18572, MediaDecoderStateMachine #1] WARNING: Decoder=25ddb727c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+JavaScript warning: https://s.ytimg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5266: Error: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError
+[Child 18572, MediaDecoderStateMachine #1] WARNING: Decoder=25ddb727c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 18572, MediaDecoderStateMachine #1] WARNING: Decoder=25ddb727c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 18572, MediaDecoderStateMachine #1] WARNING: Decoder=25ddb727c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 18572, MediaDecoderStateMachine #1] WARNING: Decoder=25ddb727c00 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 26452, MediaDecoderStateMachine #1] WARNING: Decoder=174cb2b8400 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 26452, MediaDecoderStateMachine #1] WARNING: Decoder=174cb2b8400 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+JavaScript warning: https://s.ytimg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5266: Error: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError
+JavaScript warning: https://s.ytimg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5266: Error: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError
+[Child 26452, MediaDecoderStateMachine #1] WARNING: Decoder=174cb2b8400 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 26452, MediaDecoderStateMachine #1] WARNING: Decoder=174cb2b8400 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+JavaScript warning: https://s.ytimg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5426: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://s.ytimg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5426: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+[Parent 22640, Gecko_IOThread] WARNING: file z:/task_1579288126/build/src/ipc/chromium/src/base/process_util_win.cc, line 160
+1581114534493	Marionette	INFO	Stopped listening on port 59641
+mg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5266: Error: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError
+[Child 18572, MediaDecoderStateMachine #1] WARNING: Decoder=25dd7f39800 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+[Parent 13768, Gecko_IOThread] WARNING: file z:/task_1579288126/build/src/ipc/chromium/src/base/process_util_win.cc, line 160
+1581114533472	Marionette	INFO	Stopped listening on port 59642
+1581114576975	mozrunner::runner	INFO	Running command: "C:\\Users\\Talon.Pollard\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "-marionette" "--headless" "--mute-audio" "-foreground" "-no-remote" "-profile" "C:\\Users\\TALON~1.POL\\AppData\\Local\\Temp\\rust_mozprofilejwTgNB"
+*** You are running in headless mode.
+1581114577823	addons.webextension.doh-rollout@mozilla.org	WARN	Loading extension 'doh-rollout@mozilla.org': Reading manifest: Invalid extension permission: networkStatus
+1581114578094	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1581114578094	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1581114578094	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1581114578094	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1581114583495	Marionette	INFO	Listening on port 59828
+1581114583696	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 196: Error: Invalid autocomplete selectedIndex
+1581114600705	Marionette	WARN	TimedPromise timed out after 0 ms: stacktrace:
+bail@chrome://marionette/content/sync.js:237:64
+[Child 7644, MediaDecoderStateMachine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+JavaScript warning: https://s.ytimg.com/yts/jsbin/player_ias-vflZgL1a2/en_US/base.js, line 5266: Error: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError
+[Child 7644, MediaDecoderStateMachine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7644, MediaDecoderStateMachine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7644, MediaDecoderStateMachine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7644, MediaDecoderStateMachine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+[Parent 15664, Gecko_IOThread] WARNING: file z:/task_1579288126/build/src/ipc/chromium/src/base/process_util_win.cc, line 160
+1581114921191	Marionette	INFO	Stopped listening on port 59827
+ine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+[Child 7644, MediaDecoderStateMachine #1] WARNING: Decoder=214b2c04000 Decode error: NS_ERROR_DOM_MEDIA_FATAL_ERR (0x806e0005) - HandleRejectionError: file z:/task_1579288126/build/src/dom/media/MediaDecoderStateMachine.cpp, line 3337
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+[Parent 25040, Gecko_IOThread] WARNING: file z:/task_1579288126/build/src/ipc/chromium/src/base/process_util_win.cc, line 160
+1581114921938	Marionette	INFO	Stopped listening on port 59828
