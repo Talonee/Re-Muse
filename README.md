@@ -30,18 +30,10 @@ Re-Muse is an interactive application which browses for music files' name and at
 
 *Please navigate to `media/` for a clearer video (remuse_v1.mp4)*
 
-## References
-
-https://stackoverflow.com/questions/42665036/python-mutagen-add-image-cover-doesnt-work
-
-https://stackoverflow.com/questions/18026516/how-to-set-artist-album-artist-year-album-song-number-and-title?rq=1
-
-http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=abfef408b828ff61598e0f0d2ce83dcc&artist=bich%20phuong&album=Dramatic&format=json
-
-https://riptutorial.com/pyqt5/example/29500/basic-pyqt-progress-bar
-
-https://www.learnpyqt.com/courses/adanced-ui-features/qscrollarea/
-
+# Requirements:
+- Updated Firefox and/or Google Chrome
+- Python + all required libraries
+- Window OS
 
 ## Flow
 1. Navigate to Youtube music for title/artist/cover/album, Google for lyrics
@@ -61,3 +53,15 @@ https://www.learnpyqt.com/courses/adanced-ui-features/qscrollarea/
 - Browse a list of folders with song files.
 - Clean, search, and modify song metadata.
 - Show list of successfully completed songs.
+
+## References
+
+https://stackoverflow.com/questions/42665036/python-mutagen-add-image-cover-doesnt-work
+
+https://stackoverflow.com/questions/18026516/how-to-set-artist-album-artist-year-album-song-number-and-title?rq=1
+
+http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=abfef408b828ff61598e0f0d2ce83dcc&artist=bich%20phuong&album=Dramatic&format=json
+
+https://riptutorial.com/pyqt5/example/29500/basic-pyqt-progress-bar
+
+https://www.learnpyqt.com/courses/adanced-ui-features/qscrollarea/
