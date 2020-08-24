@@ -20,51 +20,6 @@ import clean
 # TALB: album
 # USLT: lyric
 
-
-# LEGACY CLASSES, TRANSFERRED TO MAIN.PY
-class Finalize():
-    def __init__(self, jsonf):
-        # self.driver = webdriver.Chrome()
-
-        with open(jsonf) as infile:
-            songs = json.load(infile)
-        index = int(len(songs) / 2)
-
-        thread1 = ReMuse(songs[:index])
-        thread2 = ReMuse(songs[index:])
-
-        thread1.start()
-        thread2.start()
-        thread1.join()
-        thread2.join()
-
-class ReMuse(threading.Thread):
-    def __init__(self, songs):
-        threading.Thread.__init__(self)
-
-        self.songs = songs
-
-    def run(self):
-        self.options = Options()
-        # self.options.add_argument("headless")
-        self.options.add_argument("--incognito")
-        self.options.add_argument("--mute-audio")
-        self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
-        self.driver.get("https://music.youtube.com/")
-        self.driver.execute_script("window.open('http://www.google.com/');")
-        for song in self.songs:
-            # This is where the progress bar iterates
-            Search(self.driver, song).find()
-            mehoy = unidecode.unidecode(song["File"])
-            print(f"Finished with {mehoy}")
-        
-        self.driver.quit()
-
-
-
-
-
-
 class Search():
     def __init__(self, driver, song, fin, fout):
         self.driver = driver
@@ -252,3 +207,50 @@ if __name__ == "__main__":
         # print(f"Updating... \"{unidecode.unidecode(self.fname)}\"")
         # print(f"Word: {unidecode.unidecode(word)} / Title: {unidecode.unidecode(loc_title)}.\n"
         #       f"This is the right song.\n")
+
+        
+        
+
+# LEGACY CLASSES, TRANSFERRED TO MAIN.PY
+# class Finalize():
+#     def __init__(self, jsonf):
+#         # self.driver = webdriver.Chrome()
+
+#         with open(jsonf) as infile:
+#             songs = json.load(infile)
+#         index = int(len(songs) / 2)
+
+#         thread1 = ReMuse(songs[:index])
+#         thread2 = ReMuse(songs[index:])
+
+#         thread1.start()
+#         thread2.start()
+#         thread1.join()
+#         thread2.join()
+
+# class ReMuse(threading.Thread):
+#     def __init__(self, songs):
+#         threading.Thread.__init__(self)
+
+#         self.songs = songs
+
+#     def run(self):
+#         self.options = Options()
+#         # self.options.add_argument("headless")
+#         self.options.add_argument("--incognito")
+#         self.options.add_argument("--mute-audio")
+#         self.driver = webdriver.Chrome(executable_path='chromedriver', options=self.options)
+#         self.driver.get("https://music.youtube.com/")
+#         self.driver.execute_script("window.open('http://www.google.com/');")
+#         for song in self.songs:
+#             # This is where the progress bar iterates
+#             Search(self.driver, song).find()
+#             mehoy = unidecode.unidecode(song["File"])
+#             print(f"Finished with {mehoy}")
+        
+#         self.driver.quit()
+# ####
+
+
+
+
